@@ -19,7 +19,7 @@ P.S. ReadMe file may undergo changes before, during and after the project.
 Edited By:
 
 1.) Adrian Joel Jaspa
-2.)
+2.) Christalie H. Pategara
 3.)
 4.)
 5.)
