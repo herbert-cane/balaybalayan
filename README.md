@@ -20,6 +20,6 @@ Edited By:
 
 1.) Adrian Joel Jaspa
 2.) Christalie Pategara
-3.)
+3.) Duranne Duran
 4.)
 5.)
