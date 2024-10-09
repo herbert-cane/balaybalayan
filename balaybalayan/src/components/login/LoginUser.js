@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../AuthContext';
 import { Navigate, Link } from 'react-router-dom';
-import mainimage from './image2.png'; 
+import mainimage from './image2.png';
 import './Login.css';
 
-const LoginManager = () => {
+const Login = () => {
   const { login, user } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [redirect, setRedirect] = useState(false);
+  const [userType, setUserType] = useState('Dormer'); // Dormer (default) or Dorm Manager 
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,12 +18,12 @@ const LoginManager = () => {
       await login(email, password);
       setRedirect(true);
     } catch (error) {
-      setError(error.message); 
+      setError(error.message);
     }
   };
 
   if (user && redirect) {
-    return <Navigate to="/dorm-manager" replace />;
+    return <Navigate to={userType === 'Dormer' ? '/dormers' : '/dorm-manager'} replace />; // check state to see if its dormer or dorm manager
   }
 
   return (
@@ -35,10 +36,18 @@ const LoginManager = () => {
         <p>Lorem Ipsum</p>
 
         <div className="user-type-options">
-          <div className="user-type-card selected">Dorm Manager</div>
-          <Link to="/login/dormer">
-            <div className="user-type-card">Dormer</div>
-          </Link>
+          <div
+            className={`user-type-card ${userType === 'Dorm Manager' ? 'selected' : ''}`}
+            onClick={() => setUserType('Dorm Manager')}
+          >
+            Dorm Manager
+          </div>
+          <div
+            className={`user-type-card ${userType === 'Dormer' ? 'selected' : ''}`}
+            onClick={() => setUserType('Dormer')}
+          >
+            Dormer
+          </div>
         </div>
 
         {error && <p className="error-text">{error}</p>}
@@ -71,4 +80,4 @@ const LoginManager = () => {
   );
 };
 
-export default LoginManager;
+export default Login;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Include useNavigate for programmatic navigation
-import './Signup.css';
+import './mainSignUp.css';
 import mainimage from './image2.png';
 
 const MainSignup = () => {
