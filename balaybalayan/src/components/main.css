@@ -1,3 +1,20 @@
+/* 2/3 Main Page CSS */
+/* #card-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 1em;
+  background-color: #f4f4f4;
+  gap: 1em;
+}
+
+.card {
+  min-width: 300px;
+  padding: 2em;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+} */
+
 /* Banner styles */
 #banner {
     width: 100%;
