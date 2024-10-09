@@ -1,0 +1,125 @@
+/* Same body styling as in Signup */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light background for contrast */
+  }
+  
+  .login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh; /* Full viewport height */
+    margin: 0 20px; /* Side margins to prevent touching screen edges */
+    max-width: 1200px; /* Maximum width for the container */
+    margin: auto; /* Automatically adjust left and right margins */
+  }
+  
+  .login-image {
+    flex: 1;
+    height: 63vh; /* Adjust height as needed */
+    display: flex; /* Flex for image alignment */
+    align-items: flex-start; /* Align image to the top */
+    justify-content: flex-start; /* Align image to the left */
+  }
+  
+  .login-image img {
+    margin-left: 50px; /* Margin on the left */
+    width: 100%; /* Keep the original width */
+    height: 100%; /* Set height to fill the container's height */
+    max-width: 100%; /* Prevent image from exceeding the width of its container */
+    border-top-left-radius: 10px; /* Soft corners for top-left */
+    border-bottom-left-radius: 10px; /* Soft corners for bottom-left */
+  }
+  
+  .login-form {
+    flex: 1.5;
+    padding: 30px;
+    background-color: white; /* White background for the form */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+    border-radius: 10px; /* Soft corners for form */
+    margin-left: 0; /* Removed margin to eliminate space */
+  }
+  
+  .login-form h1 {
+    font-size: 24px;
+    color: #333; /* Dark color for the title */
+  }
+  
+  .login-form p {
+    color: #666; /* Gray for paragraph text */
+    margin-bottom: 20px;
+  }
+  
+  /* Applying Signup-style user-type box layout */
+  .user-type-options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Space between user type options */
+  }
+  
+  .user-type-card {
+    flex: 1;
+    padding: 20px;
+    margin: 0 10px; /* Margin between cards */
+    border: 2px solid #ccc; /* Border for the card */
+    border-radius: 10px; /* Soft corners */
+    background-color: #f9f9f9; /* Slightly off-white background for cards */
+    text-align: center; /* Center align text */
+    transition: border 0.3s, background-color 0.3s; /* Transition for hover effect */
+    cursor: pointer; /* Cursor indicates clickable */
+    min-width: 120px; /* Set a minimum width for the card */
+    height: 100px; /* Set a fixed height for the card */
+    display: flex; /* Flex to align items vertically */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+  }
+  
+  .user-type-card.selected {
+    border-color: #2980B9; /* Blue border when selected */
+    background-color: #d6e9f8; /* Light blue background when selected */
+  }
+  
+  .user-type-card:hover {
+    border-color: #2980B9; /* Change border color on hover */
+    background-color: #f0f8ff; /* Light background on hover */
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #2980B9; /* Blue button */
+    color: white; /* White text on button */
+    border: none; /* No border */
+    border-radius: 5px; /* Soft corners */
+    cursor: pointer; /* Pointer on hover */
+    font-size: 16px; /* Font size for button */
+    transition: background-color 0.3s; /* Smooth background transition */
+  }
+  
+  .login-btn:hover {
+    background-color: #1A5276; /* Darker blue on hover */
+  }
+  
+  .signup-link {
+    text-align: center; /* Center align the signup link */
+    margin-top: 20px; /* Space above the link */
+  }
+  
+  a {
+    color: #2980B9; /* Link color */
+    text-decoration: none; /* No underline */
+  }
+  
+  a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  
