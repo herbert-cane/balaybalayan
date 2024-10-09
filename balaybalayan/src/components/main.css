@@ -1,0 +1,25 @@
+/* Banner styles */
+#banner {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.3)); /* Adding shadow to the banner */
+  }
+  
+  /* Amenities Section */
+  .amenities {
+    padding: 20px;
+    background-color: #f4f4f4; /* Light gray background for contrast */
+    border-radius: 5px; /* Rounded corners */
+    margin-top: 20px; /* Space above the amenities section */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Shadow effect for the amenities section */
+  }
+  
+  .amenities h2 {
+    margin-bottom: 10px; /* Space below the heading */
+  }
+  
+  .amenities ul {
+    list-style-type: disc; /* Bulleted list */
+    margin-left: 20px; /* Indentation for the list */
+  }
+  
