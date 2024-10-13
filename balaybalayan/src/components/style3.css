@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Instrument Sans", sans-serif;
+}
+body{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:   linear-gradient();
+    height: auto;
+}
+.card{
+    background: indianred;
+    border-radius: 8px;
+}
+.card-list .card-item {
+    list-style: none;
+}
+.card-list .card-item .card-link{
+    user-select: none;
+    width: 400px;
+    display: block;
+    padding: 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    border: 2px solid transparent;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+    transition: 0.2s ease;
+}
+.card-list .card-item .card-link:hover{
+    border-color: indigo;
+}
+.card-list .card-link .card-image{
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 10px;
+
+}
+
+.card-list .card-link .dorm-type{
+    color: white;
+    border-color: cadetblue;
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 16px 0 18px;
+    background: rgb(208, 130, 130);
+    width:fit-content;
+    border-radius: 50px;
+}
+.card-list .card-link .dorm-type.private{
+    color: white;
+    background-color: lightgreen;
+}
+
+.card-list .card-link .dorm-type.public{
+    color: white;
+    background-color: maroon;
+}
+
+
+.card-list .card-link .dorm-name{
+    white-space: nowrap;
+    font-size: 1.19rem;
+    color: black;
+    font-weight: 600;
+    padding-right: 270px;
+}
+
+.card-list .card-link .dorm-location{
+    font-size: 1rem;
+    color: black;
+    font-weight: 400;
+    padding-right: 230px;
+}
+
+.card-list .card-link .button{
+    height: 50px;
+    width: 200px;
+    color: indigo;
+    background: none;
+    margin: 30px 0 5px;
+    cursor: pointer;
+    border: 3px solid indigo;
+    
+}
+
+.card-list .card-link:hover .button{
+    color: white;
+    background: indigo;
+}
