@@ -22,7 +22,6 @@ nav p {
 
 /* Button styling */
 nav button {
-    background-color: white; /* Red button for logout */
     border: none;
     margin: 10px;
     padding: 10px 20px;
