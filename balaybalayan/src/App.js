@@ -2,8 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MainPage from './components/MainPage';
 import Navbar from './components/Navbar';
-import LoginDormer from './components/login/LoginDormer';
-import LoginManager from './components/login/LoginManager';
+import LoginUser from './components/login/LoginUser'
 import SignupDormer from './components/signup/SignupDormer';
 import SignupDormManager from './components/signup/SignupManager';
 import DormManager from './components/dashboards/DormManager';
@@ -20,8 +19,8 @@ function App() {
         <div>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/login/dormer" element={<LoginDormer />} />
-            <Route path="/login/manager" element={<LoginManager />} />
+            <Route path="/login/dormer" element={<LoginUser />} />
+            <Route path="/login/manager" element={<LoginUser />} />
             <Route path="/signup" element={<MainSignup />} />
             <Route path="/signup/dormer" element={<SignupDormer />} />
             <Route path="/signup/manager" element={<SignupDormManager />} />

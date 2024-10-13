@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { uploadProfilePhoto } from '../../utils/firebaseStorage';
 import { doc, setDoc } from 'firebase/firestore'; 
 import { db } from '../../firebase'; 
+import './signUpUser.css'; 
 
 const SignUpManager = () => {
   const { signup, user } = useAuth();
@@ -44,7 +45,6 @@ const SignUpManager = () => {
       
       const userId = userCredential.user.uid;
   
-     
       let profilePhotoURL = '';
       if (profilePhoto) {
           profilePhotoURL = await uploadProfilePhoto(profilePhoto, userId);
@@ -54,36 +54,38 @@ const SignUpManager = () => {
       await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
   
       setRedirect(true);
-  } catch (error) {
+    } catch (error) {
       setError(error.message);
+    }
   }
-}
 
   if (user && redirect) {
     return <Navigate to="/dorm-manager" replace />;
   }
 
   return (
-    <div>
+    <div className="container">
       <h1>Sign up | Dorm Manager</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSignUp}>
-        <input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
+        <div className="form-row">
+          <input
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </div>
         <select value={sex} onChange={(e) => setSex(e.target.value)} required>
-          <option value="">Sex</option>
+          <option className='labels' value="">Sex</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
           <option value="other">Other</option>
@@ -116,14 +118,18 @@ const SignUpManager = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-        {/* profile photo */}
-        <input 
-          type="file"
-          accept="image/*"
-          onChange={(e) => setProfilePhoto(e.target.files[0])}
-        />
+        <div className="upload-section">
+          <h4>Upload Profile Photo</h4>
+          <div className="upload-box">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setProfilePhoto(e.target.files[0])}
+            />
+          </div>
+        </div>
         <select value={dormName} onChange={(e) => setDormName(e.target.value)} required>
-          <option value="">Select Dorm Name</option>
+          <option className='labels'  value="">Choose the dormitory you're currently managing</option>
           <option value="E&T">E&T Dormitelle</option>
           <option value="Nochete">Nochete's</option>
           <option value="BlueHouse">Blue House</option>
