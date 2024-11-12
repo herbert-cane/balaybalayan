@@ -2,9 +2,9 @@ import Swiper from 'swiper/bundle';
 import React, { useEffect } from "react";
 
 var slideContainer = new Swiper('.slideContainer', {
-    slidesPerView: 4,
-    spaceBetween: 40,
-    slidesPerGroup: 4,
+    slidesPerView: 3,
+    spaceBetween: 30,
+    slidesPerGroup: 3,
     loop: true,
     centerslide: "true",
     grabCursor: "true",
