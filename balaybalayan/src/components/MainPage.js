@@ -5,6 +5,8 @@ import banner from './photos/banner.png'; // Import the banner image
 import dormimage from './photos/MainPage_Image.png'; // Import the placeholder image
 import './main.css'; // Import the CSS file
 import './swiper-bundle.min.css';
+import { useNavigate } from 'react-router-dom';
+
 
 // Dropdown component with inline text
 const Dropdown = ({ text, options }) => {
@@ -112,6 +114,7 @@ const ViewAll = () => {
 };
 
 function MainPage() {
+  const navigate = useNavigate();
   return (
     <>
     
@@ -162,7 +165,7 @@ function MainPage() {
                 <h5 class="dorm-description">Hatdog</h5>
               </div>
             </div>
-            <button class="button">Check Dormitory</button>
+            <button class="button" onClick={navigate('/private/balaycawayan')}>Check Dormitory</button>
           </div><div class="card swiper-slide">
             <div class="image-box">
               <img src= {require(".//photos/dorm1.png")} alt="" class="card-img"></img>
