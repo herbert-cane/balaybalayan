@@ -1,22 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../AuthContext';
-import { Link, useLocation } from 'react-router-dom'; // Import useLocation for route checking
-import './nav.css';  // Import the CSS
+import { Link, useLocation } from 'react-router-dom'; 
+import { db } from '../firebase'; 
+import { doc, getDoc } from 'firebase/firestore';
+import './nav.css';  
 
 function Navbar() {
   const { user, logout } = useAuth();
-  const location = useLocation();  // Get the current route
+  const [userProfile, setUserProfile] = useState(null); 
+  const location = useLocation(); 
 
-  // Check if the current route is one of the login or signup pages
   const isAuthPage = 
     location.pathname === '/login/dormer' || 
     location.pathname === '/login/manager' ||
     location.pathname === '/signup/dormer' ||
     location.pathname === '/signup/manager';
 
+  useEffect(() => {
+    if (user && user.uid) {
+      const fetchUserProfile = async () => {
+        try {
+          const userDocRef = doc(db, 'users', user.uid); 
+          const userDocSnap = await getDoc(userDocRef);
+          if (userDocSnap.exists()) {
+            setUserProfile(userDocSnap.data()); 
+          } else {
+            console.log('No such document!');
+          }
+        } catch (error) {
+          console.error('Error getting user profile:', error);
+        }
+      };
+
+      fetchUserProfile();
+    }
+  }, [user]); 
+
   return (
     <nav>
-      {/* Conditionally render the logo based on the route */}
       {isAuthPage ? (
         <img src={require('./photos/logo4.png')} alt="Logo" style={{ display: 'block', margin: '0 auto', height: '75px' }} />
       ) : (
@@ -25,11 +46,10 @@ function Navbar() {
       
       {user ? (
         <>
-          <p>Welcome, {user.email}</p>
+          <p>Welcome, {userProfile ? userProfile.firstName : 'Loading...'}</p>
           <button onClick={logout}>Logout</button>
         </>
       ) : (
-        // Conditionally render the login button based on the route
         !isAuthPage && (
             <Link to="/login/dormer">
               <button style={{ marginRight: '15px' }}>Login</button>
