@@ -10,6 +10,7 @@ import Dormers from './components/dashboards/Dormers';
 import { AuthProvider } from './AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import MainSignup from './components/signup/MainSignup';
+import BalayCawayan from './components/privateDormInfo/BalayCawayan';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
             <Route path="/signup" element={<MainSignup />} />
             <Route path="/signup/dormer" element={<SignupDormer />} />
             <Route path="/signup/manager" element={<SignupDormManager />} />
+
+            {/*PRIVATE DORMS */}
+            <Route path="/private/balaycawayan" element={<BalayCawayan />} />
            
            {/*PROTECTED ROUTES */}
             <Route

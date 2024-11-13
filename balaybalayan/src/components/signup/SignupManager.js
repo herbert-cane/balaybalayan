@@ -130,9 +130,10 @@ const SignUpManager = () => {
         </div>
         <select value={dormName} onChange={(e) => setDormName(e.target.value)} required>
           <option className='labels'  value="">Choose the dormitory you're currently managing</option>
-          <option value="E&T">E&T Dormitelle</option>
-          <option value="Nochete">Nochete's</option>
-          <option value="BlueHouse">Blue House</option>
+          <option value="e&t">E&T Dormitelle</option>
+          <option value="nochete">Nochete's</option>
+          <option value="bluehouse">Blue House</option>
+          <option value="balaycawayan">Balay Cawayan</option>
         </select>
         <button type="submit">Sign Up</button>
       </form>
