@@ -1,0 +1,74 @@
+/* Main dorm card styling */
+.dorm-card {
+    width: 300px;
+    height: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Image container */
+  .image-container {
+    flex: 3;
+    overflow: hidden;
+  }
+  
+  .dorm-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Details section */
+  .details {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* Header with logo and dorm name */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 8px;
+  }
+  
+  .type-logo {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .dorm-name {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  /* Address and Price Range Styling */
+  .address,
+  .price-range {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  /* View Details Button */
+  .view-details {
+    align-self: stretch;
+    padding: 8px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: auto;
+    transition: background-color 0.3s;
+  }
+  
+  .view-details:hover {
+    background-color: #0056b3;
+  }
+  

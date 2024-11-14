@@ -1,0 +1,131 @@
+/* HomeSection.css */
+
+.home-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* First Section - Dormitory Info */
+  .dorm-info {
+    text-align: left;
+  }
+  
+  .dorm-image {
+    width: 100%;
+    max-width: 100%; /* Responsive to nav bar width */
+    height: auto;
+  }
+  
+  .dorm-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .dorm-address,
+  .dorm-details {
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+  
+  /* Section Titles */
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Announcements and Upcoming Events */
+  .announcement-content,
+  .events-content {
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Fourth Section - Manager Info and Request/Report */
+  .manager-request-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  /* Manager Card */
+  .manager-info {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .manager-card {
+    display: flex;
+    gap: 10px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .manager-left {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .manager-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .manager-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .manager-title {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .manager-right {
+    flex: 1;
+    font-size: 0.9rem;
+  }
+  
+  .manager-right h4 {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Request/Report Block */
+  .request-report {
+    flex: 1;
+    min-width: 300px;
+    text-align: left;
+  }
+  
+  .request-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .request-option {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .request-option:hover {
+    background-color: #f0f0f0;
+  }
+  

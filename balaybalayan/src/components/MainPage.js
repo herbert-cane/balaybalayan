@@ -7,6 +7,9 @@ import './main.css'; // Import the CSS file
 import './swiper-bundle.min.css';
 import { useNavigate } from 'react-router-dom';
 
+import DormCard from './DormCard.js';
+import DormCarousel from './DormCarousel.js';
+import dormData from './DormData.js';
 
 // Dropdown component with inline text
 const Dropdown = ({ text, options }) => {
@@ -117,130 +120,47 @@ function MainPage() {
   const navigate = useNavigate();
   return (
     <>
-    
-    <div> {/* Banner */}
-      <img id="banner" src={banner} alt="Banner" /> {/* Added an ID to the banner */}
-    </div>
-    
-    <div class="ex-do"> {/* Dormitory Carousel */}
-      <h2> Explore Dormitories</h2>
-      <DormFilterButtons />
+      <div> {/* Banner */}
+        <img id="banner" src={banner} alt="Banner" /> {/* Added an ID to the banner */}
       </div>
+      
+      <div className="ex-do"> {/* Dormitory Carousel Section */}
+        <h2>Explore Dormitories</h2>
+        <DormFilterButtons />
+      </div>
+      <div>
+        <DormCarousel />
+        <ViewAll />
+      </div>
+      
+      {/* Include Swiper scripts */}
+      <script src={require("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js")}></script>
+      <script src={require("./script.js")}></script>
 
-      <div class="container-fluid swiper">
-      <div class="slideContainer">
-        <div class="card-wrapper swiper-wrapper">
-          <div class="card swiper-slide">
-            <div class="image-box">
-              <img src= {require(".//photos/dorm1.png")} alt="" class="card-img"></img>
-            </div>
-            <div class="dorm-type">
-              <img src={require(".//photos/logo4.png")} alt=""></img>
-              <div class="dorm-details">
-                <h3 class="dorm-name">No Villa's</h3>
-                <h5 class="dorm-description">Hatdog</h5>
-              </div>
-            </div>
-            <button class="button">Check Dormitory</button>
-          </div><div class="card swiper-slide">
-            <div class="image-box">
-              <img src= {require(".//photos/dorm2.png")} alt="" class="card-img"></img>
-            </div>
-            <div class="dorm-type">
-              <img src={require(".//photos/logo4.png")} alt=""></img>
-              <div class="dorm-details">
-                <h3 class="dorm-name">No Villa's</h3>
-                <h5 class="dorm-description">Hatdog</h5>
-              </div>
-            </div>
-            <button class="button">Check Dormitory</button>
-          </div><div class="card swiper-slide">
-            <div class="image-box">
-              <img src= {require(".//photos/dorm3.png")} alt="" class="card-img"></img>
-            </div>
-            <div class="dorm-type">
-              <img src={require(".//photos/logo4.png")} alt=""></img>
-              <div class="dorm-details">
-                <h3 class="dorm-name">No Villa's</h3>
-                <h5 class="dorm-description">Hatdog</h5>
-              </div>
-            </div>
-            <button class="button" onClick={navigate('/private/balaycawayan')}>Check Dormitory</button>
-          </div><div class="card swiper-slide">
-            <div class="image-box">
-              <img src= {require(".//photos/dorm1.png")} alt="" class="card-img"></img>
-            </div>
-            <div class="dorm-type">
-              <img src={require(".//photos/logo4.png")} alt=""></img>
-              <div class="dorm-details">
-                <h3 class="dorm-name">No Villa's</h3>
-                <h5 class="dorm-description">Hatdog</h5>
-              </div>
-            </div>
-            <button class="button">Check Dormitory</button>
-          </div><div class="card swiper-slide">
-            <div class="image-box">
-              <img src= {require(".//photos/dorm2.png")} alt="" class="card-img"></img>
-            </div>
-            <div class="dorm-type">
-              <img src={require(".//photos/logo4.png")} alt=""></img>
-              <div class="dorm-details">
-                <h3 class="dorm-name">No Villa's</h3>
-                <h5 class="dorm-description">Hatdog</h5>
-              </div>
-            </div>
-            <button class="button">Check Dormitory</button>
-          </div><div class="card swiper-slide">
-            <div class="image-box">
-              <img src= {require(".//photos/dorm1.png")} alt="" class="card-img"></img>
-            </div>
-            <div class="dorm-type">
-              <img src={require(".//photos/logo4.png")} alt=""></img>
-              <div class="dorm-details">
-                <h3 class="dorm-name">No Villa's</h3>
-                <h5 class="dorm-description">Hatdog</h5>
-              </div>
-            </div>
-            <button class="button">Check Dormitory</button>
-          </div>
+      <div className="find-dormitory-container"> {/* Separate class for Find Dormitory section */}
+        {/* Left Side - Dropdowns and Amenities */}
+        <div className="find-dormitory-card"> {/* Specific class for Find Dormitory Card */}
+            <h2 className="card-title">Find Dormitory</h2>
+            
+            {/* Dropdown components */}
+            <Dropdown text="Location:" options={['Mat-y', 'Inside UP', 'Hollywood']} />
+            <Dropdown text="Type:" options={['University', 'Private']} />
+            <Dropdown text="Number of Roommates:" options={['1', '2', '3', '4']} />
+            <Dropdown text="Price Range:" options={['₱100 - ₱1000', '₱1001 - ₱2000', '₱2001 - ₱5000']} />
+
+            {/* Checkbox group for amenities */}
+            <CheckboxGroup text="Amenities" options={['WiFi', 'Aircon', 'Study Table', 'Mattress', 'Laundry Area']} />
+
+            {/* Search button */}
+            <button className="search-button">Search Dormitory</button>
+        </div>
+
+        {/* Right Side - Image */}
+        <div className="image-container">
+            <img id= 'dormImage' src={dormimage} alt="Dormitory"/>
         </div>
       </div>
-      <div class="swiper-button-next swiper-navBtn"></div>
-      <div class="swiper-button-prev swiper-navBtn"></div>
-      <div class="swiper-pagination"></div>
-      <ViewAll />
-    </div>
-    
-    <script src={require("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js")}></script>
-    <script src={require("./script.js")}></script>
-
-    <div className="amenities"> {/*Amenities Section and Placeholder Image */}
-
-    <div className="card-container">
-      {/* Left Side - Card with Dropdowns and Amenities */}
-      <div className="card">
-        <h2 className="card-title">Find Dormitory</h2>
-        
-        {/* Dropdown components */}
-        <Dropdown text="Location:" options={['Mat-y', 'Inside UP', 'Hollywood']} />
-        <Dropdown text="Type:" options={['University', 'Private']} />
-        <Dropdown text="Number of Roommates:" options={['1', '2', '3', '4']} />
-        <Dropdown text="Price Range:" options={['₱100 - ₱1000', '₱1001 - ₱2000', '₱2001 - ₱5000']} />
-
-        {/* Checkbox group for amenities */}
-        <CheckboxGroup text="Amenities" options={['WiFi', 'Aircon', 'Study Table', 'Mattress', 'Laundry Area']} />
-
-        {/* Search button */}
-        <button className="search-button">Search Dormitory</button>
-      </div>
-
-      {/* Right Side - Image */}
-      <div className="image-container">
-        <img src= {require("./photos/MainPage_Image.png")} alt="Dormitory" className="dormitory-image" />
-      </div>
-    </div>
-
-    </div></>
+    </>
   );
 }
 
