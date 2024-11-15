@@ -4,7 +4,8 @@ import { doc, getDoc, collection, getDocs, query, where } from 'firebase/firesto
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from '../../firebase';  
 import RoomList from './components/RoomList';
-import './privateDorm.css';
+import './privateDorm.css'
+
 
 
 const BalayCawayan = () => {
