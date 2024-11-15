@@ -134,6 +134,7 @@ const SignUpManager = () => {
           <option value="nochete">Nochete's</option>
           <option value="bluehouse">Blue House</option>
           <option value="balaycawayan">Balay Cawayan</option>
+          <option value="balaygumamela">Balay Gumamela</option>
         </select>
         <button type="submit">Sign Up</button>
       </form>
