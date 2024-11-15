@@ -1,0 +1,128 @@
+/* dorm-manager-styles.css */
+
+/* General container for the entire page */
+.dorm-manager-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Heading for the dorm manager dashboard */
+  h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  /* Profile section for displaying the manager's info */
+  .profile-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  /* Profile photo styling */
+  .profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+  
+  /* Profile details styling */
+  .profile-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile-details h3 {
+    font-size: 1.5em;
+    margin: 0 0 10px;
+  }
+  
+  .profile-details p {
+    font-size: 1em;
+    margin: 5px 0;
+  }
+  
+  /* Style for strong elements in profile */
+  .profile-details strong {
+    font-weight: bold;
+  }
+  
+  /* Emergency contact styling */
+  .emergency-contact {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .emergency-contact h4 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .emergency-contact p {
+    margin: 5px 0;
+  }
+  
+  /* Room information section styling */
+  .rooms-info {
+    margin-top: 20px;
+  }
+  
+  .rooms-info h4 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .rooms-info p {
+    margin: 5px 0;
+    font-size: 1em;
+  }
+  
+  /* Adding responsive design for smaller screens */
+  @media screen and (max-width: 768px) {
+    .profile-section {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .profile-photo {
+      margin-bottom: 20px;
+    }
+  
+    .profile-details {
+      text-align: center;
+    }
+  
+    .rooms-info {
+      text-align: center;
+    }
+  }
+  
+  /* Add some space around the page */
+  .dorm-manager-container {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  
+  /* Add some margin between sections */
+  .profile-section, .emergency-contact, .rooms-info {
+    margin-bottom: 20px;
+  }
+  
+  /* Adding hover effect on rooms info */
+  .rooms-info p:hover {
+    background-color: #e6f7ff;
+    cursor: pointer;
+  }
+  
