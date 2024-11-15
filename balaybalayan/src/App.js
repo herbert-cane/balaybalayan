@@ -11,6 +11,7 @@ import { AuthProvider } from './AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import MainSignup from './components/signup/MainSignup';
 import BalayGumamela from './components/uniDormInfo/BalayGumamela';
+import BalayCawayan from './components/privateDormInfo/BalayCawayan';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/signup/manager" element={<SignupDormManager />} />
 
             {/*PRIVATE DORMS */}
+            <Route path="/private/balaycawayan" element={<BalayCawayan />} />
             
             {/** UNIVERSITY DORMS*/}
             <Route path='/university/balaygumamela' element={<BalayGumamela/>} />
