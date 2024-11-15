@@ -11,7 +11,7 @@ const dormData = [
       logo: require("./photos/logo4.png"),
       name: "Other Dorm",
       description: "Another description",
-      path: "/private/other-dorm",
+      path: "/university/balaygumamela",
     },
     // Add more dorm objects as needed
     {

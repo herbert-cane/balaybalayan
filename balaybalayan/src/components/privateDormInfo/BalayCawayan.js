@@ -137,7 +137,6 @@ const BalayCawayan = () => {
       </div>
       
       <hr></hr>
-      
       <div className='room-info'>
       {roomsData.map((room, index) => (
         <div key={index}>
