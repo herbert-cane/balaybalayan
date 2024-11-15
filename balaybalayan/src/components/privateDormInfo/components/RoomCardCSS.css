@@ -1,0 +1,75 @@
+.room-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px; 
+    width: 100%;
+    max-width: 1000px;
+    margin: 15px auto;
+}
+
+.room-card {
+    width: 100%;
+    max-width: 300px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.room-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.room-name-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+}
+
+.room-name {
+    font-size: 1em;
+    color: #333;
+    margin: 0;
+}
+
+.room-price {
+    font-size: 0.9em;
+    color: #777;
+    margin: 0;
+}
+
+.check-room-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    background-color: #6F96D1; 
+    border: 1px, solid, #5781C2 ;
+    border-radius: 5px,;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.check-room-btn:hover {
+    background-color: #0056b3;
+}
+
+.room-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
