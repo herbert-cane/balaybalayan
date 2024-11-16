@@ -40,13 +40,17 @@
   }
   .container11{
     display: flexbox;
-    text-align: center;
+    text-align: left;
     background-color: #FFFFFF;
     margin: -10px 70px;
     height: 250px;
     margin-bottom: 30px;
     border-radius: 10px;
     
+  }
+
+  #dormName1{
+    text-align: left;
   }
   .c1-column11{
     
@@ -189,17 +193,44 @@
     border-radius: 5px;  
   }
   .c3-column11{
-    margin-top: -15px;
+    margin-top: 3px;
     background-color:  #FFFFFF;
     float: left;
-    width: 70%;
+    width: 27%;
     padding: 0 5px;
     height: 250px;
     border-radius: 5px;
     
   }
   .c3-column21{
-    margin-top: 10px;
+    float: left;
+    background-color: #FFFFFF;
+    width:10%;
+    height: 250px;
+    margin-top: 3px;
+    border-radius: 5px;
+  }
+
+  .appliance-name{
+    text-align: left;
+  }
+
+  .appliance-fee{
+    text-align: right;
+  }
+
+  .c3-column31{
+    float: left;
+    background-color: #FFFFFF;
+    width: 33%;
+    height: 250px;
+    padding: 0 5px;
+    margin-top: 3px;
+    border-radius: 5px;
+  }
+
+  .c3-column41{
+    margin-top: 3PX;
     border-color: black;
     text-align: center;
     background-color:  #FFFFFF;

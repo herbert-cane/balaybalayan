@@ -12,9 +12,11 @@ import './uniDorm.css';
 const BalayGumamela = () => {
   const [dormData, setDormData] = useState(null);
   const [roomsData, setRoomsData] = useState([]);
+  const [appliancesData, setAppliancesData] = useState([]);
   const [managerData, setManagerData] = useState(null);
   const [showAllAmenities, setShowAllAmenities] = useState(false);
   const dormID = "balaygumamela";
+
   useEffect(() => {
     const fetchDormData = async () => {
       const docRef = doc(db, "dorms", dormID);
@@ -39,6 +41,16 @@ const BalayGumamela = () => {
         console.error("Error getting rooms:", error);
       }
     };
+    const fetchApplianceData = async() => {
+      const appliancesRef = collection(db, "dorms", dormID, "appliances");
+      try {
+        const querySnapshot = await getDocs(appliancesRef);
+        const appliances = querySnapshot.docs.map(doc => doc.data());
+        setAppliancesData(appliances);
+      } catch (error) {
+        console.error("Error getting appliances:", error);
+      }
+    };
     const fetchManagerData = async () => {
       const usersRef = collection(db, "users");
       const q = query(usersRef, where("role", "==", "manager"), where("dormName", "==", dormID));
@@ -53,25 +65,28 @@ const BalayGumamela = () => {
     };
     fetchDormData(); 
     fetchRoomsData();
+    fetchApplianceData();
     fetchManagerData(); 
   }, [dormID]); 
- 
-  if (!dormData || roomsData.length === 0 || !managerData) {
+
+  if (!dormData || roomsData.length === 0 || !managerData || appliancesData.length === 0) {
     return <div>Loading...</div>;
   }
+
   return (
     <div className="body1">
-      <h1>Body</h1>
+      <br/><br/>
       <div className='dorm-selection1'>
         <h1>University Dormitory</h1>
       </div>
+      <br/>
       <div className='dorm-pic1'>
         <img id="dorm-banner1" src={gumamela} alt='Dorm Banner' />
       </div>
       <div className='container11'>
         <div className='c1-row1'>
           <div className='c1-column11'>
-            <h2>{dormData.dormName}</h2>
+            <h2 id='dormName1'>{dormData.dormName}</h2>
             <p>{dormData.dormAddress}</p>
             <p>{dormData.priceRange} | {dormData.isVisitors ? 'Allow Visitors' : 'No Visitors'} | Curfew: {dormData.curfew}</p>
             <hr/>
@@ -128,26 +143,56 @@ const BalayGumamela = () => {
         <hr/>
         <div className='c1-row1'>
           <div className='c3-column11'>
-            <div className='c3-card1'></div>
-          </div>
-          <div className='c3-column21'>
+            <h3>Appliance Fee Guide</h3>
             <br/>
-            <h3>Manager Information</h3>
-            <p><strong>Name:</strong> {managerData.firstName} {managerData.lastName}</p>
-            <p><strong>Email:</strong> {managerData.email}</p>
-            <p><strong>Phone Number:</strong> {managerData.phoneNumber}</p>
-            <p><strong>Sex:</strong> {managerData.sex}</p>
-          </div>
+            <div className="appliance-list1">
+              {appliancesData.map((appliance, index) => (
+                <div key={index} className="appliance-item">
+                  {appliance.applianceName.map((name, nameIndex) => (
+                    <div key={nameIndex} className="appliance-name">
+                      <h5><span>{name}</span></h5>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
         </div>
-        <hr />
+        <div className='c3-column21'>
+          <br/><br/><br/>
+          <div className="appliance-list1">
+              {appliancesData.map((appliance, index) => (
+                <div key={index} className="appliance-item">
+                  {appliance.applianceName.map((name, nameIndex) => (
+                    <div key={nameIndex} className="appliance-fee">
+                      <h5><span>{appliance.applianceFee[nameIndex].toFixed(2)}</span></h5>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+        </div>
+        <div className='c3-column31'>
+          
+        </div>
+        <div className='c3-column41'>
+          <br/>
+          <h3>Manager Information</h3>
+          <p><strong>Name:</strong> {managerData.firstName} {managerData.lastName}</p>
+          <p><strong>Email:</strong> {managerData.email}</p>
+          <p><strong>Phone Number:</strong> {managerData.phoneNumber}</p>
+          <p><strong>Sex:</strong> {managerData.sex}</p>
+        </div>
+      </div>
+      <hr />
       </div>
       <div className='container41'>
         <h2>Application Process</h2>
       </div>
       <div className='footer1'>
-        <h1>Footer</h1>
+        
       </div>
     </div>
   );
 }
+
 export default BalayGumamela;
