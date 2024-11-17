@@ -1,16 +1,16 @@
 const dormData = [
     {
-      image: require("./photos/dorm1.png"),
+      image: require("./photos/dorm5.jpg"),
       logo: require("./photos/logo4.png"),
-      name: "No Villa's",
-      description: "Hatdog",
+      name: "Balay Cawayan",
+      description: " The Camping Dorm",
       path: "/private/balaycawayan",
     },
     {
-      image: require("./photos/dorm2.png"),
+      image: require("./photos/dorm4.png"),
       logo: require("./photos/logo4.png"),
-      name: "Other Dorm",
-      description: "Another description",
+      name: "Balay Gumamela",
+      description: "Most Fabulous Dorm",
       path: "/university/balaygumamela",
     },
     // Add more dorm objects as needed
