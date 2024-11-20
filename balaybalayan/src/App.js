@@ -12,6 +12,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import MainSignup from './components/signup/MainSignup';
 import BalayGumamela from './components/uniDormInfo/BalayGumamela';
 import BalayCawayan from './components/privateDormInfo/BalayCawayan';
+import ExplorePage from './components/ExplorePage'; // Correct file path
+
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
             <Route path="/signup" element={<MainSignup />} />
             <Route path="/signup/dormer" element={<SignupDormer />} />
             <Route path="/signup/manager" element={<SignupDormManager />} />
+            <Route path="/" element={<MainPage />} />
+            <Route path="/explore" element={<ExplorePage />} />
 
             {/*PRIVATE DORMS */}
             <Route path="/private/balaycawayan" element={<BalayCawayan />} />

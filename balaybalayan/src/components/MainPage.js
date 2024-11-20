@@ -6,6 +6,7 @@ import dormimage from './photos/MainPage_Image.png'; // Import the placeholder i
 import './main.css'; // Import the CSS file
 import './swiper-bundle.min.css';
 import { useNavigate } from 'react-router-dom';
+import ExplorePage from './ExplorePage'; // Correct path for ExplorePage
 
 import DormCard from './DormCard.js';
 import DormCarousel from './DormCarousel.js';
@@ -16,20 +17,20 @@ const Dropdown = ({ text, options }) => {
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
   return (
-      <div className="dropdown-container">
-          <span className="dropdown-text">{text}</span>
-          <select
-              value={selectedOption}
-              onChange={(e) => setSelectedOption(e.target.value)}
-              className="dropdown-select"
-          >
-              {options.map((option, index) => (
-                  <option key={index} value={option}>
-                      {option}
-                  </option>
-              ))}
-          </select>
-      </div>
+    <div className="dropdown-container">
+      <span className="dropdown-text">{text}</span>
+      <select
+        value={selectedOption}
+        onChange={(e) => setSelectedOption(e.target.value)}
+        className="dropdown-select"
+      >
+        {options.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 
@@ -38,42 +39,48 @@ const CheckboxGroup = ({ text, options }) => {
   const [checkedItems, setCheckedItems] = useState({});
 
   const handleCheckboxChange = (option) => {
-      setCheckedItems((prev) => ({
-          ...prev,
-          [option]: !prev[option],
-      }));
+    setCheckedItems((prev) => ({
+      ...prev,
+      [option]: !prev[option],
+    }));
   };
 
   return (
-      <div className="checkbox-group">
-          <span className="dropdown-text">{text}</span>
-          <div className="checkbox-container">
-              {options.map((option, index) => (
-                  <div key={index} className="checkbox-option">
-                      <label>
-                          <input
-                              type="checkbox"
-                              checked={checkedItems[option] || false}
-                              onChange={() => handleCheckboxChange(option)}
-                          />
-                          {option}
-                      </label>
-                  </div>
-              ))}
+    <div className="checkbox-group">
+      <span className="dropdown-text">{text}</span>
+      <div className="checkbox-container">
+        {options.map((option, index) => (
+          <div key={index} className="checkbox-option">
+            <label>
+              <input
+                type="checkbox"
+                checked={checkedItems[option] || false}
+                onChange={() => handleCheckboxChange(option)}
+              />
+              {option}
+            </label>
           </div>
+        ))}
       </div>
+    </div>
   );
 };
 
 // Dorm Filter Buttons
-
 const DormFilterButtons = () => {
+  const navigate = useNavigate(); // Use navigate hook for routing
+
   // States to handle the active status of each button
   const [activeButton, setActiveButton] = useState(null);
 
   // Function to toggle the button's active state
   const toggleButton = (button) => {
     setActiveButton((prev) => (prev === button ? null : button));
+
+    // Navigate to ExplorePage if "View All" is clicked
+    if (button === 'viewAll') {
+      navigate('/Explore'); // Route to ExplorePage
+    }
   };
 
   return (
@@ -105,32 +112,21 @@ const DormFilterButtons = () => {
   );
 };
 
-// View All Button
-
-const ViewAll = () => {
-  return (
-    <div className="view-all-container">
-      <span className="view-all-text">View All</span>
-      <span className="arrow">→</span>  {/* Arrow icon */}
-    </div>
-  );
-};
-
 function MainPage() {
   const navigate = useNavigate();
+
   return (
     <>
       <div> {/* Banner */}
         <img id="banner" src={banner} alt="Banner" /> {/* Added an ID to the banner */}
       </div>
-      
+
       <div className="ex-do"> {/* Dormitory Carousel Section */}
         <h2>Explore Dormitories</h2>
         <DormFilterButtons />
       </div>
       <div>
         <DormCarousel />
-        <ViewAll />
       </div>
       
       {/* Include Swiper scripts */}
@@ -140,24 +136,24 @@ function MainPage() {
       <div className="find-dormitory-container"> {/* Separate class for Find Dormitory section */}
         {/* Left Side - Dropdowns and Amenities */}
         <div className="find-dormitory-card"> {/* Specific class for Find Dormitory Card */}
-            <h2 className="card-title">Find Dormitory</h2>
-            
-            {/* Dropdown components */}
-            <Dropdown text="Location:" options={['Mat-y', 'Inside UP', 'Hollywood']} />
-            <Dropdown text="Type:" options={['University', 'Private']} />
-            <Dropdown text="Number of Roommates:" options={['1', '2', '3', '4']} />
-            <Dropdown text="Price Range:" options={['₱100 - ₱1000', '₱1001 - ₱2000', '₱2001 - ₱5000']} />
+          <h2 className="card-title">Find Dormitory</h2>
+          
+          {/* Dropdown components */}
+          <Dropdown text="Location:" options={['Mat-y', 'Inside UP', 'Hollywood']} />
+          <Dropdown text="Type:" options={['University', 'Private']} />
+          <Dropdown text="Number of Roommates:" options={['1', '2', '3', '4']} />
+          <Dropdown text="Price Range:" options={['₱100 - ₱1000', '₱1001 - ₱2000', '₱2001 - ₱5000']} />
 
-            {/* Checkbox group for amenities */}
-            <CheckboxGroup text="Amenities" options={['WiFi', 'Aircon', 'Study Table', 'Mattress', 'Laundry Area']} />
+          {/* Checkbox group for amenities */}
+          <CheckboxGroup text="Amenities" options={['WiFi', 'Aircon', 'Study Table', 'Mattress', 'Laundry Area']} />
 
-            {/* Search button */}
-            <button className="search-button">Search Dormitory</button>
+          {/* Search button */}
+          <button className="search-button">Search Dormitory</button>
         </div>
 
         {/* Right Side - Image */}
         <div className="image-container">
-            <img id= 'dormImage' src={dormimage} alt="Dormitory"/>
+          <img id='dormImage' src={dormimage} alt="Dormitory"/>
         </div>
       </div>
     </>
