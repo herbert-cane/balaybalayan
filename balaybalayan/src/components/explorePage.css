@@ -1,0 +1,42 @@
+/* General styles for the Explore Page */
+.explore-page {
+    padding: 20px;
+  }
+  
+  /* Styles for the header section */
+  .explore-header {
+    width: 80%;
+    margin: 2% 10% 2% 10%;
+    margin-bottom: 20px;
+  }
+  
+  .explore-header h1 {
+    font-size: 2rem;
+    color: #6F96D1;
+  }
+  
+  .explore-header p {
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  /* Styles for the dormitory list and cards */
+  .dorm-list {
+    display: flex;
+    flex-direction: column; /* Make each dorm card appear on a new line */
+    gap: 10px;
+    align-items: center; /* Center the cards horizontally */
+  }
+  
+  .explore-dorm-card { /* Renamed class to avoid conflict */
+    width: 80%; /* Adjust width as needed */
+    max-width: 80%; /* Optional: Set a maximum width to prevent stretching */
+    height: 100px;
+    border: solid 3px #6F96D1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
