@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../AuthContext';
-import { Link, useLocation } from 'react-router-dom'; 
-import { db } from '../firebase'; 
+import { Link, useLocation } from 'react-router-dom';
+import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import './nav.css';  
 
@@ -38,11 +38,9 @@ function Navbar() {
 
   return (
     <nav>
-      {isAuthPage ? (
-        <img src={require('./photos/logo4.png')} alt="Logo" style={{ display: 'block', margin: '0 auto', height: '75px' }} />
-      ) : (
-        <img src={require('./photos/logo2.png')} alt="Logo" />
-      )}
+      <Link to="/"> {/* Link to MainPage */}
+        <img src={require('./photos/logo2.png')} alt="Logo" style={{ display: 'block', margin: '0 auto', height: '75px' }} />
+      </Link>
       
       {user ? (
         <>

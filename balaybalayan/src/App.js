@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MainPage from './components/MainPage';
 import Navbar from './components/Navbar';
-import LoginUser from './components/login/LoginUser'
+import LoginUser from './components/login/LoginUser';
 import SignupDormer from './components/signup/SignupDormer';
 import SignupDormManager from './components/signup/SignupManager';
 import DormManager from './components/dashboards/DormManager';
@@ -13,7 +13,6 @@ import MainSignup from './components/signup/MainSignup';
 import BalayGumamela from './components/uniDormInfo/BalayGumamela';
 import BalayCawayan from './components/privateDormInfo/BalayCawayan';
 import ExplorePage from './components/ExplorePage'; // Correct file path
-
 
 function App() {
   return (
@@ -28,16 +27,15 @@ function App() {
             <Route path="/signup" element={<MainSignup />} />
             <Route path="/signup/dormer" element={<SignupDormer />} />
             <Route path="/signup/manager" element={<SignupDormManager />} />
-            <Route path="/" element={<MainPage />} />
             <Route path="/explore" element={<ExplorePage />} />
 
-            {/*PRIVATE DORMS */}
+            {/* PRIVATE DORMS */}
             <Route path="/private/balaycawayan" element={<BalayCawayan />} />
             
-            {/** UNIVERSITY DORMS*/}
+            {/* UNIVERSITY DORMS */}
             <Route path='/university/balaygumamela' element={<BalayGumamela/>} />
            
-           {/*PROTECTED ROUTES */}
+           {/* PROTECTED ROUTES */}
             <Route
               path="/dorm-manager"
               element={
