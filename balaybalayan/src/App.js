@@ -25,6 +25,16 @@ function App() {
             <Route path="/signup" element={<MainSignup />} />
             <Route path="/signup/dormer" element={<SignupDormer />} />
             <Route path="/signup/manager" element={<SignupDormManager />} />
+<<<<<<< Updated upstream
+=======
+            <Route path="/explore" element={<ExplorePage />} />
+
+            {/* PRIVATE DORMS */}
+            <Route path="/private/balaycawayan" element={<BalayCawayan />} />
+            
+            {/* UNIVERSITY DORMS */}
+            <Route path='/university/balaygumamela' element={<BalayGumamela />} />
+>>>>>>> Stashed changes
            
            {/*PROTECTED ROUTES */}
             <Route
