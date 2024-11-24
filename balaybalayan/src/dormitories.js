@@ -10,7 +10,7 @@ const dormitories = [
     dormPhoto:"https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2Fphoto_sample.jpg?alt=media&token=a6a71b8a-69c2-4e11-8ae3-4262d5b88248",
     isVisitors: true,
     managers: "None",
-    type: "private",
+    type: "Private",
     priceRange: "₱1000 - ₱3000",
     amenities: ["Wi-Fi", "Cabinet", "Study Table", "Personal Bathroom"],
     curfew: "9:00PM - 6:00AM",
@@ -35,7 +35,7 @@ const dormitories = [
     dormAddress: "Sunset Blvd., Downtown",
     isVisitors: false,
     managers: "None",
-    type: "university",
+    type: "University",
     priceRange: "₱2000 - ₱4000",
     amenities: ["Wi-Fi", "Shared Kitchen", "Laundry Service"],
     curfew: "None",
@@ -49,6 +49,32 @@ const dormitories = [
         size: "Single Bed",
         maxOccupants: 1,
       },
+      {
+        roomName: "Basic Room",
+        roomPrice: "300",
+        numPersons: "4 pax",
+        roomAmenities: ["Study Table", "Bed", "Comfort Room"],
+      }
+    ],
+    appliances: [
+      {
+        applianceName: [
+          "Mobile Phone",
+          "Laptop",
+          "Electric Fan",
+          "Printer",
+          "Lampshade",
+        ]
+        },
+      {
+        applianceFee: [
+          15,
+          100,
+          100,
+          25,
+          25,
+        ]
+        },
     ],
   },
 
@@ -61,7 +87,7 @@ const dormitories = [
     dormAddress: "University Avenue",
     isVisitors: true, // Placeholder
     managers: "None", // Placeholder
-    type: "university",
+    type: "University",
     priceRange: "₱1500 - ₱2500",
     amenities: ["Wi-Fi", "Study Hall", "Shared Bathroom"],
     curfew: "10:00PM - 6:00AM", // Placeholder
@@ -74,7 +100,33 @@ const dormitories = [
       price: 2500,
       size: "Single Bed",
       maxOccupants: 1,
+      },
+      {
+        roomName: "Basic Room",
+        roomPrice: "300",
+        numPersons: "4 pax",
+        roomAmenities: ["Study Table", "Bed", "Kid Ghost"],
       }
+    ],
+    appliances: [
+      {
+        applianceName: [
+          "Mobile Phone",
+          "Laptop",
+          "Electric Fan",
+          "Printer",
+          "Lampshade",
+        ]
+        },
+      {
+        applianceFee: [
+          15,
+          100,
+          100,
+          25,
+          25,
+        ]
+        },
     ],
   },
   {
@@ -86,7 +138,7 @@ const dormitories = [
     dormAddress: "University Avenue",
     isVisitors: true, // Placeholder
     managers: "None", // Placeholder
-    type: "university",
+    type: "University",
     priceRange: "₱0",
     amenities: ["Wi-Fi", "Common Room", "Study Desks"],
     curfew: "10:00PM - 6:00AM", // Placeholder
@@ -99,7 +151,33 @@ const dormitories = [
         price: 2500,
         size: "Single Bed",
         maxOccupants: 1,
+        },
+        {
+          roomName: "Basic Room",
+          roomPrice: "300",
+          numPersons: "4 pax",
+          roomAmenities: ["Study Table", "Bed", "Smiling Anino"],
         }
+    ],
+    appliances: [
+      {
+        applianceName: [
+          "Mobile Phone",
+          "Laptop",
+          "Electric Fan",
+          "Printer",
+          "Lampshade",
+        ]
+        },
+      {
+        applianceFee: [
+          15,
+          100,
+          100,
+          25,
+          25,
+        ]
+        },
     ],
   },
   {
@@ -111,7 +189,7 @@ const dormitories = [
     dormAddress: "University Avenue",
     isVisitors: true, // Placeholder
     managers: "None", // Placeholder
-    type: "university",
+    type: "University",
     priceRange: "₱1500 - ₱2500",
     amenities: ["Wi-Fi", "Recreation Room", "Shared Bathroom"],
     curfew: "10:00PM - 6:00AM", // Placeholder
@@ -126,6 +204,26 @@ const dormitories = [
         maxOccupants: 1,
         }
     ],
+    appliances: [
+      {
+        applianceName: [
+          "Mobile Phone",
+          "Laptop",
+          "Electric Fan",
+          "Printer",
+          "Lampshade",
+        ]
+        },
+      {
+        applianceFee: [
+          15,
+          100,
+          100,
+          25,
+          25,
+        ]
+        },
+    ],
   },
   {
     id: "balaymadyaas",
@@ -136,7 +234,7 @@ const dormitories = [
     dormAddress: "University Avenue",
     isVisitors: true, // Placeholder
     managers: "None", // Placeholder
-    type: "university",
+    type: "University",
     priceRange: "₱1500 - ₱2500",
     amenities: ["Wi-Fi", "Common Kitchen", "Study Hall"],
     curfew: "10:00PM - 6:00AM", // Placeholder
@@ -151,6 +249,26 @@ const dormitories = [
       maxOccupants: 1,
       }
     ],
+    appliances: [
+      {
+        applianceName: [
+          "Mobile Phone",
+          "Laptop",
+          "Electric Fan",
+          "Printer",
+          "Lampshade",
+        ]
+        },
+      {
+        applianceFee: [
+          15,
+          100,
+          100,
+          25,
+          25,
+        ]
+        },
+    ],
   },
   {
     id: "balaymiagos",
@@ -161,7 +279,7 @@ const dormitories = [
     dormAddress: "University Avenue",
     isVisitors: true, // Placeholder
     managers: "None", // Placeholder
-    type: "university",
+    type: "University",
     priceRange: "₱1500 - ₱2500",
     amenities: ["Wi-Fi", "Common Area", "Laundry"],
     curfew: "10:00PM - 6:00AM", // Placeholder
@@ -176,6 +294,26 @@ const dormitories = [
         maxOccupants: 1,
         }
     ],
+    appliances: [
+      {
+        applianceName: [
+          "Mobile Phone",
+          "Laptop",
+          "Electric Fan",
+          "Printer",
+          "Lampshade",
+        ]
+        },
+      {
+        applianceFee: [
+          15,
+          100,
+          100,
+          25,
+          25,
+        ]
+        },
+    ],
   },
   {
     id: "internationaldorm",
@@ -186,7 +324,7 @@ const dormitories = [
     dormAddress: "University Avenue",
     isVisitors: true, // Placeholder
     managers: "None", // Placeholder
-    type: "university",
+    type: "University",
     priceRange: "₱2000 - ₱3000",
     amenities: ["Wi-Fi", "Cultural Center", "Private Bathroom"],
     curfew: "None", // Placeholder
@@ -200,6 +338,26 @@ const dormitories = [
         size: "Single Bed",
         maxOccupants: 1,
         }
+    ],
+    appliances: [
+      {
+        applianceName: [
+          "Mobile Phone",
+          "Laptop",
+          "Electric Fan",
+          "Printer",
+          "Lampshade",
+        ]
+        },
+      {
+        applianceFee: [
+          15,
+          100,
+          100,
+          25,
+          25,
+        ]
+        },
     ],
   },
 ];

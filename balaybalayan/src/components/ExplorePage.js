@@ -31,10 +31,10 @@ function ExplorePage() {
   // Filter dormitories based on selected type
   const handleFilterChange = (filterType) => {
     setFilter(filterType);
-    if (filterType === 'university') {
-      setFilteredDorms(dorms.filter(dorm => dorm.type === 'university')); // Use 'type' for filtering
-    } else if (filterType === 'private') {
-      setFilteredDorms(dorms.filter(dorm => dorm.type === 'private')); // Use 'type' for filtering
+    if (filterType === 'University') {
+      setFilteredDorms(dorms.filter(dorm => dorm.type === 'University')); // Use 'type' for filtering
+    } else if (filterType === 'Private') {
+      setFilteredDorms(dorms.filter(dorm => dorm.type === 'Private')); // Use 'type' for filtering
     } else {
       setFilteredDorms(dorms); // Show all dorms
     }

@@ -13,6 +13,7 @@ import MainSignup from './components/signup/MainSignup';
 import BalayGumamela from './components/uniDormInfo/BalayGumamela';
 import BalayCawayan from './components/privateDormInfo/BalayCawayan';
 import ExplorePage from './components/ExplorePage'; // Correct file path
+import DormitoryPage from './components/uniDormInfo/DormitoryPage';
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
             
             {/* UNIVERSITY DORMS */}
             <Route path='/university/balaygumamela' element={<BalayGumamela/>} />
+
+            {/*Dormitory Page Test */}
+            <Route path='/dormitories/:id' element={<DormitoryPage/>}/>
            
            {/* PROTECTED ROUTES */}
             <Route

@@ -6,8 +6,10 @@ import dormData from './DormData';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import './swiper-bundle.min.css';
 
+
 const DormCarousel = () => {
     const navigate = useNavigate();
+
   
     return (
       <div className="container-fluid swiper">

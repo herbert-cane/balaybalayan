@@ -3,7 +3,6 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
-
 // Import dormitories data
 import dormitories from './dormitories'; // Hello, ga work ni siya i dunno why ga error, pero its working fine -Adrian
 
