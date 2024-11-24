@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase'; // Import Firebase database
 import { collection, getDocs } from 'firebase/firestore'; 
 import './explorePage.css';
+import { useNavigate } from 'react-router-dom';
 
 function ExplorePage() {
   const [dorms, setDorms] = useState([]); // State for storing dormitory data
   const [filteredDorms, setFilteredDorms] = useState([]); // State for storing filtered dormitory data
   const [loading, setLoading] = useState(true); // Loading state
   const [filter, setFilter] = useState('all'); // Filter state (default: 'all')
+  const navigate = useNavigate();
 
   // Fetch dormitories from Firestore
   useEffect(() => {
@@ -31,30 +33,15 @@ function ExplorePage() {
   // Filter dormitories based on selected type
   const handleFilterChange = (filterType) => {
     setFilter(filterType);
-    if (filterType === 'University') {
-      setFilteredDorms(dorms.filter(dorm => dorm.type === 'University')); // Use 'type' for filtering
-    } else if (filterType === 'Private') {
-      setFilteredDorms(dorms.filter(dorm => dorm.type === 'Private')); // Use 'type' for filtering
-    } else {
-      setFilteredDorms(dorms); // Show all dorms
-    }
-  };
-
-  // Explore all dorms (University and Private categories)
-  const exploreAll = () => {
-    // Filter dorms by type (if needed) and set them
-    if (filter === 'university') {
-      setFilteredDorms(dorms.filter(dorm => dorm.type === 'university'));
-    } else if (filter === 'private') {
-      setFilteredDorms(dorms.filter(dorm => dorm.type === 'private'));
-    } else {
-      setFilteredDorms(dorms); // Show all dorms
-    }
   };
 
   useEffect(() => {
-    exploreAll(); // Call exploreAll when the filter changes
-  }, [filter, dorms]); // Dependencies are the filter and dorms
+    if (filter === 'all') {
+      setFilteredDorms(dorms); // Show all dorms
+    } else {
+      setFilteredDorms(dorms.filter(dorm => dorm.type === filter)); // Filter dorms by selected type
+    }
+  }, [filter, dorms]); // Dependencies are filter and dorms
 
   return (
     <div className="explore-page">
@@ -73,14 +60,14 @@ function ExplorePage() {
           View All
         </button>
         <button 
-          onClick={() => handleFilterChange('university')} 
-          className={filter === 'university' ? 'active' : ''}
+          onClick={() => handleFilterChange('University')} 
+          className={filter === 'University' ? 'active' : ''}
         >
           University
         </button>
         <button 
-          onClick={() => handleFilterChange('private')} 
-          className={filter === 'private' ? 'active' : ''}
+          onClick={() => handleFilterChange('Private')} 
+          className={filter === 'Private' ? 'active' : ''}
         >
           Private
         </button>
@@ -106,7 +93,9 @@ function ExplorePage() {
                 <p className="dorm-address">{dorm.dormAddress}</p>
                 <p className="dorm-price">{dorm.priceRange}</p>
               </div>
-              <button className="view-button">View</button>
+              <button className="view-button" onClick={() => navigate(dorm.path)}>
+                  View
+              </button>
             </div>
           ))}
       </div>

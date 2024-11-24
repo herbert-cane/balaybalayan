@@ -22,6 +22,7 @@ function App() {
         <Navbar />
         <div>
           <Routes>
+            {/* General Routes */}
             <Route path="/" element={<MainPage />} />
             <Route path="/login/dormer" element={<LoginUser />} />
             <Route path="/login/manager" element={<LoginUser />} />
@@ -30,16 +31,16 @@ function App() {
             <Route path="/signup/manager" element={<SignupDormManager />} />
             <Route path="/explore" element={<ExplorePage />} />
 
-            {/* PRIVATE DORMS */}
+            {/* Private Dorms */}
             <Route path="/private/balaycawayan" element={<BalayCawayan />} />
             
-            {/* UNIVERSITY DORMS */}
-            <Route path='/university/balaygumamela' element={<BalayGumamela/>} />
+            {/* University Dorms */}
+            <Route path="/university/balaygumamela" element={<BalayGumamela />} />
 
-            {/*Dormitory Page Test */}
-            <Route path='/dormitories/:id' element={<DormitoryPage/>}/>
+            {/* Dormitory Page (Dynamic) */}
+            <Route path="/dormitories/:id" element={<DormitoryPage />} />
            
-           {/* PROTECTED ROUTES */}
+            {/* Protected Routes */}
             <Route
               path="/dorm-manager"
               element={
