@@ -139,17 +139,10 @@ function MainPage() {
       <div>
         <DormCarousel />
       </div>
-<<<<<<< Updated upstream
 
       {/* Include Swiper scripts */}
       <script src={require("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js")}></script>
       <script src={require("./script.js")}></script>
-=======
-      
-    {/* Include Swiper scripts */}
-    <script src={require("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js")}></script>
-    <script src={require("./script.js")}></script>
->>>>>>> Stashed changes
 
       <div className="find-dormitory-container"> {/* Separate class for Find Dormitory section */}
         {/* Left Side - Dropdowns and Amenities */}
