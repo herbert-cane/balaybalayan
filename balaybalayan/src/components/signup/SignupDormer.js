@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthContext';
 import { Navigate } from 'react-router-dom';
 import { uploadProfilePhoto } from '../../utils/firebaseStorage'; 
-import { doc, setDoc } from 'firebase/firestore'; 
+import { doc, setDoc, getDocs, collection } from 'firebase/firestore'; 
 import { db } from '../../firebase'; 
 import './signUpUser.css'; 
 
@@ -24,6 +24,22 @@ const SignUpDormer = () => {
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [error, setError] = useState(null);
   const [redirect, setRedirect] = useState(false);
+  const [dormitories, setDormitories] = useState([]);  // New state for dormitories
+
+  // Fetch dormitories from Firestore
+  useEffect(() => {
+    const fetchDormitories = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'dormitories'));
+        const dorms = querySnapshot.docs.map(doc => doc.data());
+        setDormitories(dorms); // Save dormitories data to state
+      } catch (error) {
+        console.error("Error fetching dormitories:", error);
+      }
+    };
+
+    fetchDormitories();
+  }, []);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -35,36 +51,36 @@ const SignUpDormer = () => {
 
     try {
       const userCredential = await signup(email, password, 'dormer', {
-          firstName,
-          lastName,
-          sex,
-          phoneNumber,
-          dormName,
-          roomNumber,
-          moveInDate,
-          emergencyContact: {
-              firstName: emergencyContactFirstName,
-              lastName: emergencyContactLastName,
-              phone: emergencyContactPhone,
-          },
-          profilePhotoURL: '', 
+        firstName,
+        lastName,
+        sex,
+        phoneNumber,
+        dormName,
+        roomNumber,
+        moveInDate,
+        emergencyContact: {
+          firstName: emergencyContactFirstName,
+          lastName: emergencyContactLastName,
+          phone: emergencyContactPhone,
+        },
+        profilePhotoURL: '', 
       });
-      
+
       const userId = userCredential.user.uid;
   
       let profilePhotoURL = '';
       if (profilePhoto) {
-          profilePhotoURL = await uploadProfilePhoto(profilePhoto, userId);
-          await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
+        profilePhotoURL = await uploadProfilePhoto(profilePhoto, userId);
+        await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
       }
   
       await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
-  
+
       setRedirect(true);
     } catch (error) {
       setError(error.message);
     }
-  }
+  };
 
   if (user && redirect) {
     return <Navigate to="/dormers" replace />;
@@ -137,9 +153,11 @@ const SignUpDormer = () => {
         </div>
         <select value={dormName} onChange={(e) => setDormName(e.target.value)} required>
           <option className='labels' value="">Choose the dorm you're currently staying</option>
-          <option value="E&T">E&T Dormitelle</option>
-          <option value="Nochete">Nochete's</option>
-          <option value="BlueHouse">Blue House</option>
+          {dormitories.map(dorm => (
+            <option key={dorm.dormName} value={dorm.dormName}>
+              {dorm.dormName}
+            </option>
+          ))}
         </select>
         <input
           type="text"

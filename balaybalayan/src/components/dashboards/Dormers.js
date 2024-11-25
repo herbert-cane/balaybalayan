@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './FullScreenToggle.css';
 import DormNavBar from './DormNavBar';
-import DormerHomeSection from './HomeSection';
+import DormerHomeSection from './DormerHomeSection';
 import DormerProfile from './DormerProfileSection';
 import DormerAccountInfo from './DormerAccountInfo';
 import DormerRoommateInfo from './DormerRoommateInfo';
@@ -17,9 +17,9 @@ const Dormers = () => {
       case 'profile':
         return  <DormerProfile />;
       case 'accountInfo':
-        return <h2>Account Info wala pa kami kahimo</h2>;
+        return <DormerAccountInfo />;
       case 'roommateInfo':
-        return<h2>Roommate Info wala pa kami kahimo</h2>;
+        return <DormerRoommateInfo />;
       default:
         return <DormerHomeSection />;
     }
