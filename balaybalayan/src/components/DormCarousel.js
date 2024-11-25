@@ -13,9 +13,9 @@ const DormCarousel = () => {
       <Swiper
         spaceBetween={20}
         slidesPerView={1}
-        navigation
         pagination={{ clickable: true }}
         loop={true}
+        style={{paddingBottom: '3rem'}}
         breakpoints={{
           640: {
             slidesPerView: 2,
@@ -48,7 +48,7 @@ const DormCarousel = () => {
                   <h5 className="dorm-description">{dorm.description}</h5>
                 </div>
               </div>
-              <button className="button" onClick={() => navigate(dorm.path)}>
+              <button className="carousel-button" onClick={() => navigate(dorm.path)}>
                 Check Dormitory
               </button>
             </div>

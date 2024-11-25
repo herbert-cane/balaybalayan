@@ -1,145 +1,78 @@
-/* Swiper navigation buttons */
-.swiper-button-next,
-.swiper-button-prev {
-    display: none; /* Hides the navigation arrows */
-}
-
 /* Swiper container styling */
 .container-fluid.swiper {
   padding: 1rem;
-  margin-bottom: 3rem; /* Extra space below the carousel to separate pagination */
+  margin-bottom: 3rem; /* Creates space below for better separation */
 }
 
-/* Swiper Card Styling */
-.card {
-  width: 100%;
-  max-width: 260px; /* Ensures cards remain consistent in width */
-  aspect-ratio: 4 / 5; /* Defines a 4:5 aspect ratio for the card */
-  border-radius: 8px;
+/* Card styling */
+.carousel-card {
+  width: 100%; 
+  max-width: 280px; /* Cap the max-width for consistent card sizes */
+  height: auto; /* Allow card height to adjust automatically */
+  aspect-ratio: 4 / 5; /* Maintain a consistent rectangular shape */
+  border-radius: 25px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensures content is distributed evenly */
-  margin: 0 auto; /* Centers the card in its Swiper slide */
+  justify-content: space-between;
+  margin: auto;
+  background: white;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
-/* Swiper Slide Spacing */
+/* Swiper space adjustments */
 .swiper-slide {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: auto; /* Ensures height doesn't stretch the cards */
+  justify-content: center; /* Centers the cards in each slide */
 }
 
-/* Card Image Styling */
-.image-box {
-  height: 60%; /* Occupies 60% of the card height */
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5f5f5; /* Optional background color */
-}
-
-.card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures image covers the area without distortion */
-}
-
-/* Dorm Type Section Styling */
-.dorm-type {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  gap: 0.5rem;
-  background-color: #fff;
-}
-
-.dorm-type img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-}
-
-.dorm-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.dorm-name {
-  font-size: 1rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-.dorm-description {
-  font-size: 0.875rem;
-  margin: 0;
-  color: #666;
-}
-
-/* Button Styling */
-.button {
-  margin: 0.5rem;
-  padding: 0.75rem;
-  width: 75%;
-  
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 12.5px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  align-self: center; /* Centers the button horizontally */
-}
-
-.button:hover {
-  background-color: #0056b3;
-}
-
-/* Swiper Navigation Button and Pagination Styling */
-.swiper-button-next,
-.swiper-button-prev {
-  color: #007bff;
-  top: 50%; /* Centered vertically relative to the carousel */
-  transform: translateY(-50%);
+/* Pagination bullets below the cards */
+.swiper-pagination {
+  margin-top: 1rem; /* Creates space above the bullets */
 }
 
 .swiper-pagination-bullet {
   background-color: #007bff;
+  opacity: 0.8; /* Subtle visibility */
+  transition: opacity 0.3s ease;
 }
 
-.swiper-pagination {
-  margin-top: 1rem; /* Adds spacing between pagination bullets and the cards */
-}
-
-
-/* Filter Buttons*/
-.filter-buttons {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.filter-buttons button {
-  padding: 0.5rem 1rem;
-  margin: 0 0.5rem;
-  border: 1px solid #007bff;
-  background-color: white;
-  color: #007bff;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.filter-buttons button.active {
-  background-color: #007bff;
-  color: white;
-}
-
-.filter-buttons button:hover {
+.swiper-pagination-bullet-active {
+  opacity: 1; /* Highlight active bullet */
   background-color: #0056b3;
-  color: white;
 }
 
+/* Responsive layout */
+@media (min-width: 1440px) {
+  .carousel-card {
+      max-width: 300px; /* Slightly larger cards on larger screens */
+  }
+}
+
+/* Hide Swiper navigation arrows */
+.swiper-button-next,
+.swiper-button-prev {
+    display: none; /* Completely hide the navigation buttons */
+}
+
+/* Button styling */
+.carousel-button {
+  width: 75%; /* Restrict button width to 75% of the card */
+  max-width: 300px; /* Optional: Cap the maximum width */
+  padding: 0.5rem 1rem;
+  margin: 0 auto 1rem; /* Center the button and add a small margin above the bottom of the card */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 25px; /* Rounded corners for better aesthetics */
+  font-size: 1rem; /* Adjust the font size */
+  text-align: center;
+  cursor: pointer;
+  display: block; /* Ensures proper centering with margin auto */
+}
+
+.carousel-button:hover {
+  background-color: #0056b3;
+}

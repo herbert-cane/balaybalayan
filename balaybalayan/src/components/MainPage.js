@@ -5,11 +5,13 @@ import banner from './photos/banner.png'; // Import the banner image
 import dormimage from './photos/MainPage_Image.png'; // Import the placeholder image
 import './main.css'; // Import the CSS file
 import './swiper-bundle.min.css';
-import ExplorePage from './ExplorePage'; // Correct path for ExplorePage
 
-import DormCard from './DormCard.js';
 import DormCarousel from './DormCarousel.js';
+
+// Depreciated Links
 import dormData from './DormData.js';
+import ExplorePage from './ExplorePage'; // Correct path for ExplorePage
+import DormCard from './DormCard.js';
 
 // Dropdown component with inline text
 const Dropdown = ({ text, options, onSelect }) => {
