@@ -1,5 +1,3 @@
-/* FullScreenToggle.css */
-
 /* Main container adjustments */
 .full-screen-container {
   display: flex;
@@ -14,7 +12,7 @@
   display: flex;
   justify-content: space-around;
   padding: 10px 0;
-  width: 50%; /* Restrict width to 50% */
+  width: 100%; /* Restrict width to 50% */
   margin: 0 auto; /* Center-align the navigation bar */
 }
 
@@ -25,7 +23,7 @@
   font-size: 1rem;
   padding: 10px 20px;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
   position: relative; /* To position the underline */
 }
 
@@ -42,9 +40,11 @@
   width: 100%;
 }
 
-/* Add a hover effect for buttons */
+/* Subtle hover effect for buttons */
 .nav-button:hover {
-  color: #61dafb; /* Adjust hover color */
+  color: #333; /* A softer color to avoid sharp contrast */
+  background-color: rgba(97, 218, 251, 0.1); /* Light, subtle background on hover */
+  transition: background-color 0.3s ease;
 }
 
 /* Section Content Area adjustments */
@@ -55,14 +55,17 @@
   justify-content: center;
   overflow-y: auto;
   padding: 20px;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
+
+
+/* Fade effect for section transitions */
 .section-fade {
   opacity: 1;
   transition: opacity 0.5s ease;
 }
 
-/* Additional transition effect */
 .section-fade-exit {
   opacity: 0;
 }
