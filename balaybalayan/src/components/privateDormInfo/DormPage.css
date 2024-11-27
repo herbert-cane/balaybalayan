@@ -1,0 +1,201 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  .body-1 {
+    background-color: #FFFFFF;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .dorm-selection-1 {
+    text-align: left;
+    margin: -10px 70px;
+    height: 50px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  }
+  #dormName-1{
+    text-align: left;
+  }
+  
+  .dorm-pic-1 {
+    text-align: center;
+    margin: -30px 70px;
+    margin-bottom: 20px;
+    height: 200px;
+    background-color: rgb(17, 50, 79);
+    border-radius: 10px;
+    overflow: hidden; /* Hide any overflow caused by the image */
+  }
+  
+  .dorm-pic-1 img {
+    width: 100%;   /* Ensure the image stretches to fill the container's width */
+    height: 100%;  /* Ensure the image stretches to fill the container's height */
+    object-fit: cover; /* Maintain the aspect ratio while filling the container */
+  }
+  
+  
+  .container-11, .container-21 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: -10px 70px;
+
+    background-color: #FFFFFF;
+    border-radius: 10px;
+  }
+
+  .container-21{
+    display: flex;
+  margin: -5px 70px;
+  height: 405px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  }
+  
+  .c1-row-1 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .c1-column-11, .c1-column-21 {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .c1-column-11 {
+    width: 65%;
+  }
+  
+  .c1-column-21 {
+    width: 35%;
+  }
+  
+  .amenities-container-1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .amenity-card-1 {
+    background-color: #f9f9f9;
+    border: 2px solid #B6B6B6;
+    width: 100px;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    color: #505050;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  #dorm-picture-1 {
+    width: 100%;
+    height: 250px;
+    border-radius: 0px !important;
+  }
+  
+  .c2-column-11 {
+    flex: 0 0 45%;   /* Ensures the left column (carousel) takes up 45% of the space */
+    padding: 0 5px;
+    height: 405px;
+  }
+
+  .c2-column-21 {
+    flex: 0 0 55%;   /* Ensures the right column (room details) takes up 55% of the space */
+    padding: 0 5px;
+    height: 405px;
+    overflow-y: auto; /* Allows scrolling if room details overflow */
+  }
+  
+  .carouselPic-1 {
+    width: 100%;          
+    height: 400px;        
+    object-fit: cover;    /* Ensures the image maintains its aspect ratio and fills the area */
+    border-radius: 5px;   /* Optional, to round the corners of the images */
+  }
+  
+  .room-info1 {
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  .room-info1 h3 {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .room-info1 .bold {
+    font-weight: bold;
+  }
+  .amenity-card1 {
+    margin-bottom: 5px;
+  }
+  
+  .amenity-card1 li {
+    list-style: none;
+    font-size: 1rem;
+  }
+  .amenities-list1 {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .amenities-list1 li {
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  
+  .footer-1 {
+    margin-top: 20px;
+    height: 50px;
+    background-color: #FFFFFF;
+  }
+  
+.c3-column-21 {
+    display: flex;
+    justify-content: center;   
+    padding: 20px;              
+  }
+  
+  .manager-container-1 {
+    text-align: center;      
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 45%;   
+  }           
+  
+  .profile-photo-container-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .profile-photo-1 {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+  }
+  
+  .manager-info-1 h4 {
+    margin-top: 10px;
+    font-size: 1.2rem;
+  }
+  
+  .manager-info-1 p {
+    margin: 5px 0;
+    font-size: 1rem;
+  }

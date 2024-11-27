@@ -4,8 +4,7 @@ import { doc, getDoc, collection, getDocs, query, where } from 'firebase/firesto
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from '../../firebase';  
 import RoomList from './components/RoomList';
-import './privateDorm.css'
-
+import '../privateDormInfo/privateDorm.css'
 
 
 const BalayCawayan = () => {
@@ -14,11 +13,11 @@ const BalayCawayan = () => {
   const [managerData, setManagerData] = useState(null);
   const [bannerUrl, setBannerUrl] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
-  const dormID = "balaycawayan";
+  const id = "balaycawayan";
 
   useEffect(() => {
     const fetchDormData = async () => {
-      const docRef = doc(db, "dorms", dormID);
+      const docRef = doc(db, "dorms", id);
       try {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
@@ -32,7 +31,7 @@ const BalayCawayan = () => {
     };
 
     const fetchRoomsData = async () => {
-      const roomsRef = collection(db, "dorms", dormID, "rooms");
+      const roomsRef = collection(db, "dorms", id, "rooms");
       try {
         const querySnapshot = await getDocs(roomsRef);
         const rooms = querySnapshot.docs.map(doc => doc.data());
@@ -44,7 +43,7 @@ const BalayCawayan = () => {
 
     const fetchManagerData = async () => {
       const usersRef = collection(db, "users");
-      const q = query(usersRef, where("role", "==", "manager"), where("dormName", "==", dormID));
+      const q = query(usersRef, where("role", "==", "manager"), where("dormName", "==", id));
       try {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
@@ -81,7 +80,7 @@ const BalayCawayan = () => {
     fetchBanner();
     fetchLogo();
 
-  }, [dormID]); 
+  }, [id]); 
  
   if (!dormData || roomsData.length === 0 || !managerData) {
     return <div>Loading...</div>;
@@ -134,7 +133,7 @@ const BalayCawayan = () => {
         
       <div className='room-row'>
         <p><strong>Rooms</strong></p>
-        <RoomList dormID={dormID} />
+        <RoomList id={id} />
       </div>
       
       <hr></hr>
