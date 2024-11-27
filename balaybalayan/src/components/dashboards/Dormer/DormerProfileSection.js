@@ -1,9 +1,9 @@
 import './DormerProfileSection.css'; // Import the CSS file
 import React, { useState, useEffect } from 'react';
-import { db } from '../../firebase';  // Make sure this is properly imported
+import { db } from '../../../firebase';  // Make sure this is properly imported
 import { doc, getDoc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../firebase'; // Import Firebase Auth
+import { auth } from '../../../firebase'; // Import Firebase Auth
 
 // Profile Section Component
 const Profile = () => {

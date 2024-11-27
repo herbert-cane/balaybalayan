@@ -28,53 +28,55 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <div className="login-image">
-        <img src={mainimage} alt="Login Visual" />
-      </div>
       <div className="login-form">
-        <h1>Log in</h1>
-        <p>Lorem Ipsum</p>
-
-        <div className="user-type-options">
-          <div
-            className={`user-type-card ${userType === 'Dorm Manager' ? 'selected' : ''}`}
-            onClick={() => setUserType('Dorm Manager')}
-          >
-            Dorm Manager
-          </div>
-          <div
-            className={`user-type-card ${userType === 'Dormer' ? 'selected' : ''}`}
-            onClick={() => setUserType('Dormer')}
-          >
-            Dormer
-          </div>
+        <div className="login-image">
+          <img src={mainimage} alt="Login Visual" />
         </div>
+        <div className="form-content">
+          <h1>Log in</h1>
+          <p>Lorem Ipsum</p>
 
-        {error && <p className="error-text">{error}</p>}
+          <div className="user-type-options">
+            <div
+              className={`user-type-card ${userType === 'Dorm Manager' ? 'selected' : ''}`}
+              onClick={() => setUserType('Dorm Manager')}
+            >
+              Dorm Manager
+            </div>
+            <div
+              className={`user-type-card ${userType === 'Dormer' ? 'selected' : ''}`}
+              onClick={() => setUserType('Dormer')}
+            >
+              Dormer
+            </div>
+          </div>
 
-        <form onSubmit={handleLogin}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="input-field"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="input-field"
-          />
-          <button type="submit" className="login-btn">Log in</button>
-        </form>
+          {error && <p className="error-text">{error}</p>}
 
-        <p className="signup-link">
-          Don't have an account? <Link to="/signup">Sign up</Link>
-        </p>
+          <form onSubmit={handleLogin}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="input-field"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="input-field"
+            />
+            <button type="submit" className="login-btn">Log in</button>
+          </form>
+
+          <p className="signup-link">
+            Don't have an account? <Link to="/signup">Sign up</Link>
+          </p>
+        </div>
       </div>
     </div>
   );

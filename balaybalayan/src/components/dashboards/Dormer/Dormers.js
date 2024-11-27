@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './FullScreenToggle.css';
-import DormNavBar from './DormNavBar';
+import DormNavBar from '../DormNavBar';
 import DormerHomeSection from './DormerHomeSection';
 import DormerProfile from './DormerProfileSection';
 import DormerAccountInfo from './DormerAccountInfo';

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./DormerAccountInfo.css";
-import { db } from "../../firebase";
+import { db } from "../../../firebase.js";
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { getDocs, collection } from "firebase/firestore";
-import { auth } from "../../firebase";
+import { auth } from "../../../firebase.js";
 import { useNavigate } from "react-router-dom";
 import EditInformationForm from "./DormerInfoEdit.js";
 import DormitorySelection from "./DormitorySelection.js";

@@ -152,7 +152,7 @@ const SignUpDormer = () => {
           </div>
         </div>
         <select value={dormName} onChange={(e) => setDormName(e.target.value)} required>
-          <option className='labels' value="">Choose the dorm you're currently staying</option>
+          <option className='labels' value="">Choose the dorm you're currently staying at:</option>
           {dormitories.map(dorm => (
             <option key={dorm.dormName} value={dorm.dormName}>
               {dorm.dormName}
