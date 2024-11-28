@@ -3,16 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, doc, setDoc, getDocs, collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
-<<<<<<< HEAD
-// Import dormitories data
-<<<<<<< Updated upstream
-import dormitories from './dormitories'; // Hello, ga work ni siya i dunno why ga error, pero its working fine -Adrian
-=======
 
-
->>>>>>> Stashed changes
-=======
->>>>>>> 66527cca92cc8f2e505fd4f0079d4548cbf01ade
 
 // Firebase configuration
 const firebaseConfig = {
