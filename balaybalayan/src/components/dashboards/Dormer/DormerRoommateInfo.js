@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./DormerAccountInfo.css"; // Import the CSS file
-import { db } from "../../firebase"; // Adjust the import path if needed
+import { db } from "../../../firebase"; // Adjust the import path if needed
 import { doc, getDoc } from "firebase/firestore"; // For fetching data from Firestore
-import { auth } from "../../firebase"; // For authentication
+import { auth } from "../../../firebase"; // For authentication
 
 const AccountInformation = () => {
   const [accountInfo, setAccountInfo] = useState(null); // State to store user account data

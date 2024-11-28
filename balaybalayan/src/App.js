@@ -5,8 +5,8 @@ import Navbar from './components/Navbar';
 import LoginUser from './components/login/LoginUser';
 import SignupDormer from './components/signup/SignupDormer';
 import SignupDormManager from './components/signup/SignupManager';
-import DormManager from './components/dashboards/DormManager';
-import Dormers from './components/dashboards/Dormers';
+import DormManager from './components/dashboards/DormManager/DormManager';
+import Dormers from './components/dashboards/Dormer/Dormers';
 import { AuthProvider } from './AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import MainSignup from './components/signup/MainSignup';
@@ -14,6 +14,8 @@ import BalayGumamela from './components/uniDormInfo/BalayGumamela';
 import BalayCawayan from './components/privateDormInfo/BalayCawayan';
 import ExplorePage from './components/ExplorePage'; // Correct file path
 import DormitoryPage from './components/uniDormInfo/DormitoryPage';
+import DormPage from './components/privateDormInfo/DormPage';
+
 
 function App() {
   return (
@@ -32,7 +34,8 @@ function App() {
             <Route path="/explore" element={<ExplorePage />} />
 
             {/* Private Dorms */}
-            <Route path="/private/balaycawayan" element={<BalayCawayan />} />
+            <Route path="/privatetest/balaycawayan" element={<BalayCawayan />} />
+            <Route path="/private/:id" element={<DormPage />} />
             
             {/* University Dorms */}
             <Route path="/university/balaygumamela" element={<BalayGumamela />} />

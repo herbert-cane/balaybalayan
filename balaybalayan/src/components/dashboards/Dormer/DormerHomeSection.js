@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./DormerHomeSection.css";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { auth } from "../../firebase";
+import { auth } from "../../../firebase";
 
 const HomeSection = () => {
   const [dormInfo, setDormInfo] = useState(null); // Store dormitory details
