@@ -13,6 +13,13 @@ const dormData = [
       description: "Most Fabulous Dorm",
       path: "/dormitories/balaygumamela",
     },
+    {
+      image: require("./photos/dorm4.png"),
+      logo: require("./photos/logo4.png"),
+      name: "E&T Dormitelle",
+      description: "Best Dorm in Banwa",
+      path: "/private/eandt",
+    },
     // Add more dorm objects as needed
     {
       image: require("./photos/dorm1.png"),

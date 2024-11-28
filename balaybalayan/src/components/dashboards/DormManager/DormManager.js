@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { db } from '../../firebase';
+import { db } from '../../../firebase';
 import './dorm-manager-styles.css';
 import { doc, getDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';

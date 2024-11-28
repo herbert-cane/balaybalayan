@@ -118,14 +118,16 @@
   .request-option {
     padding: 10px;
     font-size: 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid #6F96D1;
     border-radius: 5px;
-    background-color: #fff;
+    color: #6F96D1;
+    background-color: transparent;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
   .request-option:hover {
-    background-color: #f0f0f0;
+    background-color: #6F96D1;
+    color: #f9f9f9;
   }
   
