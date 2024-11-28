@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MainPage from './components/MainPage';
 import Navbar from './components/Navbar';
@@ -14,6 +16,9 @@ import BalayGumamela from './components/uniDormInfo/BalayGumamela';
 import BalayCawayan from './components/privateDormInfo/BalayCawayan';
 import ExplorePage from './components/ExplorePage'; // Correct file path
 import DormitoryPage from './components/uniDormInfo/DormitoryPage';
+import Rooms from './components/dashboards/DormManager/Rooms';
+
+
 
 function App() {
   return (
@@ -30,6 +35,8 @@ function App() {
             <Route path="/signup/dormer" element={<SignupDormer />} />
             <Route path="/signup/manager" element={<SignupDormManager />} />
             <Route path="/explore" element={<ExplorePage />} />
+            <Route path="/dashboards/DormManager/rooms" element={<Rooms />} />
+
 
             {/* Private Dorms */}
             <Route path="/private/balaycawayan" element={<BalayCawayan />} />
@@ -39,6 +46,7 @@ function App() {
 
             {/* Dormitory Page (Dynamic) */}
             <Route path="/dormitories/:id" element={<DormitoryPage />} />
+            
            
             {/* Protected Routes */}
             <Route
@@ -61,8 +69,10 @@ function App() {
           </Routes>
         </div>
       </Router>
-    </AuthProvider>
+    </AuthProvider> 
   );
 }
+
+
 
 export default App;

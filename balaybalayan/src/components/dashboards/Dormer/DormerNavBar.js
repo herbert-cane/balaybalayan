@@ -1,7 +1,7 @@
 import React from 'react';
-import './DormNavBar.css';
+import './DormerNavBar.css';
 
-const DormNavBar = ({ setSection, activeSection }) => {
+const DormerNavBar = ({ setSection, activeSection }) => {
   return (
     <div className="nav-bar">
       <button
@@ -32,4 +32,4 @@ const DormNavBar = ({ setSection, activeSection }) => {
   );
 };
 
-export default DormNavBar;
+export default DormerNavBar;
