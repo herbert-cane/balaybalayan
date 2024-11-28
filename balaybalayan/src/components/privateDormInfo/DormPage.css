@@ -6,6 +6,7 @@
     background-color: #FFFFFF;
     max-width: 1200px;
     margin: auto;
+    margin-top: 3px;
   }
   
   .dorm-selection-1 {
@@ -15,8 +16,10 @@
     margin-bottom: 30px;
     border-radius: 10px;
   }
+
   #dormName-1{
     text-align: left;
+    font-weight: bold;
   }
   
   .dorm-pic-1 {
@@ -46,13 +49,23 @@
     border-radius: 10px;
   }
 
+  container-11 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0;
+  }
+
   .container-21{
     display: flex;
   margin: -5px 70px;
   height: 405px;
   margin-bottom: 20px;
   border-radius: 5px;
+  overflow-y: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+
   
   .c1-row-1 {
     display: flex;
@@ -120,7 +133,7 @@
   }
   
   .room-info1 {
-    padding: 10px;
+    padding: 30px;
     font-size: 1rem;
   }
   
@@ -162,7 +175,8 @@
 .c3-column-21 {
     display: flex;
     justify-content: center;   
-    padding: 20px;              
+    padding: 20px; 
+    margin-top: 30px;             
   }
   
   .manager-container-1 {
@@ -199,3 +213,95 @@
     margin: 5px 0;
     font-size: 1rem;
   }
+
+  .room-types-carousel-container {
+    margin: 40px auto;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    margin-top: 20px;
+  }
+  
+  .room-types-carousel-container h3 {
+    align-self: flex-start;  
+    margin-left: 20px;       
+    margin-bottom: 25px;
+  }
+  
+  .room-type-cards-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;         
+    gap: 20px;               
+  }
+  
+  
+  .room-type-card {
+    width: 300px; /* Set consistent width for cards */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center content */
+    background-color: #fff;
+  }
+  
+  .room-photo-container {
+    width: 100%;
+    height: 180px; /* Fixed height for uniform appearance */
+    overflow: hidden; /* Prevent large images from overflowing */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9; /* Placeholder background */
+  }
+  
+  .room-type-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure images scale proportionally */
+  }
+  
+  .room-type-photo-placeholder {
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .room-details {
+    padding: 16px; /* Add spacing inside the card */
+    text-align: center; /* Center text alignment */
+  }
+  
+  .room-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .room-price,
+  .room-max-occupants {
+    font-size: 14px;
+    margin: 4px 0;
+  }
+  
+  .show-room-button {
+    margin-top: 12px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+  }
+  
+  .show-room-button:hover {
+    background-color: #0056b3;
+  }
+  
+  
