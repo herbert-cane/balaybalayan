@@ -10,7 +10,6 @@ import Dormers from './components/dashboards/Dormers';
 import { AuthProvider } from './AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import MainSignup from './components/signup/MainSignup';
-import BalayGumamela from './components/uniDormInfo/BalayGumamela';
 import BalayCawayan from './components/privateDormInfo/BalayCawayan';
 import ExplorePage from './components/ExplorePage'; // Correct file path
 import DormitoryPage from './components/uniDormInfo/DormitoryPage';
@@ -30,11 +29,17 @@ function App() {
             <Route path="/signup/manager" element={<SignupDormManager />} />
             <Route path="/explore" element={<ExplorePage />} />
 
+<<<<<<< Updated upstream
             {/* PRIVATE DORMS */}
             <Route path="/private/balaycawayan" element={<BalayCawayan />} />
             
             {/* UNIVERSITY DORMS */}
             <Route path='/university/balaygumamela' element={<BalayGumamela/>} />
+=======
+            {/* Private Dorms */}
+            <Route path="/privatetest/balaycawayan" element={<BalayCawayan />} />
+            <Route path="/private/:id" element={<DormPage />} />
+>>>>>>> Stashed changes
 
             {/*Dormitory Page Test */}
             <Route path='/dormitories/:id' element={<DormitoryPage/>}/>
