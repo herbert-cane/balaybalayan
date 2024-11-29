@@ -13,7 +13,6 @@ import { AuthProvider } from './AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import MainSignup from './components/signup/MainSignup';
 import BalayGumamela from './components/uniDormInfo/BalayGumamela';
-import BalayCawayan from './components/privateDormInfo/BalayCawayan';
 import ExplorePage from './components/ExplorePage'; // Correct file path
 import DormitoryPage from './components/uniDormInfo/DormitoryPage';
 import Rooms from './components/dashboards/DormManager/Rooms';
@@ -39,7 +38,7 @@ function App() {
 
 
             {/* Private Dorms */}
-            <Route path="/private/balaycawayan" element={<BalayCawayan />} />
+            <Route path="/private/:id" element={<DormPage />} />
             
             {/* University Dorms */}
             <Route path="/university/balaygumamela" element={<BalayGumamela />} />

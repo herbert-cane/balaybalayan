@@ -11,7 +11,14 @@ const dormData = [
       logo: require("./photos/logo4.png"),
       name: "Balay Gumamela",
       description: "Most Fabulous Dorm",
-      path: "/university/balaygumamela",
+      path: "/dormitories/balaygumamela",
+    },
+    {
+      image: require("./photos/dorm4.png"),
+      logo: require("./photos/logo4.png"),
+      name: "E&T Dormitelle",
+      description: "Best Dorm in Banwa",
+      path: "/private/eandt",
     },
     // Add more dorm objects as needed
     {
@@ -70,6 +77,7 @@ const dormData = [
       description: "Another description",
       path: "/private/other-dorm",
     },
+
   ];
 
 export default dormData;
