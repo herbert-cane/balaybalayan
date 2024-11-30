@@ -121,7 +121,7 @@ const DormitoryPage = () => {
                 <p><strong>Available Rooms:</strong> {dormData.AvailableRooms}</p>
                 <h4>Room Amenities</h4>
                 <ul className="amenities-list1">
-                  {basicRoom.roomAmenities && basicRoom.roomAmenities.slice(0, showAllAmenities ? basicRoom.roomAmenities.length : 3). map((amenity, amenityIndex) => (
+                  {basicRoom.roomAmenities && basicRoom.roomAmenities.slice(0, showAllAmenities ? basicRoom.roomAmenities.length : 3).map((amenity, amenityIndex) => (
                     <li key={amenityIndex}>
                       <input type="checkbox" checked readOnly /> {amenity}
                     </li>

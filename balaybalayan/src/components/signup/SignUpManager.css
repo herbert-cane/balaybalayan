@@ -118,3 +118,14 @@ button:hover:not(:disabled) {
         flex-direction: column;
     }
 }
+
+/* Pricing */
+.price-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .price-input span {
+    font-size: 1rem;
+    margin-right: 0.5rem;
+  }

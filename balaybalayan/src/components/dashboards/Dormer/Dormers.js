@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import './FullScreenToggle.css';
-import DormNavBar from '../DormNavBar';
+import DormNavBar from './DormerNavBar';
 import DormerHomeSection from './DormerHomeSection';
 import DormerProfile from './DormerProfileSection';
 import DormerAccountInfo from './DormerAccountInfo';
 import DormerRoommateInfo from './DormerRoommateInfo';
-
+import './FullScreenToggle.css';
 
 const Dormers = () => {
   const [activeSection, setActiveSection] = useState('home');
