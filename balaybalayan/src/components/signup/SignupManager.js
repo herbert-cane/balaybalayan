@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthContext';
 import { Navigate } from 'react-router-dom';
 import { uploadProfilePhoto } from '../../utils/firebaseStorage';
-import { collection, addDoc, getDocs,doc,setDoc } from 'firebase/firestore'; 
+import { collection, addDoc, getDocs, getDoc, doc,setDoc } from 'firebase/firestore'; 
 import { db } from '../../firebase'; 
 import './signUpUser.css'; 
 
@@ -28,7 +28,8 @@ const SignUpManager = () => {
   const [newDormAddress, setNewDormAddress] = useState('');
   const [newDormPrice, setNewDormPrice] = useState('');
   const [description, setDescription] = useState('');
-  const [amenities, setAmenities] = useState('');
+  const [amenities, setAmenities] = useState([]);
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [curfew, setCurfew] = useState('');
   const [type, setType] = useState('');
 
@@ -46,6 +47,31 @@ const SignUpManager = () => {
 
     fetchDormitories();
   }, []);
+
+  // Fetch amenities based on dorm type
+  useEffect(() => {
+    const fetchAmenities = async () => {
+      if (!type) return; // Don't fetch if type is not selected
+
+      try {
+        const docRef = doc(db, 'amenities', 'amenitiesLogin'); // Reference the document
+        const docSnap = await getDoc(docRef); // Fetch the document
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          console.log('Fetched data:', data[type]?.amenities);
+          setAmenities(Array.isArray(data[type]?.amenities) ? data[type]?.amenities : []);
+        } else {
+          console.error('No such document!');
+          setAmenities([]);
+        }
+      } catch (error) {
+        console.error('Error fetching amenities:', error);
+      }
+    };
+
+    fetchAmenities();
+  }, [type]);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -90,7 +116,7 @@ const SignUpManager = () => {
           dormAddress: newDormAddress,
           priceRange: newDormPrice,
           description,
-          amenities,
+          amenities: selectedAmenities,
           curfew,
           type,
           path: `/dormitories/${newDormName.toLowerCase().replace(/\s+/g, '')}`,
@@ -222,21 +248,53 @@ const SignUpManager = () => {
             />
             <input
               type="text"
-              placeholder="Amenities"
-              value={amenities}
-              onChange={(e) => setAmenities(e.target.value)}
+              placeholder="Type"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
             />
+            {/* Type Selection */}
+            <select value={type} onChange={(e) => setType(e.target.value)} required>
+              <option value="">Select Dormitory Type</option>
+              <option value="Private">Private</option>
+              <option value="University">University</option>
+            </select>
+
+            {/* Amenities Dropdown */}
+            {type && (
+              <div>
+                <label>Amenities</label>
+                {amenities.length > 0 ? (
+                  <div className="amenities-dropdown">
+                    {amenities.map((amenity, index) => (
+                      <label key={index} className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          value={amenity}
+                          checked={selectedAmenities.includes(amenity)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSelectedAmenities((prev) => [...prev, amenity]);
+                            } else {
+                              setSelectedAmenities((prev) =>
+                                prev.filter((selected) => selected !== amenity)
+                              );
+                            }
+                          }}
+                        />
+                        {amenity}
+                      </label>
+                    ))}
+                  </div>
+                ) : (
+                  <p>No amenities available for the selected type.</p>
+                )}
+              </div>
+            )}
             <input
               type="text"
               placeholder="Curfew"
               value={curfew}
               onChange={(e) => setCurfew(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Type"
-              value={type}
-              onChange={(e) => setType(e.target.value)}
             />
           </>
         )}
