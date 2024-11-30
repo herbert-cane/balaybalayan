@@ -122,3 +122,48 @@ input[type="file"]::-webkit-file-upload-button:hover {
   .create-dorm-button:hover {
     background-color: #0056b3;
   }  
+
+/* Sections with File Uploads */
+.upload-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .upload-section h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .upload-section input {
+    width: 80%; /* Adjust width to center the input */
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #fff;
+  }
+
+  
+/* Pricing */
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem; /* Adjusts the padding between Min and Max inputs */
+  }
+  
+  .price-input {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+  
+  .price-input span {
+    margin-right: 0.5rem;
+  }
+  
+  .price-input input {
+    flex: 1;
+  }

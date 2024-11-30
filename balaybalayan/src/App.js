@@ -15,6 +15,7 @@ import MainSignup from './components/signup/MainSignup';
 import BalayGumamela from './components/uniDormInfo/BalayGumamela';
 import ExplorePage from './components/ExplorePage'; // Correct file path
 import DormitoryPage from './components/uniDormInfo/DormitoryPage';
+import PrivDormPage from './components/privateDormInfo/DormPage';
 import Rooms from './components/dashboards/DormManager/Rooms';
 
 
@@ -38,7 +39,7 @@ function App() {
 
 
             {/* Private Dorms */}
-            <Route path="/private/:id" element={<DormPage />} />
+            <Route path="/private/:id" element={<PrivDormPage />} />
             
             {/* University Dorms */}
             <Route path="/university/balaygumamela" element={<BalayGumamela />} />
