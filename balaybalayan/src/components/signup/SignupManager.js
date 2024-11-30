@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthContext';
 import { Navigate } from 'react-router-dom';
-import { uploadProfilePhoto } from '../../utils/firebaseStorage';
-import { collection, addDoc, getDocs, getDoc, doc,setDoc } from 'firebase/firestore'; 
+import { collection, getDocs, getDoc, doc,setDoc } from 'firebase/firestore'; 
 import { uploadProfilePhoto, uploadCarouselPic, uploadDormLogo } from '../../utils/firebaseStorage';
-import { collection, getDocs,doc,setDoc } from 'firebase/firestore'; 
 import { db } from '../../firebase'; 
 import './signUpUser.css'; 
 
@@ -74,18 +72,16 @@ const SignUpManager = () => {
   // Fetch amenities based on dorm type
   useEffect(() => {
     const fetchAmenities = async () => {
-      if (!type) return; // Don't fetch if type is not selected
+      if (!type) return; 
 
       try {
-        const docRef = doc(db, 'amenities', 'amenitiesLogin'); // Reference the document
-        const docSnap = await getDoc(docRef); // Fetch the document
+        const docRef = doc(db, 'amenities', 'amenitiesLogin'); 
+        const docSnap = await getDoc(docRef); 
 
         if (docSnap.exists()) {
           const data = docSnap.data();
-          console.log('Fetched data:', data[type]?.amenities);
           setAmenities(Array.isArray(data[type]?.amenities) ? data[type]?.amenities : []);
         } else {
-          console.error('No such document!');
           setAmenities([]);
         }
       } catch (error) {
@@ -116,7 +112,7 @@ const SignUpManager = () => {
           sex,
           phoneNumber,
           dormName,
-          profilePhotoURL: '', 
+          profilePhotoURL: '',
           dob,
       });
       
@@ -251,7 +247,6 @@ const SignUpManager = () => {
           </select>
         ) : (
           <>
-           
             <input
               type="text"
               placeholder="Dormitory Name"
@@ -314,12 +309,7 @@ const SignUpManager = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-            <input
-              type="text"
-              placeholder="Type"
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-            />
+            <br/>
             {/* Type Selection */}
             <select value={type} onChange={(e) => setType(e.target.value)} required>
               <option value="">Select Dormitory Type</option>
@@ -358,13 +348,6 @@ const SignUpManager = () => {
                 )}
               </div>
             )}
-            <input
-              type="text"
-              placeholder="Curfew"
-              placeholder="Amenities"
-              value={amenities}
-              onChange={(e) => setAmenities(e.target.value)}
-            />
             <select
               value={curfew}
               onChange={(e) => setCurfew(e.target.value)}
@@ -376,15 +359,6 @@ const SignUpManager = () => {
               <option value="11 PM">11 PM</option>
               <option value="12 PM">12 PM</option>
               <option value="None">None</option>
-            </select>
-            <select
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-              required
-            >
-              <option value="">Select Dormitory Type</option>
-              <option value="Public">Public</option>
-              <option value="Private">Private</option>
             </select>
           </>
         )}
