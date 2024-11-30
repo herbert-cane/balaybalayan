@@ -301,5 +301,4 @@ const dormitories = [
   },
 ];
 
-
 export default dormitories;

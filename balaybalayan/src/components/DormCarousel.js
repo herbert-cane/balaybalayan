@@ -48,8 +48,8 @@ const DormCarousel = () => {
             <div className="card">
               <div className="image-box">
                 <img
-                  src={dorm.dormPhoto || 'https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/dorm_carousel_pic%2FplaceholderPic.png?alt=media&token=14f3543c-127e-46e9-9729-fd03379a70ab'}
-                  alt={`${dorm.dormName}`}
+                  src={dorm.dormPhoto || '/path/to/fallback-image.png'}
+                  alt={`${dorm.dormName} image`}
                   className="card-img"
                 />
               </div>
