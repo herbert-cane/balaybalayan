@@ -70,67 +70,93 @@ const SignUpManager = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-
+  
     if (password.length < 6) { 
       setError('Password must be at least 6 characters long');
       return;
     }
-
+  
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-
+  
     try {
+      // Sign up the user and get their UID
       const userCredential = await signup(email, password, 'manager', {
-          firstName,
-          lastName,
-          sex,
-          phoneNumber,
-          dormName,
-          profilePhotoURL: '', 
-          dob,
+        firstName,
+        lastName,
+        sex,
+        phoneNumber,
+        dob,
       });
-      
       const userId = userCredential.user.uid;
   
+      // Upload the profile photo if provided
       let profilePhotoURL = '';
       if (profilePhoto) {
-          profilePhotoURL = await uploadProfilePhoto(profilePhoto, userId);
-          await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
+        profilePhotoURL = await uploadProfilePhoto(profilePhoto, userId);
       }
   
-      await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
-
-      // Handle new dormitory creation if selected
-      if (createNewDorm) {
-        const newDormId = newDormName.toLowerCase().replace(/\s+/g, ''); // Generate ID from dorm name
-
-         // Handle uploads for dorm logo and photo
-        const dormLogoURL = await handleDormLogoUpload(newDormLogo, newDormId);
-        const dormPhotoURL = await handleCarouselUpload(newDormPhoto, newDormId);
+      // Prepare user data with mandatory "manager" role
+      const userData = {
+        firstName,
+        lastName,
+        sex,
+        phoneNumber,
+        dob,
+        profilePhotoURL,
+        role: 'manager', // Add role field
+      };
+  
+      let dormitoryId = '';
+  
+      // Handle existing dormitory selection
+      if (!createNewDorm) {
+        const selectedDorm = dormitories.find(dorm => dorm.dormName === dormName);
+        if (!selectedDorm) {
+          setError('Selected dormitory not found');
+          return;
+        }
+        dormitoryId = selectedDorm.id; // Assuming each dormitory document has an `id` field
+      } else {
+        // Handle new dormitory creation
+        dormitoryId = newDormName.toLowerCase().replace(/\s+/g, ''); // Generate ID from dorm name
+  
+        // Upload dormitory logo and photo
+        const dormLogoURL = await handleDormLogoUpload(newDormLogo, dormitoryId);
+        const dormPhotoURL = await handleCarouselUpload(newDormPhoto, dormitoryId);
+  
+        // Create the new dormitory document
         const newDorm = {
           dormName: newDormName,
           dormLogo: dormLogoURL,
           dormPhoto: dormPhotoURL,
           dormAddress: newDormAddress,
-          priceRange: `₱${newDormPrice.min} - ₱${newDormPrice.max}`, // Format price range
+          priceRange: `₱${newDormPrice.min} - ₱${newDormPrice.max}`,
           description,
           amenities,
           curfew,
           type,
-          path: `/dormitories/${newDormId}`,
+          id: {dormitoryId},
+          path: `/dormitories/${dormitoryId}`,
         };
-      
-        // Create the new dormitory document with custom ID
-        await setDoc(doc(db, 'dormitories', newDormId), newDorm);
+        await setDoc(doc(db, 'dormitories', dormitoryId), newDorm);
       }
-      
+  
+      // Add dormitoryId to the user data
+      userData.dormitoryId = dormitoryId;
+  
+      // Save user data to Firestore
+      await setDoc(doc(db, 'users', userId), userData);
+  
+      // Redirect to the dashboard
       setRedirect(true);
     } catch (error) {
       setError(error.message);
     }
   };
+  
 
   if (user && redirect) {
     return <Navigate to="/dorm-manager" replace />;
