@@ -1,0 +1,54 @@
+/* Overview.css - Global stylesheet for all components */
+
+/* General container styles */
+.overview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Section specific styles */
+.chart-section, .tasks-section, .announcements-section, .important-dates-section {
+  flex: 1 1 45%;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Styling for urgent tasks */
+.urgent-tasks {
+  background-color: #e3f2fd;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.urgent-tasks h3 {
+  font-size: 1.2rem;
+}
+
+/* Styling for announcements */
+.announcements {
+  background-color: #f1f8e9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.announcements h3 {
+  font-size: 1.2rem;
+}
+
+/* Styling for important dates */
+.important-dates {
+  background-color: #ffe0b2;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.important-dates h3 {
+  font-size: 1.2rem;
+}
+
+.input-form {
+  margin-top: 10px;
+}
