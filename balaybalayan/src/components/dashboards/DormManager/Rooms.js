@@ -52,32 +52,38 @@ const Rooms = () => {
 
   // Add a new room
   const addRoom = async () => {
+    if (!dormitoryId) {
+      console.error("Dormitory ID is undefined. Cannot add room.");
+      return;
+    }
+  
     const roomID = `Room-${rooms.length + 1}`;
-
+    
     if (!newRoom.price || newRoom.price < 0 || newRoom.price > 15000) {
       alert('Price must be between 0 and 15,000.');
       return;
     }
-
+  
     if (!newRoom.maxOccupants || newRoom.maxOccupants < 1 || newRoom.maxOccupants > 6) {
       alert('Max occupants must be between 1 and 6.');
       return;
     }
-
+  
     try {
       const roomsRef = collection(db, `dormitories/${dormitoryId}/rooms`);
+      console.log("Adding to path:", `dormitories/${dormitoryId}/rooms`); // Debugging
       await addDoc(roomsRef, {
         roomID,
         ...newRoom,
         maxOccupants: parseInt(newRoom.maxOccupants, 10),
       });
-
+  
       setNewRoom({ maxOccupants: 1, price: 0, size: 'Single Bed', amenities: '', status: 'Available' });
     } catch (error) {
       console.error('Error adding room:', error);
     }
   };
-
+  
   // Toggle room availability
   const toggleAvailability = async (roomID, currentStatus) => {
     try {
