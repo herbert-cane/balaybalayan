@@ -62,7 +62,7 @@ const MyDormers = ({ dormitoryId }) => {
         {dormers.map((dormer) => (
           <div key={dormer.id} className="dormer-card">
             <img
-              src={dormer.profilePhotoURL || 'default-profile.png'} // Fallback to a default profile image
+              src={dormer.profilePhotoURL || 'https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2FdormerCardPhoto.jpg?alt=media&token=36b74a12-5fe6-4683-b4cb-9ec73be449e0'} // Fallback to a default profile image
               alt={`${dormer.firstName} ${dormer.lastName}`}
               className="dormer-image"
             />

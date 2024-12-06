@@ -151,7 +151,7 @@ const Profile = () => {
         {activeTab === 'photos' && (
           <div className="photos-content">
             {tabData.photos.map((photo, index) => (
-              <img key={index} src={photo} alt={`Photo ${index}`} className="photo-item" />
+              <img key={index} src={photo} alt={`${index}`} className="photo-item" />
             ))}
           </div>
         )}

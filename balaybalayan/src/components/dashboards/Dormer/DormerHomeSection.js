@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./DormerHomeSection.css";
 import { db } from "../../../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, addDoc, onSnapshot, query, where } from "firebase/firestore";
 import { auth } from "../../../firebase";
 
 const HomeSection = () => {
   const [dormInfo, setDormInfo] = useState(null); // Store dormitory details
   const [loading, setLoading] = useState(true);
+  const [announcements, setAnnouncements] = useState([]);
 
   useEffect(() => {
     const fetchDormitoryDetails = async () => {
@@ -41,6 +42,52 @@ const HomeSection = () => {
     fetchDormitoryDetails();
   }, []); // Runs only once when the component mounts
 
+  useEffect(() => {
+    const fetchAnnouncements = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists() && userDoc.data().dormitoryId) {
+          const dormitoryId = userDoc.data().dormitoryId;
+          const announcementsRef = collection(db, 'dormitories', dormitoryId, 'announcements');
+  
+          const unsubscribe = onSnapshot(announcementsRef, (snapshot) => {
+            const fetchedAnnouncements = snapshot.docs.map((doc) => doc.data().text);
+            setAnnouncements(fetchedAnnouncements);
+          });
+  
+          return () => unsubscribe();
+        }
+      }
+    };
+  
+    fetchAnnouncements();
+  }, []);
+  
+  useEffect(() => {
+    const fetchManagerInfo = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists() && userDoc.data().dormitoryId) {
+          const dormitoryId = userDoc.data().dormitoryId;
+  
+          // Query for the manager
+          const managersRef = collection(db, 'users');
+          const q = query(managersRef, where('dormitoryId', '==', dormitoryId), where('role', '==', 'manager'));
+          onSnapshot(q, (snapshot) => {
+            const manager = snapshot.docs[0]?.data();
+            if (manager) {
+              setDormInfo((prev) => ({ ...prev, ...manager }));
+            }
+          });
+        }
+      }
+    };
+  
+    fetchManagerInfo();
+  }, []);
+
   if (loading) {
     return <div className="loading">Loading dormitory information...</div>;
   }
@@ -69,8 +116,13 @@ const HomeSection = () => {
       <div className="announcements">
         <h2 className="section-title">Announcements</h2>
         <div className="announcement-content">
-          {/* Placeholder for announcements */}
-          <p>No announcements at this time.</p>
+          {announcements.length ? (
+            announcements.map((announcement, index) => (
+              <p key={index}>{announcement}</p>
+            ))
+          ) : (
+            <p>No announcements at this time.</p>
+          )}
         </div>
       </div>
 

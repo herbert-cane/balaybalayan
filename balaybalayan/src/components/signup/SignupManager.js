@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthContext';
 import { Navigate } from 'react-router-dom';
-import { collection, getDocs, getDoc, doc,setDoc } from 'firebase/firestore'; 
 import { uploadProfilePhoto, uploadCarouselPic, uploadDormLogo } from '../../utils/firebaseStorage';
+import { collection, getDocs, getDoc, doc,setDoc } from 'firebase/firestore'; 
 import { db } from '../../firebase'; 
 import './signUpUser.css'; 
 
@@ -385,6 +385,15 @@ const SignUpManager = () => {
               <option value="11 PM">11 PM</option>
               <option value="12 PM">12 PM</option>
               <option value="None">None</option>
+            </select>
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              required
+            >
+              <option value="">Select Dormitory Type</option>
+              <option value="Public">Public</option>
+              <option value="Private">Private</option>
             </select>
           </>
         )}
