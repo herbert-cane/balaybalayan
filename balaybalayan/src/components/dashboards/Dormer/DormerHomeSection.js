@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./DormerHomeSection.css";
 import { db } from "../../../firebase";
-import { doc, getDoc, collection, addDoc, onSnapshot, query, where } from "firebase/firestore";
+import { doc, getDoc, collection, onSnapshot, query, where } from "firebase/firestore";
 import { auth } from "../../../firebase";
 
 const HomeSection = () => {

@@ -26,7 +26,7 @@ const DormerNavBar = ({ setSection, activeSection }) => {
         onClick={() => setSection('roommateInfo')}
         className={`nav-button ${activeSection === 'roommateInfo' ? 'active' : ''}`}
       >
-        Roommate Information
+        Room Information
       </button>
     </div>
   );
