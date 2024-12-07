@@ -8,7 +8,6 @@ import dormimage from './photos/MainPage_Image.png'; // Import the placeholder i
 import './main.css'; // Import the CSS file
 import './swiper-bundle.min.css';
 
-import DormCard from './DormCard.js';
 import DormCarousel from './DormCarousel.js';
 
 // Dropdown component with inline text
@@ -42,7 +41,7 @@ const Dropdown = ({ text, options, onSelect }) => {
 const CheckboxGroup = ({ text, options, onChange }) => {
   const [checkedItems, setCheckedItems] = useState({});
 
-  const handleCheckboxChange = (option) => {
+  const handleCheckboxChange = async (option) => {
     setCheckedItems((prev) => {
       const updatedItems = { ...prev, [option]: !prev[option] };
       onChange(updatedItems);  
@@ -117,7 +116,7 @@ const DormFilterButtons = () => {
   );
 };
 
-function MainPage() {
+function MainPage () {
   const navigate = useNavigate();
   const [filterSearchData, setFilterSearchData] = useState({});
   const [dormitories, setDormitories] = useState([]);
@@ -157,7 +156,7 @@ function MainPage() {
   }, []); // Empty dependency array to run once
 
   // Function to filter dormitories based on selected options
-  const filterDormitories = () => {
+  const filterDormitories = async () => {
     let results = dormitories;
 
     // Filter by Location (case-insensitive)
@@ -203,11 +202,10 @@ function MainPage() {
   };
 
   // Trigger filter on search button click
-  const handleSearchClick = () => {
+  const handleSearchClick =  async() => {
     setSearchClicked(true);
     filterDormitories(); // Apply filter when search is clicked
   };
-
   return (
     <div>
       <div> {/* Banner */}
@@ -227,32 +225,43 @@ function MainPage() {
       <script src={require("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js")}></script>
       <script src={require("./script.js")}></script>
 
-      {/* Filter Controls */}
-      <div>
-        <Dropdown
-          text="Location:"
-          options={filterSearchData.locations || []}
-          onSelect={(value) => setFilterOptions((prev) => ({ ...prev, location: value }))} 
-        />
-        <Dropdown
-          text="Type:"
-          options={filterSearchData.type || []}
-          onSelect={(value) => setFilterOptions((prev) => ({ ...prev, dormType: value }))} 
-        />
-        <Dropdown
-          text="Price Range:"
-          options={filterSearchData.priceRange || []}
-          onSelect={(value) => setFilterOptions((prev) => ({ ...prev, priceRange: value }))} 
-        />
-        <CheckboxGroup
-          text="Amenities"
-          options={filterSearchData.amenities || []}
-          onChange={(value) => setFilterOptions((prev) => ({ ...prev, amenities: value }))} 
-        />
-      </div>
+      <div className='filter-dorm'>
+        {/* Filter Controls */}
+        <div className="find-dormitory-container"> {/* Separate class for Find Dormitory section */}
+          {/* Left Side - Dropdowns and Amenities */}
+          <div className="find-dormitory-card"> {/* Specific class for Find Dormitory Card */}
+            <h2 className="card-title">Find Dormitory</h2>
+            <br/>
+            <Dropdown
+            text="Location:"
+            options={filterSearchData.locations || []}
+            onSelect={(value) => setFilterOptions((prev) => ({ ...prev, location: value }))} 
+            />
+            <Dropdown
+              text="Type:"
+              options={filterSearchData.type || []}
+              onSelect={(value) => setFilterOptions((prev) => ({ ...prev, dormType: value }))} 
+            />
+            <Dropdown
+              text="Price Range:"
+              options={filterSearchData.priceRange || []}
+              onSelect={(value) => setFilterOptions((prev) => ({ ...prev, priceRange: value }))} 
+            />
+            <CheckboxGroup
+              text="Amenities"
+              options={filterSearchData.amenities || []}
+              onChange={(value) => setFilterOptions((prev) => ({ ...prev, amenities: value }))} 
+            />
 
-      {/* Search Button */}
-      <button onClick={handleSearchClick}>Search Dormitories</button>
+            {/* Search Button */}
+            <button onClick={handleSearchClick}>Search Dormitories</button>
+            </div>
+        </div> 
+        {/* Right Side - Image */}
+        <div className="find-dormitory-container">
+          <img id='dormImage' src={dormimage} alt="Dormitory"/>
+        </div>
+      </div>
 
       {/* Loading State */}
       {loading && <p>Loading dormitories...</p>}
@@ -262,9 +271,25 @@ function MainPage() {
         filteredDormitories.length > 0 ? (
           <div>
             <h2>Matched Dormitories</h2>
-            <div className="dormitories-container">
+            <br/>
+            <div className='result-search-row'>
               {filteredDormitories.map((dorm, index) => (
-                <DormCard key={index} dorm={dorm} />
+                <div className='result-search'>
+                  <div className='result-dorms-col'> 
+                    <h4>{dorm.dormName} </h4>
+                    <h6>Type:  {dorm.type} </h6>
+                    <h6>Address:  {dorm.dormAddress} </h6>
+                    <h6>Price:  {dorm.priceRange}</h6>
+                    <br/>
+                    <button
+                      className="carousel-button"
+                      onClick={() => navigate(dorm.path)}
+                    >
+                      Check Dormitory
+                    </button>
+                    <br/>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
