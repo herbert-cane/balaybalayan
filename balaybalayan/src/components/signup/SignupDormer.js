@@ -16,7 +16,6 @@ const SignUpDormer = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [dormName, setDormName] = useState('');
-  const [roomNumber, setRoomNumber] = useState('');
   const [moveInDate, setMoveInDate] = useState('');
   const [emergencyContactFirstName, setEmergencyContactFirstName] = useState('');
   const [emergencyContactLastName, setEmergencyContactLastName] = useState('');
@@ -56,7 +55,6 @@ const SignUpDormer = () => {
         sex,
         phoneNumber,
         dormName,
-        roomNumber,
         moveInDate,
         emergencyContact: {
           firstName: emergencyContactFirstName,
@@ -159,13 +157,6 @@ const SignUpDormer = () => {
             </option>
           ))}
         </select>
-        <input
-          type="text"
-          placeholder="Room Number"
-          value={roomNumber}
-          onChange={(e) => setRoomNumber(e.target.value)}
-          required
-        />
         <input
           type="date"
           placeholder="Move-in Date"
