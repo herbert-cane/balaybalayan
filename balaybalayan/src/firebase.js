@@ -4,6 +4,7 @@ import { getFirestore, doc, setDoc, getDocs, collection } from "firebase/firesto
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
+
 // Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { db } from '../../firebase';
 import { useParams } from "react-router-dom";  // useParams for respective id URL of dormitories
-//import { doc, getDoc, collection, getDocs, query, where } from 'firebase/firestore';
-import {doc, getDoc} from 'firebase/firestore';
+import { doc, getDoc, collection, getDocs, query, where } from 'firebase/firestore';
+//import {doc, getDoc} from 'firebase/firestore';
 
 // carousel pictures and import
 import example1 from './photos/unknown.png';
@@ -18,7 +18,7 @@ const DormitoryPage = () => {
   const [basicRoom, setBasicRoom] = useState(null); // State for Basic Room data
   const [appliances, setAppliances] = useState({ applianceName: [], applianceFee: [] }); // State for appliances
   const [showAllAmenities, setShowAllAmenities] = useState(false);
-  // const [managerData, setManagerData] = useState(null);
+  const [manager, setManagerData] = useState(null);
 
   useEffect(() => {
     const fetchDormitory = async () => {
@@ -48,7 +48,7 @@ const DormitoryPage = () => {
         console.error("Error fetching dormitory data: ", error);
       }
     };
-    /*const fetchManagerData = async () => {
+    const fetchManagerData = async () => {
       const usersRef = collection(db, "users");
       const q = query(usersRef, where("role", "==", "manager"), where("dormName", "==", id));
       try {
@@ -59,13 +59,13 @@ const DormitoryPage = () => {
       } catch (error) {
         console.error("Error getting manager data:", error);
       }
-    }; */
+    }; 
 
     fetchDormitory(); 
-    ///fetchManagerData(); 
+    fetchManagerData(); 
   }, [id]); // Re-run the effect if the dormitory ID changes
 
-  if (!dormData || !basicRoom /*|| !managerData */) {
+  if (!dormData || !basicRoom  /*|| !managerData */) {
     return <div>Loading...</div>; 
   }
 
@@ -77,7 +77,7 @@ const DormitoryPage = () => {
       </div>
       <br/>
       <div className="dorm-pic1">
-        <img src={dormData.banner} alt={`${dormData.dormName} Banner`} />
+        <img id="dorm-banner1" src={dormData.banner} alt={`${dormData.dormName} Banner`} />
       </div>
       <div className="container11">
         <div className="c1-row1">
@@ -121,7 +121,7 @@ const DormitoryPage = () => {
                 <p><strong>Available Rooms:</strong> {dormData.AvailableRooms}</p>
                 <h4>Room Amenities</h4>
                 <ul className="amenities-list1">
-                  {basicRoom.roomAmenities && basicRoom.roomAmenities.slice(0, showAllAmenities ? basicRoom.roomAmenities.length : 6). map((amenity, amenityIndex) => (
+                  {basicRoom.roomAmenities && basicRoom.roomAmenities.slice(0, showAllAmenities ? basicRoom.roomAmenities.length : 3).map((amenity, amenityIndex) => (
                     <li key={amenityIndex}>
                       <input type="checkbox" checked readOnly /> {amenity}
                     </li>
@@ -165,6 +165,20 @@ const DormitoryPage = () => {
           </div>
           <div className="c3-column21">
             <h3>Manager Information</h3>
+            {manager && (
+              <div className="manager-info-1">
+                <div className="profile-photo-container-1">
+                  <img
+                    src={manager.profilePhotoURL}
+                    alt={`${manager.firstName} ${manager.lastName}`}
+                    className="profile-photo-1"
+                  />
+                </div>
+                <h4>{manager.firstName} {manager.lastName}</h4>
+                <p>Email: {manager.email}</p>
+                <p>Phone: {manager.phoneNumber}</p>
+              </div>
+            )}
           </div>
         </div>
         <hr/>

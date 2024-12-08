@@ -70,10 +70,15 @@ const dormitories = [
     id: "balaygumamela",
     dormName: "Balay Gumamela",
     banner: "https://example.com/image2.jpg",
+    dormLogo: "https://example.com/logo2.jpg",
+    dormPhoto:"https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2Fphoto_sample.jpg?alt=media&token=a6a71b8a-69c2-4e11-8ae3-4262d5b88248",
+    dormLogo:"https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/dorm_logos%2FbalaycawayanLogo.png?alt=media&token=247e53ae-6583-41e8-a541-271a32336120",
+    dormPhoto:"https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2Fphoto_sample.jpg?alt=media&token=a6a71b8a-69c2-4e11-8ae3-4262d5b88248",
+    dormAddress: "Sunset Blvd., Downtown",
     dormLogo:"https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/dorm_logos%2FbalaycawayanLogo.png?alt=media&token=247e53ae-6583-41e8-a541-271a32336120",
     dormPhoto:
       "https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2Fphoto_sample.jpg?alt=media&token=a6a71b8a-69c2-4e11-8ae3-4262d5b88248",
-    dormAddress: "Sunset Blvd., Downtown",
+    dormAddress: "Inside University of the Philippines Visayas, Brgy. Mat-y (Pob.), Miagao",
     isVisitors: false,
     managers: "None",
     type: "University",
@@ -295,5 +300,6 @@ const dormitories = [
     path: "/dormitories/balaymadyaas",
   },
 ];
+
 
 export default dormitories;

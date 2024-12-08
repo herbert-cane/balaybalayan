@@ -1,7 +1,7 @@
 import React from 'react';
-import './DormNavBar.css';
+import './DormerNavBar.css';
 
-const DormNavBar = ({ setSection, activeSection }) => {
+const DormerNavBar = ({ setSection, activeSection }) => {
   return (
     <div className="nav-bar">
       <button
@@ -26,10 +26,10 @@ const DormNavBar = ({ setSection, activeSection }) => {
         onClick={() => setSection('roommateInfo')}
         className={`nav-button ${activeSection === 'roommateInfo' ? 'active' : ''}`}
       >
-        Roommate Information
+        Room Information
       </button>
     </div>
   );
 };
 
-export default DormNavBar;
+export default DormerNavBar;
