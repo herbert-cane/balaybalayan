@@ -186,11 +186,10 @@ function MainPage() {
     fetchData();
   }, []);
 
-  // Filter dormitories based on selected options
   const filterDormitories = () => {
-    // Reset to the full list of dormitories before applying filters
-    let results = [...dormitories];
+    let results = [...dormitories]; // Start with all dormitories
   
+    // Filter by location
     if (filterOptions.location) {
       results = results.filter(dorm => {
         const locationWords = filterOptions.location.toLowerCase().split(' ');
@@ -199,12 +198,14 @@ function MainPage() {
       });
     }
   
+    // Filter by dorm type
     if (filterOptions.dormType) {
       results = results.filter(dorm =>
         dorm.type.toLowerCase() === filterOptions.dormType.toLowerCase()
       );
     }
   
+    // Filter by selected amenities
     if (Object.keys(filterOptions.amenities).length > 0) {
       const selectedAmenities = Object.keys(filterOptions.amenities).filter(
         amenity => filterOptions.amenities[amenity]
@@ -214,13 +215,15 @@ function MainPage() {
       );
     }
   
+    // Filter by price range
     if (filterOptions.priceRange) {
       results = results.filter(dorm => dorm.priceCategory === filterOptions.priceRange);
     }
   
-    console.log("Filtered Dormitories:", results);
-    setFilteredDormitories(results);
+    console.log("Filtered Dormitories:", results); // Debugging
+    setFilteredDormitories(results); // Update the state with filtered results
   };
+  
   
 
   const handleSearchClick = () => {
