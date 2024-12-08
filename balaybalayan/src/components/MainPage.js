@@ -8,6 +8,7 @@ import dormimage from './photos/MainPage_Image.png'; // Import the placeholder i
 import './main.css'; // Import the CSS file
 import './swiper-bundle.min.css';
 
+import DormCard from './DormCard.js';
 import DormCarousel from './DormCarousel.js';
 
 // Dropdown component with inline text
@@ -41,7 +42,7 @@ const Dropdown = ({ text, options, onSelect }) => {
 const CheckboxGroup = ({ text, options, onChange }) => {
   const [checkedItems, setCheckedItems] = useState({});
 
-  const handleCheckboxChange = async (option) => {
+  const handleCheckboxChange = (option) => {
     setCheckedItems((prev) => {
       const updatedItems = { ...prev, [option]: !prev[option] };
       onChange(updatedItems);  
@@ -116,7 +117,7 @@ const DormFilterButtons = () => {
   );
 };
 
-function MainPage () {
+function MainPage() {
   const navigate = useNavigate();
   const [filterSearchData, setFilterSearchData] = useState({});
   const [dormitories, setDormitories] = useState([]);
@@ -130,82 +131,104 @@ function MainPage () {
   const [loading, setLoading] = useState(true);
   const [searchClicked, setSearchClicked] = useState(false);
 
+  // Helper functions
+  const parsePriceRange = (priceRangeStr) => {
+    const range = priceRangeStr.split('-').map(price =>
+      parseInt(price.replace('₱', '').replace(',', '').trim())
+    );
+    return range.length === 1 ? [range[0], range[0]] : range;
+  };
 
-  // Fetch filterSearch and dormitories data from Firestore
+  const categorizePriceRange = (priceRange) => {
+    const [minPrice] = parsePriceRange(priceRange);
+
+    if (minPrice < 1000) {
+      return "<₱1000";
+    } else if (minPrice >= 1000 && minPrice < 2000) {
+      return "₱1000 - ₱1999";
+    } else if (minPrice >= 2000 && minPrice < 3000) {
+      return "₱2000 - ₱2999";
+    } else if (minPrice >= 3000 && minPrice < 4000) {
+      return "₱3000 - ₱3999";
+    } else {
+      return ">₱4000";
+    }
+  };
+
+  const categorizeDormitories = (dormitories) => {
+    return dormitories.map(dorm => ({
+      ...dorm,
+      priceCategory: categorizePriceRange(dorm.priceRange),
+    }));
+  };
+
+  // Fetch data from Firestore
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch filterSearch data
         const filterSearchSnapshot = await getDocs(collection(db, 'filterSearch'));
-        const filterSearchData = filterSearchSnapshot.docs.map(doc => doc.data())[0]; // Assuming there's only one document
+        const filterSearchData = filterSearchSnapshot.docs.map(doc => doc.data())[0];
         setFilterSearchData(filterSearchData);
 
-        // Fetch dormitories data
         const dormitoriesSnapshot = await getDocs(collection(db, 'dormitories'));
         const dormitoriesData = dormitoriesSnapshot.docs.map(doc => doc.data());
-        setDormitories(dormitoriesData); // Store dormitories in state
-        setFilteredDormitories(dormitoriesData); // Initialize filtered dormitories
 
-        setLoading(false); // Set loading to false once data is fetched
+        const categorizedDormitories = categorizeDormitories(dormitoriesData);
+        console.log("Fetched Dormitories:", dormitoriesData);
+        setDormitories(categorizedDormitories);
+        setFilteredDormitories(categorizedDormitories);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []); // Empty dependency array to run once
+  }, []);
 
-  // Function to filter dormitories based on selected options
-  const filterDormitories = async () => {
-    let results = dormitories;
-
-    // Filter by Location (case-insensitive)
-    if (filterOptions.location && filterOptions.location.trim() !== "") {
-      results = results.filter(dorm => 
-        dorm.dormAddress && dorm.dormAddress.toLowerCase().includes(filterOptions.location.toLowerCase().trim())
+  // Filter dormitories based on selected options
+  const filterDormitories = () => {
+    // Reset to the full list of dormitories before applying filters
+    let results = [...dormitories];
+  
+    if (filterOptions.location) {
+      results = results.filter(dorm => {
+        const locationWords = filterOptions.location.toLowerCase().split(' ');
+        const dormAddress = dorm.dormAddress.toLowerCase();
+        return locationWords.some(word => dormAddress.includes(word));
+      });
+    }
+  
+    if (filterOptions.dormType) {
+      results = results.filter(dorm =>
+        dorm.type.toLowerCase() === filterOptions.dormType.toLowerCase()
       );
     }
-
-    // Filter by Dorm Type (case-insensitive)
-    if (filterOptions.dormType && filterOptions.dormType.trim() !== "") {
-      results = results.filter(dorm => 
-        dorm.type && dorm.type.toLowerCase().includes(filterOptions.dormType.toLowerCase().trim())
-      );
-    }
-
-    // Filter by Amenities (must match any selected amenities)
+  
     if (Object.keys(filterOptions.amenities).length > 0) {
-      results = results.filter(dorm => {
-        return Object.keys(filterOptions.amenities).every(amenity => {
-          return dorm.amenities && dorm.amenities.includes(amenity);
-        });
-      });
+      const selectedAmenities = Object.keys(filterOptions.amenities).filter(
+        amenity => filterOptions.amenities[amenity]
+      );
+      results = results.filter(dorm =>
+        selectedAmenities.every(amenity => dorm.amenities.includes(amenity))
+      );
     }
-
-    // Filter by Price Range
+  
     if (filterOptions.priceRange) {
-      const [selectedMinPrice, selectedMaxPrice] = parsePriceRange(filterOptions.priceRange);
-      results = results.filter(dorm => {
-        const [dormMinPrice, dormMaxPrice] = parsePriceRange(dorm.priceRange); // Access dorm price range correctly
-        return dormMinPrice >= selectedMinPrice && dormMaxPrice <= selectedMaxPrice;
-      });
+      results = results.filter(dorm => dorm.priceCategory === filterOptions.priceRange);
     }
-
-    // Update filtered dormitories
+  
+    console.log("Filtered Dormitories:", results);
     setFilteredDormitories(results);
   };
+  
 
-  // Helper function to parse price range string
-  const parsePriceRange = (priceRangeStr) => {
-    const range = priceRangeStr.split(' - ').map(price => parseInt(price.replace('₱', '').replace(',', ''))); 
-    return range.length === 1 ? [range[0], range[0]] : range;
-  };
-
-  // Trigger filter on search button click
-  const handleSearchClick =  async() => {
+  const handleSearchClick = () => {
     setSearchClicked(true);
-    filterDormitories(); // Apply filter when search is clicked
+    filterDormitories();
   };
+
+
   return (
     <div>
       <div> {/* Banner */}
@@ -232,42 +255,40 @@ function MainPage () {
           <div className="find-dormitory-card"> {/* Specific class for Find Dormitory Card */}
             <h2 className="card-title">Find Dormitory</h2>
             <br/>
-            <Dropdown
-            text="Location:"
-            options={filterSearchData.locations || []}
-            onSelect={(value) => setFilterOptions((prev) => ({ ...prev, location: value }))} 
-            />
-            <Dropdown
-              text="Type:"
-              options={filterSearchData.type || []}
-              onSelect={(value) => setFilterOptions((prev) => ({ ...prev, dormType: value }))} 
-            />
-            <Dropdown
-              text="Price Range:"
-              options={filterSearchData.priceRange || []}
-              onSelect={(value) => setFilterOptions((prev) => ({ ...prev, priceRange: value }))} 
-            />
-            <CheckboxGroup
-              text="Amenities"
-              options={filterSearchData.amenities || []}
-              onChange={(value) => setFilterOptions((prev) => ({ ...prev, amenities: value }))} 
-            />
+        <Dropdown
+          text="Location:"
+          options={filterSearchData.locations || []}
+          onSelect={(value) => setFilterOptions(prev => ({ ...prev, location: value }))} // set only the selected option
+        />
+        <Dropdown
+          text="Type:"
+          options={filterSearchData.type || []}
+          onSelect={(value) => setFilterOptions(prev => ({ ...prev, dormType: value }))}
+        />
+        <Dropdown
+          text="Price Range:"
+          options={["<₱1000", "₱1000 - ₱1999", "₱2000 - ₱2999", "₱3000 - ₱3999", ">₱4000"]}
+          onSelect={(value) => setFilterOptions(prev => ({ ...prev, priceRange: value }))}
+        />
+        <CheckboxGroup
+          text="Amenities"
+          options={filterSearchData.amenities || []}
+          onChange={(value) => setFilterOptions(prev => ({ ...prev, amenities: value }))}
+        />
+     
 
-            {/* Search Button */}
-            <button onClick={handleSearchClick}>Search Dormitories</button>
-            </div>
+      <button onClick={handleSearchClick}>Search Dormitories</button>
+      </div>
         </div> 
         {/* Right Side - Image */}
         <div className="find-dormitory-container">
           <img id='dormImage' src={dormimage} alt="Dormitory"/>
         </div>
       </div>
-
-      {/* Loading State */}
-      {loading && <p>Loading dormitories...</p>}
-
-      {/* Display Filtered Dormitories */}
-      {searchClicked && (
+      
+      {loading ? (
+        <p>Loading dormitories...</p>
+      ) : searchClicked && (
         filteredDormitories.length > 0 ? (
           <div>
             <h2>Matched Dormitories</h2>
@@ -299,7 +320,7 @@ function MainPage () {
       )}
     </div>
   );
-};
+}
 
 export default MainPage;
 
