@@ -176,12 +176,22 @@ function MainPage() {
         const categorizedDormitories = categorizeDormitories(dormitoriesData);
         console.log("Fetched Dormitories:", dormitoriesData);
         setDormitories(categorizedDormitories);
-        setFilteredDormitories(categorizedDormitories);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+         // Set default filters (optional, based on your requirements)
+      setFilterOptions({
+        location: 'University of the Philippines',
+        dormType: 'University',
+        amenities: {},
+        priceRange: '₱1000',
+      });
+
+      setFilteredDormitories(categorizedDormitories); // Initialize with all data
+      setLoading(false);
+
+ 
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
     fetchData();
   }, []);
@@ -230,7 +240,6 @@ function MainPage() {
     setSearchClicked(true);
     filterDormitories();
   };
-
 
   return (
     <div>
