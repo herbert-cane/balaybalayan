@@ -1,133 +1,176 @@
-/* HomeSection.css */
-
+/* Home Section Container */
 .home-container {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  padding: 20px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr; /* Single column for mobile view */
+  grid-template-areas: 
+    "dorm-info"
+    "announcements"
+    "events"
+    "manager-request";
+  background-color: #f4f7fb;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Grid Area Assignments */
+.dorm-info {
+  grid-area: dorm-info;
+}
+
+.announcements {
+  grid-area: announcements;
+}
+
+.upcoming-events {
+  grid-area: events;
+}
+
+.manager-request-container {
+  grid-area: manager-request;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Subcomponents: General Styling */
+.subcomponent {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Dormitory Info Section */
+.dorm-info {
+  text-align: center;
+}
+
+.dorm-image {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dorm-name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 15px;
+  color: #2c3e50;
+}
+
+.dorm-address,
+.dorm-details {
+  font-size: 1rem;
+  margin: 10px 0;
+  color: #555555;
+}
+
+/* Announcements Section */
+.announcements {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.announcement-content {
+  font-size: 1rem;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Upcoming Events Section */
+.upcoming-events {
+  text-align: center;
+}
+
+.events-content {
+  padding: 15px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Manager Info and Requests Section */
+.manager-info {
+  flex: 1;
+  min-width: 300px;
+}
+
+.manager-card {
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.request-report {
+  flex: 1;
+  min-width: 300px;
+}
+
+.request-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 10px;
+}
+
+.request-option {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #6F96D1;
+  border-radius: 8px;
+  color: #6F96D1;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.request-option:hover {
+  background-color: #6F96D1;
+  color: #ffffff;
+}
+
+/* Desktop Layout */
+@media (min-width: 1024px) {
+  .home-container {
+    grid-template-columns: 2fr 1fr; /* Two-column layout for larger screens */
+    grid-template-areas: 
+      "dorm-info dorm-info"
+      "announcements events"
+      "manager-request manager-request";
   }
-  
-  /* First Section - Dormitory Info */
-  .dorm-info {
-    text-align: left;
-  }
-  
-  .dorm-image {
-    width: 100%;
-    max-width: 100%; /* Responsive to nav bar width */
-    height: auto;
-  }
-  
-  .dorm-name {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 10px 0;
-  }
-  
-  .dorm-address,
-  .dorm-details {
-    font-size: 1rem;
-    margin: 5px 0;
-  }
-  
-  /* Section Titles */
-  .section-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  /* Announcements and Upcoming Events */
-  .announcement-content,
-  .events-content {
-    font-size: 1rem;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  /* Fourth Section - Manager Info and Request/Report */
+
   .manager-request-container {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  
-  /* Manager Card */
-  .manager-info {
-    flex: 1;
-    min-width: 300px;
-  }
-  
-  .manager-card {
-    display: flex;
-    gap: 10px;
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  .manager-left {
-    flex: 1;
-    text-align: center;
-  }
-  
-  .manager-photo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .manager-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  .manager-title {
-    font-size: 0.9rem;
-    color: #555;
-  }
-  
-  .manager-right {
-    flex: 1;
-    font-size: 0.9rem;
-  }
-  
-  .manager-right h4 {
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  /* Request/Report Block */
-  .request-report {
-    flex: 1;
-    min-width: 300px;
-    text-align: left;
-  }
-  
-  .request-options {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 20px;
   }
-  
-  .request-option {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #6F96D1;
-    border-radius: 5px;
-    color: #6F96D1;
-    background-color: transparent;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+  .home-container {
+    grid-template-columns: 1fr; /* Single-column layout for smaller screens */
+    grid-template-areas: 
+      "dorm-info"
+      "announcements"
+      "events"
+      "manager-request";
   }
-  
-  .request-option:hover {
-    background-color: #6F96D1;
-    color: #f9f9f9;
+
+  .request-options {
+    grid-template-columns: 1fr; /* Stack options vertically on smaller screens */
   }
-  
+}

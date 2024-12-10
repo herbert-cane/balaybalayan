@@ -8,18 +8,17 @@ const HomeSection = () => {
   const [dormInfo, setDormInfo] = useState(null); // Store dormitory details
   const [loading, setLoading] = useState(true);
   const [announcements, setAnnouncements] = useState([]);
+  const [importantDates, setImportantDates] = useState([]); // New state for important dates
 
   useEffect(() => {
     const fetchDormitoryDetails = async () => {
       try {
         const user = auth.currentUser;
         if (user) {
-          // Fetch the user's dormitoryId
           const userDoc = await getDoc(doc(db, "users", user.uid));
           if (userDoc.exists() && userDoc.data().dormitoryId) {
             const dormitoryId = userDoc.data().dormitoryId;
 
-            // Fetch dormitory details
             const dormDoc = await getDoc(doc(db, "dormitories", dormitoryId));
             if (dormDoc.exists()) {
               setDormInfo(dormDoc.data());
@@ -46,35 +45,72 @@ const HomeSection = () => {
     const fetchAnnouncements = async () => {
       const user = auth.currentUser;
       if (user) {
-        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        const userDoc = await getDoc(doc(db, "users", user.uid));
         if (userDoc.exists() && userDoc.data().dormitoryId) {
           const dormitoryId = userDoc.data().dormitoryId;
-          const announcementsRef = collection(db, 'dormitories', dormitoryId, 'announcements');
-  
+          const announcementsRef = collection(
+            db,
+            "dormitories",
+            dormitoryId,
+            "announcements"
+          );
+
           const unsubscribe = onSnapshot(announcementsRef, (snapshot) => {
-            const fetchedAnnouncements = snapshot.docs.map((doc) => doc.data().text);
+            const fetchedAnnouncements = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
             setAnnouncements(fetchedAnnouncements);
           });
-  
+
           return () => unsubscribe();
         }
       }
     };
-  
+
     fetchAnnouncements();
   }, []);
-  
+
+  // Fetch important dates
+  useEffect(() => {
+    const fetchImportantDates = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists() && userDoc.data().dormitoryId) {
+          const dormitoryId = userDoc.data().dormitoryId;
+          const datesRef = collection(db, "dormitories", dormitoryId, "importantDates");
+
+          const unsubscribe = onSnapshot(datesRef, (snapshot) => {
+            const fetchedDates = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+            setImportantDates(fetchedDates);
+          });
+
+          return () => unsubscribe();
+        }
+      }
+    };
+
+    fetchImportantDates();
+  }, []); // Empty dependency array to fetch data once
+
   useEffect(() => {
     const fetchManagerInfo = async () => {
       const user = auth.currentUser;
       if (user) {
-        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        const userDoc = await getDoc(doc(db, "users", user.uid));
         if (userDoc.exists() && userDoc.data().dormitoryId) {
           const dormitoryId = userDoc.data().dormitoryId;
-  
-          // Query for the manager
-          const managersRef = collection(db, 'users');
-          const q = query(managersRef, where('dormitoryId', '==', dormitoryId), where('role', '==', 'manager'));
+
+          const managersRef = collection(db, "users");
+          const q = query(
+            managersRef,
+            where("dormitoryId", "==", dormitoryId),
+            where("role", "==", "manager")
+          );
           onSnapshot(q, (snapshot) => {
             const manager = snapshot.docs[0]?.data();
             if (manager) {
@@ -84,7 +120,7 @@ const HomeSection = () => {
         }
       }
     };
-  
+
     fetchManagerInfo();
   }, []);
 
@@ -117,8 +153,11 @@ const HomeSection = () => {
         <h2 className="section-title">Announcements</h2>
         <div className="announcement-content">
           {announcements.length ? (
-            announcements.map((announcement, index) => (
-              <p key={index}>{announcement}</p>
+            announcements.map((announcement) => (
+              <div key={announcement.id} className="announcement-item">
+                <h3 className="announcement-title">{announcement.title}</h3>
+                <p className="announcement-content">{announcement.content}</p>
+              </div>
             ))
           ) : (
             <p>No announcements at this time.</p>
@@ -130,8 +169,15 @@ const HomeSection = () => {
       <div className="upcoming-events">
         <h2 className="section-title">Upcoming Events</h2>
         <div className="events-content">
-          {/* Placeholder for events */}
-          <p>No events scheduled.</p>
+          {importantDates.length ? (
+            importantDates.map((event) => (
+              <div key={event.id} className="event-item">
+                <strong>{event.date}</strong> - {event.event}
+              </div>
+            ))
+          ) : (
+            <p>No upcoming events scheduled.</p>
+          )}
         </div>
       </div>
 

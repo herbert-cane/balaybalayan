@@ -28,7 +28,7 @@ const Overview = () => {
         <Announcements dormitoryId={dormitoryId} addAnnouncement={addAnnouncement} />
       </div>
       <div className="important-dates-section">
-        <ImportantDates dates={importantDates} addDate={addImportantDate} />
+        <ImportantDates dormitoryId= {dormitoryId} dates={importantDates} addDate={addImportantDate} />
       </div>
     </div>
   );

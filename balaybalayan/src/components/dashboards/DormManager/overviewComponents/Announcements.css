@@ -1,0 +1,124 @@
+.announcements {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h3 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .announcements-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  
+  .announcement-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .announcement-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .announcement-header h4 {
+    margin: 0;
+    color: #2c3e50;
+  }
+  
+  .announcement-header .announcement-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn-edit,
+  .btn-delete {
+    padding: 5px 10px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-edit {
+    background-color: #f1c40f;
+    color: #fff;
+  }
+  
+  .btn-edit:hover {
+    background-color: #d4ac0d;
+  }
+  
+  .btn-delete {
+    background-color: #e74c3c;
+    color: #fff;
+  }
+  
+  .btn-delete:hover {
+    background-color: #c0392b;
+  }
+  
+  .btn-see-more {
+    display: block;
+    margin: 10px auto;
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-see-more:hover {
+    background-color: #2980b9;
+  }
+  
+  .announcement-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .input-title,
+  .input-content {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .input-content {
+    resize: none;
+    height: 80px;
+  }
+  
+  .btn-post {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-post:hover {
+    background-color: #2980b9;
+  }
+  

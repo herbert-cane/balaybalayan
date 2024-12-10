@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../../firebase'; // Firebase config
-import { collection, addDoc, onSnapshot, updateDoc, doc, query, where, getDocs } from 'firebase/firestore';
+import { collection, setDoc, onSnapshot, updateDoc, doc, query, where, getDocs, deleteDoc } from 'firebase/firestore';
 import { useAuth } from '../../../AuthContext';
-
 import './Rooms.css';
 
 const Rooms = () => {
   const { dormitoryId } = useAuth();
-
   const [rooms, setRooms] = useState([]);
   const [dormers, setDormers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,20 +16,31 @@ const Rooms = () => {
     amenities: '',
     status: 'Available',
   });
+  const [successMessage, setSuccessMessage] = useState('');
 
   // Fetch rooms
   useEffect(() => {
     if (!dormitoryId) return;
-
+  
     const roomsRef = collection(db, `dormitories/${dormitoryId}/rooms`);
-
     const unsubscribe = onSnapshot(roomsRef, (snapshot) => {
-      setRooms(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      const sortedRooms = snapshot.docs
+        .map((doc) => ({ id: doc.id, ...doc.data() }))
+        .sort((a, b) => {
+          // Extracting numeric part from room names, assuming names like "Room 1", "Room 2", etc.
+          const numA = parseInt(a.name.replace(/\D/g, '')); // Remove non-numeric characters and convert to number
+          const numB = parseInt(b.name.replace(/\D/g, '')); // Same for room b
+          
+          return numA - numB; // Sort numerically
+        });
+  
+      setRooms(sortedRooms);
       setLoading(false);
     });
-
+  
     return unsubscribe;
   }, [dormitoryId]);
+  
 
   // Fetch dormers
   useEffect(() => {
@@ -57,8 +66,9 @@ const Rooms = () => {
       return;
     }
   
-    const roomID = `Room-${rooms.length + 1}`;
-    
+    // Create a custom roomID based on the room name
+    const customRoomID = newRoom.name.trim().toLowerCase().replace(/\s+/g, '');
+  
     if (!newRoom.price || newRoom.price < 0 || newRoom.price > 15000) {
       alert('Price must be between 0 and 15,000.');
       return;
@@ -70,20 +80,34 @@ const Rooms = () => {
     }
   
     try {
-      const roomsRef = collection(db, `dormitories/${dormitoryId}/rooms`);
-      console.log("Adding to path:", `dormitories/${dormitoryId}/rooms`); // Debugging
-      await addDoc(roomsRef, {
-        roomID,
+      const roomsRef = doc(db, `dormitories/${dormitoryId}/rooms`, customRoomID); // Use custom roomID
+      await setDoc(roomsRef, {
+        roomID: customRoomID,
         ...newRoom,
         maxOccupants: parseInt(newRoom.maxOccupants, 10),
       });
   
       setNewRoom({ maxOccupants: 1, price: 0, size: 'Single Bed', amenities: '', status: 'Available' });
+      setSuccessMessage('Room added successfully!');
+      setTimeout(() => setSuccessMessage(''), 3000); // Clear success message after 3 seconds
     } catch (error) {
       console.error('Error adding room:', error);
     }
-  };
+  };  
   
+  // Delete a room
+  const deleteRoom = async (roomID) => {
+    if (window.confirm('Are you sure you want to delete this room? This action cannot be undone.')) {
+      try {
+        const roomRef = doc(db, `dormitories/${dormitoryId}/rooms`, roomID);
+        await deleteDoc(roomRef);
+        setRooms(rooms.filter(room => room.id !== roomID)); // Remove room from local state
+      } catch (error) {
+        console.error('Error deleting room:', error);
+      }
+    }
+  };
+
   // Toggle room availability
   const toggleAvailability = async (roomID, currentStatus) => {
     try {
@@ -95,37 +119,55 @@ const Rooms = () => {
   };
 
   const addDormerToRoom = async (roomID, dormerId) => {
-    // Check if the dormer is already assigned to any other room
+    const room = rooms.find((r) => r.id === roomID);
+    if (!room) {
+      alert('Room not found.');
+      return;
+    }
+  
     const existingRoom = rooms.find((r) => r.dormers?.includes(dormerId));
     if (existingRoom) {
       alert('Dormer is already assigned to another room.');
       return;
     }
   
-    // Find the room to add the dormer to
-    const room = rooms.find((r) => r.id === roomID);
-    if (room && room.dormers?.length >= room.maxOccupants) {
+    if (room.dormers?.length >= room.maxOccupants) {
       alert('Cannot add more dormers. Max capacity reached.');
+      // Update status to 'Occupied' if max occupants are reached
+      try {
+        const roomRef = doc(db, `dormitories/${dormitoryId}/rooms`, roomID);
+        await updateDoc(roomRef, { status: 'Occupied' });
+        setRooms((prevRooms) =>
+          prevRooms.map((r) => (r.id === roomID ? { ...r, status: 'Occupied' } : r))
+        );
+      } catch (error) {
+        console.error('Error updating room status:', error);
+      }
       return;
     }
   
     try {
-      // Add the dormer to the room
       const updatedDormers = [...(room.dormers || []), dormerId];
       const roomRef = doc(db, `dormitories/${dormitoryId}/rooms`, roomID);
       await updateDoc(roomRef, { dormers: updatedDormers });
   
-      // Update the local state to reflect the changes
-      setRooms((prevRooms) =>
-        prevRooms.map((r) => (r.id === roomID ? { ...r, dormers: updatedDormers } : r))
-      );
+      // Check if the room is now full and update its status
+      if (updatedDormers.length >= room.maxOccupants) {
+        await updateDoc(roomRef, { status: 'Occupied' });
+        setRooms((prevRooms) =>
+          prevRooms.map((r) => (r.id === roomID ? { ...r, dormers: updatedDormers, status: 'Occupied' } : r))
+        );
+      } else {
+        setRooms((prevRooms) =>
+          prevRooms.map((r) => (r.id === roomID ? { ...r, dormers: updatedDormers } : r))
+        );
+      }
     } catch (error) {
       console.error('Error adding dormer:', error);
     }
-  };
+  };  
   
   const removeDormerFromRoom = async (roomID, dormerId) => {
-    // Find the room and check if the dormer is in it
     const room = rooms.find((r) => r.id === roomID);
     if (!room || !room.dormers?.includes(dormerId)) {
       alert('Dormer not found in this room.');
@@ -133,24 +175,30 @@ const Rooms = () => {
     }
   
     try {
-      // Remove the dormer from the room
       const updatedDormers = room.dormers.filter((id) => id !== dormerId);
       const roomRef = doc(db, `dormitories/${dormitoryId}/rooms`, roomID);
       await updateDoc(roomRef, { dormers: updatedDormers });
   
-      // Update the local state to reflect the changes
-      setRooms((prevRooms) =>
-        prevRooms.map((r) => (r.id === roomID ? { ...r, dormers: updatedDormers } : r))
-      );
+      // If there are vacancies, update the room status to 'Available'
+      if (updatedDormers.length < room.maxOccupants) {
+        await updateDoc(roomRef, { status: 'Available' });
+        setRooms((prevRooms) =>
+          prevRooms.map((r) => (r.id === roomID ? { ...r, dormers: updatedDormers, status: 'Available' } : r))
+        );
+      } else {
+        setRooms((prevRooms) =>
+          prevRooms.map((r) => (r.id === roomID ? { ...r, dormers: updatedDormers } : r))
+        );
+      }
     } catch (error) {
       console.error('Error removing dormer:', error);
     }
-  };
+  };  
 
   return (
     <div>
       {loading ? (
-        <p>Loading...</p>
+        <div className="loading-spinner">Loading...</div> // You can use a spinner or skeleton loader here
       ) : (
         <div className="rooms-container">
           {rooms.map((room) => (
@@ -168,7 +216,7 @@ const Rooms = () => {
                   return dormer ? (
                     <li key={dormerId}>
                       {dormer.firstName} {dormer.lastName}
-                      <button className ="remove-button" onClick={() => removeDormerFromRoom(room.id, dormerId)}>Remove</button>
+                      <button className="remove-button" onClick={() => removeDormerFromRoom(room.id, dormerId)}>Remove</button>
                     </li>
                   ) : null;
                 })}
@@ -192,10 +240,12 @@ const Rooms = () => {
               <button onClick={() => toggleAvailability(room.id, room.status)}>
                 {room.status === 'Available' ? 'Mark as Occupied' : 'Mark as Available'}
               </button>
+              <button onClick={() => deleteRoom(room.id)}>Delete Room</button>
             </div>
           ))}
         </div>
       )}
+      {successMessage && <p className="success-message">{successMessage}</p>}
       <div className="add-room-form">
         <h3>Add New Room</h3>
 
@@ -260,4 +310,4 @@ const Rooms = () => {
   );
 };
 
-export default Rooms; 
+export default Rooms;

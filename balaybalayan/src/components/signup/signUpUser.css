@@ -167,3 +167,22 @@ input[type="file"]::-webkit-file-upload-button:hover {
   .price-input input {
     flex: 1;
   }
+
+  /* Dormer */
+  select {
+    font-size: 16px;
+    padding: 8px;
+    margin: 10px 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  option {
+    color: #333;
+    background-color: #fff;
+  }
+  
+
+  

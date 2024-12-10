@@ -86,7 +86,10 @@ function ExplorePage() {
           filteredDorms.map((dorm, index) => (
             <div key={index} className="explore-dorm-card">
               <div className="dorm-photo">
-                <img src={dorm.dormPhoto} alt={dorm.dormName} className="dorm-image" />
+                <img  src={dorm.dormPhoto || 'https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/dorm_carousel_pic%2FplaceholderPic.png?alt=media&token=14f3543c-127e-46e9-9729-fd03379a70ab'} 
+                      alt={dorm.dormName} 
+                      className="dorm-image" 
+                />
               </div>
               <div className="dorm-info">
                 <h3 className="dorm-name">{dorm.dormName}</h3>

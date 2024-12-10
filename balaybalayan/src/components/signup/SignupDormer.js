@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthContext';
 import { Navigate } from 'react-router-dom';
-import { uploadProfilePhoto } from '../../utils/firebaseStorage'; 
-import { doc, setDoc, getDocs, collection } from 'firebase/firestore'; 
-import { db } from '../../firebase'; 
-import './signUpUser.css'; 
+import { uploadProfilePhoto } from '../../utils/firebaseStorage';
+import { doc, setDoc, getDocs, collection, query, where } from 'firebase/firestore';
+import { db } from '../../firebase';
+import './signUpUser.css';
 
 const SignUpDormer = () => {
   const { signup, user } = useAuth();
@@ -23,15 +23,21 @@ const SignUpDormer = () => {
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [error, setError] = useState(null);
   const [redirect, setRedirect] = useState(false);
-  const [dormitories, setDormitories] = useState([]);  // New state for dormitories
+  const [dormitories, setDormitories] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  const [selectedRoom, setSelectedRoom] = useState('');
+  const [dormitoryId, setDormitoryId] = useState('');
 
   // Fetch dormitories from Firestore
   useEffect(() => {
     const fetchDormitories = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'dormitories'));
-        const dorms = querySnapshot.docs.map(doc => doc.data());
-        setDormitories(dorms); // Save dormitories data to state
+        const dorms = querySnapshot.docs.map(doc => ({
+          dormName: doc.data().dormName,
+          dormitoryId: doc.id,  // Save the dormitoryId here
+        }));
+        setDormitories(dorms);
       } catch (error) {
         console.error("Error fetching dormitories:", error);
       }
@@ -40,46 +46,117 @@ const SignUpDormer = () => {
     fetchDormitories();
   }, []);
 
+// Fetch available rooms when a dormitory is selected
+useEffect(() => {
+  if (dormitoryId) {
+    console.log("Fetching rooms for dormitoryId:", dormitoryId);  // Debugging log
+    const fetchRooms = async () => {
+      try {
+        const roomQuery = query(
+          collection(db, 'dormitories', dormitoryId, 'rooms'),
+          where('status', '==', 'Available')
+        );
+        const querySnapshot = await getDocs(roomQuery);
+
+        // Check if the querySnapshot is empty
+        if (querySnapshot.empty) {
+          console.log("No available rooms found.");
+          setRooms([]);  // No rooms available
+        } else {
+          // Extract room data correctly
+          const availableRooms = querySnapshot.docs.map(doc => ({
+            id: doc.id,  // roomID
+            name: doc.data().name  // Room name
+          }));
+
+          // Sort the rooms by the room number extracted from the name
+          const sortedRooms = availableRooms.sort((a, b) => {
+            const roomA = a.name.match(/(\d+)/);
+            const roomB = b.name.match(/(\d+)/);
+
+            if (roomA && roomB) {
+              return parseInt(roomA[0]) - parseInt(roomB[0]);
+            }
+            return 0;  // If no number is found, leave them in the current order
+          });
+
+          console.log("Available rooms (sorted):", sortedRooms);  // Debugging log
+          setRooms(sortedRooms);
+        }
+      } catch (error) {
+        console.error("Error fetching rooms:", error);
+      }
+    };
+
+    fetchRooms();
+  }
+}, [dormitoryId]);  // Fetch rooms whenever the dormitoryId changes
+  
   const handleSignUp = async (e) => {
     e.preventDefault();
-
+  
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-
+  
     try {
+      // Create the new dormer user
       const userCredential = await signup(email, password, 'dormer', {
         firstName,
         lastName,
         sex,
         phoneNumber,
         dormName,
+        dormitoryId,  // Save dormitoryId as part of the user
         moveInDate,
         emergencyContact: {
           firstName: emergencyContactFirstName,
           lastName: emergencyContactLastName,
           phone: emergencyContactPhone,
         },
-        profilePhotoURL: '', 
+        profilePhotoURL: '',
+        room: selectedRoom, // Save selected room
       });
-
+  
       const userId = userCredential.user.uid;
   
+      // Upload the profile photo if provided
       let profilePhotoURL = '';
       if (profilePhoto) {
         profilePhotoURL = await uploadProfilePhoto(profilePhoto, userId);
         await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
       }
   
-      await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
+    // After signing up the user and selecting a room
+    if (selectedRoom && dormitoryId) {
+      const roomRef = doc(db, 'dormitories', dormitoryId, 'rooms', selectedRoom); // Use roomID (not room name)
 
+      try {
+        // Add dormer's user ID to the room's dormers subcollection
+        await setDoc(
+          roomRef,
+          {
+            dormers: [userId]  // Add dormer's userId to the dormers array
+          },
+          { merge: true }
+        );
+        console.log("Dormer added to room:", selectedRoom);
+      } catch (error) {
+        console.error("Error adding dormer to room:", error);
+      }
+    }
+  
+      // Update the user profile in the users collection
+      await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
+  
+      // Redirect the user after successful signup
       setRedirect(true);
     } catch (error) {
       setError(error.message);
     }
   };
-
+  
   if (user && redirect) {
     return <Navigate to="/dormers" replace />;
   }
@@ -149,14 +226,31 @@ const SignUpDormer = () => {
             />
           </div>
         </div>
-        <select value={dormName} onChange={(e) => setDormName(e.target.value)} required>
+        <select value={dormName} onChange={(e) => {
+          const selectedDorm = dormitories.find(dorm => dorm.dormName === e.target.value);
+          setDormName(e.target.value);
+          setDormitoryId(selectedDorm.dormitoryId);  // Set dormitoryId for querying rooms
+        }} required>
           <option className='labels' value="">Choose the dorm you're currently staying at:</option>
           {dormitories.map(dorm => (
-            <option key={dorm.dormName} value={dorm.dormName}>
+            <option key={dorm.dormitoryId} value={dorm.dormName}>
               {dorm.dormName}
             </option>
           ))}
         </select>
+        <select value={selectedRoom} onChange={(e) => setSelectedRoom(e.target.value)} required>
+          <option className='labels' value="">Choose a room:</option>
+          {rooms.length > 0 ? (
+            rooms.map((room, index) => (
+              <option key={index} value={room.id}>  {/* Use roomID here */}
+                {room.name}
+              </option>
+            ))
+          ) : (
+            <option disabled>No available rooms</option>
+          )}
+        </select>
+        <h3 className='labels'>Moving in Date:</h3>
         <input
           type="date"
           placeholder="Move-in Date"

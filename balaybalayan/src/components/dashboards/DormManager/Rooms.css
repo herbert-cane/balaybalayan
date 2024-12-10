@@ -168,3 +168,16 @@
   }
 }
 
+/* Add styles for spinner and success message */
+.loading-spinner {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.success-message {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}

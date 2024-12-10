@@ -1,58 +1,109 @@
 /* General nav styling */
 nav {
-    background-color: #6F96D1; /* Updated navbar color */
-    padding: 0px; /* Reduced padding to make the navbar thinner */
+    background-color: #344EAD;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: "Instrument Sans", sans-serif; /* Use your custom font */
-    filter:saturate(75%);
-}
-
-/* Logo image styling */
-nav img {
-    height: 70px; /* Increased size of the logo */
-}
-
-/* Welcome message styling */
-nav p {
-    margin: 0;
-    font-size: 18px;
-}
-
-/* Button styling */
-nav button {
-    border: none;
-    margin: 10px;
     padding: 10px 20px;
+    font-family: "Instrument Sans", sans-serif;
+    filter: saturate(75%);
+    height: 80px;
+    position: relative; /* Ensures the elements inside the nav are layered correctly */
+    z-index: 10; /* Ensures the navbar itself is at a higher layer */
+  }
+  
+  /* Logo image styling */
+  nav .logo img {
+    height: 60px;  /* Keep this height for the main logo */
+    width: auto;
+  }
+  
+  /* Small button for Dashboard */
+  .dashboard-button {
+    display: inline-flex;  /* Make sure it aligns inline with other elements */
+    align-items: center;  /* Vertically center the small logo */
+  }
+  
+  .dashboard-button img {
+    height: 40px; /* Reduced height to fit properly */
+    width: auto;
+  }
+  
+  /* User actions container */
+  .user-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative; /* Needed for stacking */
+    z-index: 20; /* Ensures the user actions are on top of the other elements */
+  }
+  
+  /* Style for login/logout buttons */
+  .user-actions button,
+  .login-btn {
+    background-color: #ffffff;
+    color: #EDF0F5;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 50px;  /* Rounded edges */
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Hover effect for buttons */
+  .user-actions button:hover,
+  .login-btn:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05); /* Slight zoom effect on hover */
+  }
+  
+  /* Dropdown menu styling */
+  .user-actions .dropdown {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-nav button:hover {
-    background-color: #091F5B;
-    color: white; /* Darker red on hover */
-    border-color:#091F5B;
-}
-
-/* Login button container styling */
-nav div {
     display: flex;
-    justify-content: flex-end;
-}
-
-nav div button {
-    background-color: white; /* White background for login button */
-    color: #091F5B; /* Text color for login button */
-}
-
-/* Instrument Sans CSS class for variable style */
-.instrument-sans-unique {
-    font-family: "Instrument Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400; /* Adjust as needed (400, 500, 600, 700) */
-    font-style: normal;
-    font-variation-settings: "wdth" 100; /* Adjust as needed */
-}
+    flex-direction: column;
+    gap: 10px;
+    z-index: 30; /* Ensures the dropdown is above other content */
+  }
+  
+  /* Ensuring the dropdown items are at a higher layer */
+  .user-actions .dropdown a,
+  .user-actions .dropdown button {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #3b5998;
+    font-size: 14px;
+  }
+  
+  .user-actions .dropdown a:hover,
+  .user-actions .dropdown button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Mobile responsive styling */
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .user-actions {
+      margin-top: 10px;
+      flex-direction: column;
+      align-items: flex-start;
+      z-index: 20; /* Keep the user actions above other elements */
+    }
+  
+    .user-actions .dropdown {
+      top: 60px;
+      z-index: 30; /* Keep the dropdown above other content */
+    }
+  }  

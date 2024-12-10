@@ -3,15 +3,16 @@ import { useAuth } from '../AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import './nav.css';  
+import './nav.css';
 
 function Navbar() {
   const { user, logout } = useAuth();
-  const [userProfile, setUserProfile] = useState(null); 
-  const location = useLocation(); 
+  const [userProfile, setUserProfile] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false); // For handling profile dropdown
+  const location = useLocation();
 
-  const isAuthPage = 
-    location.pathname === '/login/dormer' || 
+  const isAuthPage =
+    location.pathname === '/login/dormer' ||
     location.pathname === '/login/manager' ||
     location.pathname === '/signup/dormer' ||
     location.pathname === '/signup/manager';
@@ -20,10 +21,10 @@ function Navbar() {
     if (user && user.uid) {
       const fetchUserProfile = async () => {
         try {
-          const userDocRef = doc(db, 'users', user.uid); 
+          const userDocRef = doc(db, 'users', user.uid);
           const userDocSnap = await getDoc(userDocRef);
           if (userDocSnap.exists()) {
-            setUserProfile(userDocSnap.data()); 
+            setUserProfile(userDocSnap.data());
           } else {
             console.log('No such document!');
           }
@@ -34,24 +35,59 @@ function Navbar() {
 
       fetchUserProfile();
     }
-  }, [user]); 
+  }, [user]);
+
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+
+  // Check if the user is a dormer or manager
+  const getUserDashboardLink = () => {
+    if (userProfile) {
+      if (userProfile.role === 'dormer') {
+        return '/dormers';
+      } else if (userProfile.role === 'manager') {
+        return '/dorm-manager';
+      }
+    }
+    return null;
+  };
 
   return (
     <nav>
-      <Link to="/"> {/* Link to MainPage */}
-        <img src={require('./photos/logo2.png')} alt="Logo" style={{ display: 'block', margin: '0 auto', height: '75px' }} />
+      <Link to="/" className="logo"> {/* Link to MainPage */}
+        <img
+          src={require('./photos/alt_logo.png')}
+          alt="Logo"
+          style={{ height: '60px' }}
+        />
       </Link>
-      
+
+      {/* Show the small logo only if the user is logged in */}
+      {userProfile && getUserDashboardLink() && (
+        <Link to={getUserDashboardLink()} className="dashboard-button">
+          <img
+            src={require('./photos/small_logo.png')}
+            alt="Logo"
+            style={{ height: '40px' }}
+          />
+        </Link>
+      )}
+
       {user ? (
-        <>
-          <p>Welcome, {userProfile ? userProfile.firstName : 'Loading...'}</p>
-          <button onClick={logout}>Logout</button>
-        </>
+        <div className="user-actions">
+          <button onClick={toggleDropdown}>
+            {userProfile ? userProfile.firstName : 'Loading...'}
+          </button>
+          {dropdownOpen && (
+            <div className="dropdown">
+              <button onClick={logout}>Logout</button>
+            </div>
+          )}
+        </div>
       ) : (
         !isAuthPage && (
-            <Link to="/login/dormer">
-              <button style={{ marginRight: '15px' }}>Login</button>
-            </Link>
+          <Link to="/login/dormer">
+            <button className="login-btn">Login</button>
+          </Link>
         )
       )}
     </nav>

@@ -35,8 +35,8 @@ const MainSignup = () => {
         <img src={mainimage} alt="Signup Visual" />
       </div>
       <div className="signup-form">
-        <h1>Welcome!</h1>
-        <p>Lorem Ipsum</p>
+        <h1>Sign up</h1>
+        <p>Welcome to balay-balayan!</p>
         <h3>Sign up as:</h3>
         <div className="user-type-options">
           <div 
@@ -44,14 +44,14 @@ const MainSignup = () => {
             onClick={() => handleUserTypeChange('Dorm Manager')}
           >
             <h4>Dorm Manager</h4>
-            <p>Lorem ipsum dolor sit amet.</p>
+            <p>You are managing a dormitory in UPV.</p>
           </div>
           <div 
             className={`user-type-card ${userType === 'Dormer' ? 'selected' : ''}`} 
             onClick={() => handleUserTypeChange('Dormer')}
           >
             <h4>Dormer</h4>
-            <p >Lorem ipsum dolor sit amet.</p>
+            <p >You are a student in UPV looking for a dormitory.</p>
           </div>
         </div>
 

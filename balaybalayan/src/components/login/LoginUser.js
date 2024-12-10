@@ -34,7 +34,7 @@ const Login = () => {
         </div>
         <div className="form-content">
           <h1>Log in</h1>
-          <p>Lorem Ipsum</p>
+          <p>Welcome to balay-balayan!</p>
 
           <div className="user-type-options">
             <div
