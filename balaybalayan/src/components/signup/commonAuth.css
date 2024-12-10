@@ -1,0 +1,106 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  .auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh; /* Adjust for full view height */
+    padding: 20px;
+    max-width: 1200px; /* Limit the maximum width */
+    margin: auto;
+    flex-wrap: wrap; /* Enable stacking in smaller viewports */
+  }
+  
+  .auth-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px; /* Spacing for smaller screens */
+  }
+  
+  .auth-image img {
+    width: 100%;
+    height: auto;
+    max-width: 400px; /* Restrict image size */
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  .auth-form {
+    flex: 1.5;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center; /* Center-align content for consistency */
+  }
+  
+  .auth-form h1 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .auth-form p {
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .auth-form .input-field {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .auth-form .primary-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #2980B9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .auth-form .primary-btn:hover {
+    background-color: #1A5276;
+  }
+  
+  .auth-form a {
+    color: #2980B9;
+    text-decoration: none;
+  }
+  
+  .auth-form a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .auth-container {
+      flex-direction: column; /* Stack image and form vertically */
+    }
+  
+    .auth-image {
+      margin-bottom: 20px;
+    }
+  
+    .auth-form {
+      padding: 20px;
+    }
+  
+    .auth-form .primary-btn {
+      font-size: 14px;
+      padding: 12px;
+    }
+  }
+  

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Include useNavigate for programmatic navigation
+import { Link, useNavigate } from 'react-router-dom';
 import './mainSignUp.css';
 import mainimage from './image2.png';
 
@@ -31,48 +31,51 @@ const MainSignup = () => {
 
   return (
     <div className="signup-container">
-      <div className="signup-image">
-        <img src={mainimage} alt="Signup Visual" />
-      </div>
       <div className="signup-form">
-        <h1>Sign up</h1>
-        <p>Welcome to balay-balayan!</p>
-        <h3>Sign up as:</h3>
-        <div className="user-type-options">
-          <div 
-            className={`user-type-card ${userType === 'Dorm Manager' ? 'selected' : ''}`} 
-            onClick={() => handleUserTypeChange('Dorm Manager')}
-          >
-            <h4>Dorm Manager</h4>
-            <p>You are managing a dormitory in UPV.</p>
-          </div>
-          <div 
-            className={`user-type-card ${userType === 'Dormer' ? 'selected' : ''}`} 
-            onClick={() => handleUserTypeChange('Dormer')}
-          >
-            <h4>Dormer</h4>
-            <p >You are a student in UPV looking for a dormitory.</p>
-          </div>
+        <div className="signup-image">
+          <img src={mainimage} alt="Signup Visual" />
         </div>
+        <div className="form-content">
+          <h1>Sign up</h1>
+          <p>Welcome to balay-balayan!</p>
+          <h3>Sign up as:</h3>
 
-        {/* Information text */}
-        <div className="info-container">
-          {userType === 'Dorm Manager' && (
-            <p className="info-text">Manage the dormitory.</p>
-          )}
-          {userType === 'Dormer' && (
-            <p className="info-text">Live in the dormitory.</p>
-          )}
-        </div>
+          <div className="user-type-options">
+            <div
+              className={`user-type-card ${userType === 'Dorm Manager' ? 'selected' : ''}`}
+              onClick={() => handleUserTypeChange('Dorm Manager')}
+            >
+              <h4>Dorm Manager</h4>
+              <p>You are managing a dormitory in UPV.</p>
+            </div>
+            <div
+              className={`user-type-card ${userType === 'Dormer' ? 'selected' : ''}`}
+              onClick={() => handleUserTypeChange('Dormer')}
+            >
+              <h4>Dormer</h4>
+              <p>You are a student in UPV looking for a dormitory.</p>
+            </div>
+          </div>
 
-        <button className="continue-btn" onClick={handleContinue}>
-          Continue
-        </button>
-        
-        <div style={{ marginTop: '20px' }}>
-        <p className="signup-link">
-          Already have an account? <Link to="/login/dormer">Login</Link>
-        </p>
+          {/* Information text */}
+          <div className="info-container">
+            {userType === 'Dorm Manager' && (
+              <p className="info-text">Manage the dormitory.</p>
+            )}
+            {userType === 'Dormer' && (
+              <p className="info-text">Live in the dormitory.</p>
+            )}
+          </div>
+
+          <button className="continue-btn" onClick={handleContinue}>
+            Continue
+          </button>
+
+          <div style={{ marginTop: '20px' }}>
+            <p className="signup-link">
+              Already have an account? <Link to="/login/dormer">Login</Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

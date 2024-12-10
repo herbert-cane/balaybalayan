@@ -1,17 +1,21 @@
+/* General body styling */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4; 
+  background-color: #f4f4f4;
 }
 
+/* Main container for the login page */
 .login-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 80px); /* Adjust height to leave space for a navbar */
-  padding: 20px; /* Add padding for spacing */
+  min-height: calc(100vh - 80px); /* Adjust height to account for a navbar */
+  padding: 20px;
+  background-color: #f4f4f4;
 }
 
+/* Form container */
 .login-form {
   display: flex;
   flex-direction: row;
@@ -19,17 +23,19 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   overflow: hidden;
-  width: 75%; /* Take up 75% of the screen width */
-  max-width: 900px; /* Limit the maximum width */
-  margin: 0 auto; /* Center horizontally */
+  width: 75%;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
+/* Image container */
 .login-image {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background-color: #f0f0f0; /* Fallback for missing image */
 }
 
 .login-image img {
@@ -38,31 +44,37 @@ body {
   object-fit: cover;
 }
 
+/* Form content */
 .form-content {
   flex: 1.5;
   padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 15px;
 }
 
-
+/* Adjust user-type options container for consistent layout */
 .user-type-options {
   display: flex;
   justify-content: space-between;
+  gap: 10px; /* Add consistent spacing between cards */
   margin-bottom: 20px;
+  flex-wrap: wrap; /* Ensure cards wrap properly in smaller viewports */
 }
 
+/* Ensure user-type cards are fully responsive */
 .user-type-card {
-  flex: 1;
-  padding: 20px;
-  margin: 0 10px;
+  flex: 1; /* Allow cards to share equal width */
+  padding: 15px;
   border: 2px solid #ccc;
   border-radius: 10px;
   background-color: #f9f9f9;
   text-align: center;
   cursor: pointer;
   transition: border 0.3s, background-color 0.3s;
+  box-sizing: border-box; /* Ensure padding is included in width calculations */
+  min-width: 0; /* Prevent cards from overflowing */
 }
 
 .user-type-card.selected {
@@ -70,47 +82,73 @@ body {
   background-color: #d6e9f8;
 }
 
+/* Input fields styling */
 .input-field {
   width: 100%;
-  padding: 15px;
-  margin-bottom: 20px;
+  padding: 12px;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 14px;
 }
 
+/* Login button */
 .login-btn {
   width: 100%;
-  padding: 15px;
+  padding: 12px;
   background-color: #2980B9;
   color: white;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
   font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .login-btn:hover {
   background-color: #1A5276;
 }
 
+/* Signup link */
 .signup-link {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 15px;
+  font-size: 14px;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
+  /* Stack the image and form vertically */
   .login-form {
-    flex-direction: column; /* Stack image and form vertically */
-    width: 90%; /* Allow more space for smaller screens */
+    flex-direction: column;
+    width: 100%;
   }
 
   .login-image {
-    height: 200px; /* Fixed height for the image in smaller viewports */
+    height: 180px; /* Fixed height for smaller screens */
   }
 
-  .login-image img {
-    height: 100%;
-    object-fit: cover;
+  .form-content {
+    padding: 20px;
+    gap: 10px;
   }
+
+  .user-type-card {
+    width: 100%; /* Ensure full-width on mobile */
+    padding: 12px; /* Adjust padding for better fit */
+  }
+
+  .login-btn {
+    font-size: 14px; /* Adjust button font size */
+    padding: 10px;
+  }
+
+  .signup-link {
+    font-size: 12px; /* Adjust font size for smaller screens */
+  }
+  .user-type-options {
+    flex-direction: column; /* Stack the cards vertically */
+    gap: 15px; /* Add spacing between stacked cards */
+  }
+  
 }

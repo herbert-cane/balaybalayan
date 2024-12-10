@@ -6,27 +6,77 @@ nav {
     align-items: center;
     padding: 10px 20px;
     font-family: "Instrument Sans", sans-serif;
-    filter: saturate(75%);
     height: 80px;
-    position: relative; /* Ensures the elements inside the nav are layered correctly */
-    z-index: 10; /* Ensures the navbar itself is at a higher layer */
+    position: relative;
+    z-index: 10;
+    flex-wrap: wrap; /* Ensure elements wrap on smaller screens */
   }
   
-  /* Logo image styling */
-  nav .logo img {
-    height: 60px;  /* Keep this height for the main logo */
+  /* Center the logo for auth pages */
+  nav.auth-page {
+    justify-content: center; /* Center all elements in the navbar */
+  }
+  
+  .logo .logo-desktop {
+    display: block;
+    height: 60px;
     width: auto;
   }
   
-  /* Small button for Dashboard */
-  .dashboard-button {
-    display: inline-flex;  /* Make sure it aligns inline with other elements */
-    align-items: center;  /* Vertically center the small logo */
+  .logo .logo-mobile {
+    display: none; /* Hidden by default */
+    height: 40px; /* Adjust height for mobile */
+    width: auto;
   }
   
-  .dashboard-button img {
-    height: 40px; /* Reduced height to fit properly */
-    width: auto;
+  /* Media query for mobile screens */
+  @media (max-width: 768px) {
+    /* Hide desktop logo */
+    .logo .logo-desktop {
+      display: none;
+    }
+  
+    /* Show mobile logo */
+    .logo .logo-mobile {
+      display: block;
+    }
+  
+    /* Center the login button for mobile */
+    nav.auth-page {
+      justify-content: center;
+      align-items: center;
+    }
+  
+    /* Login button adjustments */
+    .login-btn {
+      background-color: #ffffff;
+      color: #344EAD;
+      padding: 12px 25px;
+      border: 1px solid #ddd;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      width: auto; /* Make button width adjust to content */
+      max-width: 200px; /* Set a max width for the button */
+      text-align: center;
+    }
+  
+    /* Hover effect for buttons */
+    .login-btn:hover {
+      background-color: #f0f0f0;
+      transform: scale(1.05);
+    }
+  
+    /* Ensure other navbar items are hidden */
+    .user-actions, .dashboard-button, .logo-desktop {
+      display: none;
+    }
+  
+    /* Show only the mobile logo */
+    .logo-mobile {
+      display: block;
+    }
   }
   
   /* User actions container */
@@ -34,18 +84,18 @@ nav {
     display: flex;
     align-items: center;
     gap: 15px;
-    position: relative; /* Needed for stacking */
-    z-index: 20; /* Ensures the user actions are on top of the other elements */
+    position: relative;
+    z-index: 20;
   }
   
-  /* Style for login/logout buttons */
+  /* Style for buttons */
   .user-actions button,
   .login-btn {
     background-color: #ffffff;
-    color: #EDF0F5;
+    color: #344EAD;
     padding: 8px 15px;
     border: 1px solid #ddd;
-    border-radius: 50px;  /* Rounded edges */
+    border-radius: 50px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease, transform 0.3s ease;
@@ -55,55 +105,32 @@ nav {
   .user-actions button:hover,
   .login-btn:hover {
     background-color: #f0f0f0;
-    transform: scale(1.05); /* Slight zoom effect on hover */
+    transform: scale(1.05);
   }
   
   /* Dropdown menu styling */
   .user-actions .dropdown {
     position: absolute;
-    top: 50px;
-    right: 20px;
+    top: calc(100% + 10px); /* Dropdown is 10px below the button */
+    right: 0;
     background-color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
     border-radius: 5px;
-    display: flex;
+    display: none; /* Initially hidden */
     flex-direction: column;
     gap: 10px;
-    z-index: 30; /* Ensures the dropdown is above other content */
+    z-index: 30;
   }
   
-  /* Ensuring the dropdown items are at a higher layer */
-  .user-actions .dropdown a,
-  .user-actions .dropdown button {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: #3b5998;
-    font-size: 14px;
+  /* Show the dropdown when the `show` class is present */
+  .user-actions .dropdown.show {
+    display: flex; /* Make dropdown visible */
   }
   
-  .user-actions .dropdown a:hover,
-  .user-actions .dropdown button:hover {
-    background-color: #f0f0f0;
+  /* Dashboard button */
+  .dashboard-button img {
+    height: 40px;
+    width: auto;
   }
   
-  /* Mobile responsive styling */
-  @media (max-width: 768px) {
-    nav {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  
-    .user-actions {
-      margin-top: 10px;
-      flex-direction: column;
-      align-items: flex-start;
-      z-index: 20; /* Keep the user actions above other elements */
-    }
-  
-    .user-actions .dropdown {
-      top: 60px;
-      z-index: 30; /* Keep the dropdown above other content */
-    }
-  }  
