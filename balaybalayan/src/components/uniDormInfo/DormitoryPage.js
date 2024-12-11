@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { db } from '../../firebase';
 import { useParams } from "react-router-dom";  // useParams for respective id URL of dormitories
 import { doc, getDoc, collection, getDocs, query, where } from 'firebase/firestore';
-//import {doc, getDoc} from 'firebase/firestore';
 
 // carousel pictures and import
 import example1 from './photos/unknown.png';
@@ -143,24 +142,25 @@ const DormitoryPage = () => {
             <div className="appliance-list1">
             <h3>Appliance Fee Guide</h3>
             <br/>
+            <div className="appliance-box">
+              <h3>Appliance Fee Guide</h3>
               <table>
                 <thead>
                   <tr>
-                    <th></th>
-                    <th></th>
+                    <th>Appliance</th>
+                    <th>Fee</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <div className="appliance-box">
-                    {appliances.applianceName.map((name, index) => (
-                      <tr key={index}>
-                        <td className="appliance-name">{name}</td>
-                        <td className="appliance-fee">{appliances.applianceFee[index].toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </div>
+                  {appliances.applianceName.map((name, index) => (
+                    <tr key={index}>
+                      <td className="appliance-name">{name}</td>
+                      <td className="appliance-fee">{appliances.applianceFee[index].toFixed(2)}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
+            </div>
             </div>
           </div>
           <div className="c3-column21">
