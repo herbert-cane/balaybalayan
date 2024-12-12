@@ -4,12 +4,25 @@ import { db } from "../../../firebase";
 import { doc, getDoc, collection, onSnapshot, query, where } from "firebase/firestore";
 import { auth } from "../../../firebase";
 
+// Import all the components
+import DormitoryInfo from "./homeComponents/DormitoryInfo";
+import Announcements from "./homeComponents/Announcements";
+import UpcomingEvents from "./homeComponents/UpcomingEvents";
+import ManagerInfo from "./homeComponents/ManagerInfo";
+import RequestModal from "./homeComponents/RequestModal";
+import RequestButton from "./homeComponents/RequestButton";
+
 const HomeSection = () => {
-  const [dormInfo, setDormInfo] = useState(null); // Store dormitory details
+  const [dormInfo, setDormInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [announcements, setAnnouncements] = useState([]);
-  const [importantDates, setImportantDates] = useState([]); // New state for important dates
+  const [importantDates, setImportantDates] = useState([]);
+  
+  // Request modal state
+  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
+  const [selectedRequestType, setSelectedRequestType] = useState("");
 
+  // Fetch dormitory details
   useEffect(() => {
     const fetchDormitoryDetails = async () => {
       try {
@@ -22,14 +35,8 @@ const HomeSection = () => {
             const dormDoc = await getDoc(doc(db, "dormitories", dormitoryId));
             if (dormDoc.exists()) {
               setDormInfo(dormDoc.data());
-            } else {
-              console.error("Dormitory not found.");
             }
-          } else {
-            console.error("User or dormitory information is missing.");
           }
-        } else {
-          console.error("User is not logged in.");
         }
       } catch (error) {
         console.error("Error fetching dormitory details:", error);
@@ -39,8 +46,9 @@ const HomeSection = () => {
     };
 
     fetchDormitoryDetails();
-  }, []); // Runs only once when the component mounts
+  }, []);
 
+  // Fetch announcements
   useEffect(() => {
     const fetchAnnouncements = async () => {
       const user = auth.currentUser;
@@ -95,8 +103,9 @@ const HomeSection = () => {
     };
 
     fetchImportantDates();
-  }, []); // Empty dependency array to fetch data once
+  }, []);
 
+  // Fetch manager info
   useEffect(() => {
     const fetchManagerInfo = async () => {
       const user = auth.currentUser;
@@ -124,6 +133,18 @@ const HomeSection = () => {
     fetchManagerInfo();
   }, []);
 
+  // Handle request button click
+  const handleRequestClick = (type) => {
+    setSelectedRequestType(type);
+    setIsRequestModalOpen(true);
+  };
+
+  // Handle request modal close
+  const handleRequestModalClose = () => {
+    setIsRequestModalOpen(false);
+    setSelectedRequestType("");
+  };
+
   if (loading) {
     return <div className="loading">Loading dormitory information...</div>;
   }
@@ -134,90 +155,50 @@ const HomeSection = () => {
 
   return (
     <div className="home-container">
-      {/* First Section - Dormitory Info */}
-      <div className="dorm-info">
-        <img
-          src={dormInfo.dormPhoto || "placeholder-image.jpg"}
-          alt="Dormitory"
-          className="dorm-image"
-        />
-        <h2 className="dorm-name">{dormInfo.dormName}</h2>
-        <p className="dorm-address">{dormInfo.dormAddress}</p>
-        <p className="dorm-details">
-          {dormInfo.priceRange} | {dormInfo.isVisitors ? "Visitors Allowed" : "No Visitors Allowed"} | Curfew: {dormInfo.curfew || "N/A"}
-        </p>
-      </div>
+      {/* Dormitory Info */}
+      <DormitoryInfo dormInfo={dormInfo} />
 
-      {/* Second Section - Announcements */}
-      <div className="announcements">
-        <h2 className="section-title">Announcements</h2>
-        <div className="announcement-content">
-          {announcements.length ? (
-            announcements.map((announcement) => (
-              <div key={announcement.id} className="announcement-item">
-                <h3 className="announcement-title">{announcement.title}</h3>
-                <p className="announcement-content">{announcement.content}</p>
-              </div>
-            ))
-          ) : (
-            <p>No announcements at this time.</p>
-          )}
-        </div>
-      </div>
+      {/* Announcements */}
+      <Announcements announcements={announcements} />
 
-      {/* Third Section - Upcoming Events */}
-      <div className="upcoming-events">
-        <h2 className="section-title">Upcoming Events</h2>
-        <div className="events-content">
-          {importantDates.length ? (
-            importantDates.map((event) => (
-              <div key={event.id} className="event-item">
-                <strong>{event.date}</strong> - {event.event}
-              </div>
-            ))
-          ) : (
-            <p>No upcoming events scheduled.</p>
-          )}
-        </div>
-      </div>
+      {/* Upcoming Events */}
+      <UpcomingEvents importantDates={importantDates} />
 
-      {/* Fourth Section - Manager Info and Request/Report */}
+      {/* Manager Info and Request Section */}
       <div className="manager-request-container">
-        {/* Manager Info Block */}
-        <div className="manager-info">
-          <div className="manager-card">
-            <div className="manager-left">
-              <img
-                src={dormInfo.managerPhoto || "placeholder-manager.jpg"}
-                alt="Dorm Manager"
-                className="manager-photo"
-              />
-              <h3 className="manager-name">{dormInfo.managers || "Unknown Manager"}</h3>
-              <p className="manager-title">Dorm Manager</p>
-            </div>
-            <div className="manager-right">
-              <h4>Contact Information</h4>
-              <p>
-                <span className="icon phone-icon" /> {dormInfo.managerPhone || "N/A"}
-              </p>
-              <p>
-                <span className="icon email-icon" /> {dormInfo.managerEmail || "N/A"}
-              </p>
-            </div>
-          </div>
-        </div>
+        {/* Manager Info */}
+        <ManagerInfo dormInfo={dormInfo} />
 
         {/* Request/Report Block */}
         <div className="request-report">
           <h2 className="section-title">Request or Report</h2>
           <div className="request-options">
-            <button className="request-option">Drinking Water</button>
-            <button className="request-option">WiFi</button>
-            <button className="request-option">Laundry</button>
-            <button className="request-option">Maintenance</button>
+            <RequestButton 
+              type="Drinking Water" 
+              onClick={handleRequestClick} 
+            />
+            <RequestButton 
+              type="WiFi" 
+              onClick={handleRequestClick} 
+            />
+            <RequestButton 
+              type="Laundry" 
+              onClick={handleRequestClick} 
+            />
+            <RequestButton 
+              type="Maintenance" 
+              onClick={handleRequestClick} 
+            />
           </div>
         </div>
       </div>
+
+      {/* Request Modal */}
+      <RequestModal
+        selectedRequestType={selectedRequestType}
+        isOpen={isRequestModalOpen}
+        onClose={handleRequestModalClose}
+      />
     </div>
   );
 };
