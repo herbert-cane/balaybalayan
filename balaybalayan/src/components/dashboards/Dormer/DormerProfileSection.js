@@ -1,80 +1,202 @@
-import './DormerProfileSection.css'; // Import the CSS file
+import './DormerProfileSection.css';
 import React, { useState, useEffect } from 'react';
-import { db } from '../../../firebase';  // Make sure this is properly imported
-import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../../firebase';
+import { 
+  doc, 
+  getDoc, 
+  collection, 
+  addDoc, 
+  query, 
+  where, 
+  getDocs, 
+  deleteDoc,
+  updateDoc 
+} from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../../firebase'; // Import Firebase Auth
+import { auth } from '../../../firebase';
 
-// Profile Section Component
 const Profile = () => {
   // State to manage user data
   const [userData, setUserData] = useState({
     firstName: '',
     email: '',
     address: '',
-    lastName:'',
+    lastName: '',
     profilePhotoURL: '',
-    coverPhoto: 'https://via.placeholder.com/1200x400', // Dummy Cover Photo URL
+    coverPhoto: 'https://via.placeholder.com/1200x400',
   });
 
   const [activeTab, setActiveTab] = useState('posts');
-  const [loading, setLoading] = useState(true); // State to track loading status
+  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
 
-  // Dummy data for tabs
-  const tabData = {
-    posts: ['Post 1: Just moved in!', 'Post 2: Loving the dorm life!'],
-    friends: ['John Doe', 'Alice Smith', 'Bob Johnson'],
-    photos: ['https://www.w3schools.com/w3images/avatar2.png', 'https://www.w3schools.com/w3images/forest.jpg'],
-    settings: ['Change Email', 'Change Password', 'Privacy Settings'],
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentPost, setCurrentPost] = useState({ id: null, text: '' });
+  const [currentUser, setCurrentUser] = useState(null);
+
+  // Fetch user data 
+  const fetchUserData = async (userId) => {
+    try {
+      const userRef = doc(db, 'users', userId);
+      const snapshot = await getDoc(userRef);
+      
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        setUserData({
+          firstName: data.firstName || '',
+          lastName: data.lastName || '',
+          email: data.email || '',
+          address: data.address || '',
+          profilePhotoURL: data.profilePhotoURL || '',
+          coverPhoto: data.coverPhoto || 'https://via.placeholder.com/1200x400',
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching user data: ', error);
+    }
   };
 
-  // Function to handle tab click
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
+  // Fetch user's posts
+  const fetchPosts = async (userId) => {
+    try {
+      const postsRef = collection(db, 'posts');
+      const q = query(postsRef, where('userId', '==', userId));
+      const querySnapshot = await getDocs(q);
+      
+      const fetchedPosts = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })).sort((a, b) => b.timestamp - a.timestamp);
+
+      setPosts(fetchedPosts);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching posts: ', error);
+      setLoading(false);
+    }
   };
 
-  // Fetch user data from Firestore
-  const fetchUserData = (userId) => {
-    const userRef = doc(db, 'users', userId); // Correct reference for Firestore
-    getDoc(userRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.data();
-          setUserData({
-            firstName: data.firstName || '',
-            lastName: data.lastName || '',
-            email: data.email || '',
-            address: data.address || '',
-            profilePhotoURL: data.profilePhotoURL || '',
-            coverPhoto: data.coverPhoto || 'https://via.placeholder.com/1200x400', // Fallback to dummy
-          });
-          setLoading(false); // Data fetched, set loading to false
-        } else {
-          console.log('No user data available');
-          setLoading(false);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching user data: ', error);
-        setLoading(false);
-      });
-  };
-
-  // Listen for user authentication state changes
+  // Authentication listener
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("User authenticated:", user.uid);
-        fetchUserData(user.uid); // Fetch user data if logged in
+        setCurrentUser(user);
+        fetchUserData(user.uid);
+        fetchPosts(user.uid);
       } else {
-        console.log('User is not logged in');
         setLoading(false);
+        setCurrentUser(null);
       }
     });
 
-    // Clean up the listener on component unmount
+    // Clean up the listener
     return () => unsubscribe();
   }, []);
+
+  // Open modal for creating/editing post
+  const openModal = (post = null) => {
+    setCurrentPost(post ? { ...post } : { id: null, text: '' });
+    setIsModalOpen(true);
+  };
+
+  // Handle post submission (create or update)
+  const handleSubmitPost = async () => {
+    if (!currentPost.text.trim() || !currentUser) return;
+
+    try {
+      if (currentPost.id) {
+        // Update existing post
+        const postRef = doc(db, 'posts', currentPost.id);
+        await updateDoc(postRef, {
+          text: currentPost.text,
+          timestamp: Date.now()
+        });
+
+        // Update local state
+        setPosts(posts.map(post => 
+          post.id === currentPost.id 
+            ? { ...post, text: currentPost.text, timestamp: Date.now() } 
+            : post
+        ).sort((a, b) => b.timestamp - a.timestamp));
+      } else {
+        // Create new post
+        const newPostRef = await addDoc(collection(db, 'posts'), {
+          userId: currentUser.uid,
+          text: currentPost.text,
+          timestamp: Date.now()
+        });
+
+        // Add to local state
+        const newPost = {
+          id: newPostRef.id,
+          userId: currentUser.uid,
+          text: currentPost.text,
+          timestamp: Date.now()
+        };
+        setPosts([newPost, ...posts]);
+      }
+
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Error submitting post: ', error);
+    }
+  };
+
+  // Delete post
+  const handleDeletePost = async (postId) => {
+    try {
+      // Delete from Firestore
+      await deleteDoc(doc(db, 'posts', postId));
+
+      // Update local state
+      setPosts(posts.filter(post => post.id !== postId));
+    } catch (error) {
+      console.error('Error deleting post: ', error);
+    }
+  };
+
+  // Render modal for creating/editing posts
+  const renderPostModal = () => {
+    if (!isModalOpen) return null;
+
+    return (
+      <div className="modal-overlay">
+        <div className="modal-container">
+          <div className="modal-header">
+            <img 
+              src={userData.profilePhotoURL || 'https://via.placeholder.com/50'} 
+              alt="Profile" 
+              className="modal-profile-photo" 
+            />
+            <h2>{currentPost.id ? 'Edit Post' : 'Create New Post'}</h2>
+          </div>
+          <div className="modal-body">
+            <textarea 
+              value={currentPost.text}
+              onChange={(e) => setCurrentPost({...currentPost, text: e.target.value})}
+              placeholder={`What's on your mind, ${userData.firstName || 'User'}?`}
+              rows={4}
+            />
+          </div>
+          <div className="modal-footer">
+            <button 
+              className="modal-cancel-btn" 
+              onClick={() => setIsModalOpen(false)}
+            >
+              Cancel
+            </button>
+            <button 
+              className="modal-post-btn"
+              onClick={handleSubmitPost}
+              disabled={!currentPost.text.trim()}
+            >
+              {currentPost.id ? 'Update' : 'Post'}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   // If data is still loading, show a loading indicator
   if (loading) {
@@ -108,61 +230,87 @@ const Profile = () => {
       <div className="profile-tabs">
         <button
           className={`profile-tab ${activeTab === 'posts' ? 'active' : ''}`}
-          onClick={() => handleTabClick('posts')}
+          onClick={() => setActiveTab('posts')}
         >
           Posts
         </button>
         <button
           className={`profile-tab ${activeTab === 'friends' ? 'active' : ''}`}
-          onClick={() => handleTabClick('friends')}
+          onClick={() => setActiveTab('friends')}
         >
           Friends
         </button>
         <button
           className={`profile-tab ${activeTab === 'photos' ? 'active' : ''}`}
-          onClick={() => handleTabClick('photos')}
+          onClick={() => setActiveTab('photos')}
         >
           Photos
-        </button>
-        <button
-          className={`profile-tab ${activeTab === 'settings' ? 'active' : ''}`}
-          onClick={() => handleTabClick('settings')}
-        >
-          Settings
         </button>
       </div>
 
       {/* Display Content based on active tab */}
-      <div className="profile-tab-content">
-        {activeTab === 'posts' && (
-          <div className="posts-content">
-            {tabData.posts.map((post, index) => (
-              <p key={index}>{post}</p>
-            ))}
+      {activeTab === 'posts' && (
+        <div className="posts-content">
+          <button 
+            className="create-post-btn" 
+            onClick={() => openModal()}
+          >
+            Create New Post
+          </button>
+          {posts.map((post) => (
+            <div key={post.id} className="post-item">
+              <p>{post.text}</p>
+              <div className="post-timestamp">
+                {new Date(post.timestamp).toLocaleString()}
+              </div>
+              <div className="post-actions">
+                <button onClick={() => openModal(post)}>Edit</button>
+                <button onClick={() => handleDeletePost(post.id)}>Delete</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Other tabs remain the same */}
+      {activeTab === 'friends' && (
+        <div className="friends-content">
+          <div className="friend-card">
+            <img src="https://via.placeholder.com/50" alt="John Doe" />
+            <h3>John Doe</h3>
           </div>
-        )}
-        {activeTab === 'friends' && (
-          <div className="friends-content">
-            {tabData.friends.map((friend, index) => (
-              <p key={index}>{friend}</p>
-            ))}
+          <div className="friend-card">
+            <img src="https://via.placeholder.com/50" alt="Alice Smith" />
+            <h3>Alice Smith</h3>
           </div>
-        )}
-        {activeTab === 'photos' && (
-          <div className="photos-content">
-            {tabData.photos.map((photo, index) => (
-              <img key={index} src={photo} alt={`${index}`} className="photo-item" />
-            ))}
+          <div className="friend-card">
+            <img src="https://via.placeholder.com/50" alt="Bob Johnson" />
+            <h3>Bob Johnson</h3>
           </div>
-        )}
-        {activeTab === 'settings' && (
-          <div className="settings-content">
-            {tabData.settings.map((setting, index) => (
-              <p key={index}>{setting}</p>
-            ))}
+        </div>
+      )}
+      {activeTab === 'photos' && (
+        <div className="photos-content">
+          <div className="photo-card">
+            <img src="https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/profile_photos%2F0ciS2fvJRidjfxSGFlBH0h7qnTx2?alt=media&token=625d7a8a-d2c9-454e-9a78-dd3237f46f25" alt="Photo 1" />
+            <div className="photo-overlay">
+            </div>
           </div>
-        )}
-      </div>
+          <div className="photo-card">
+            <img src="https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2FdormerCardPhoto.jpg?alt=media&token=36b74a12-5fe6-4683-b4cb-9ec73be449e0" alt="Photo 2" />
+            <div className="photo-overlay">
+            </div>
+          </div>
+          <div className="photo-card">
+            <img src="https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2Fphoto_sample.jpg?alt=media&token=a6a71b8a-69c2-4e11-8ae3-4262d5b88248" alt="Photo 3" />
+            <div className="photo-overlay">
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Render post modal */}
+      {renderPostModal()}
     </div>
   );
 };

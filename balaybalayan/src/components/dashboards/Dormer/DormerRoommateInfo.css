@@ -1,137 +1,364 @@
 /* General Styles */
 body {
-    font-family: "Arial", sans-serif;
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f6f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+.profile-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Profile Header */
+.profile-header {
+  position: relative;
+  margin-bottom: 100px;
+}
+
+.cover-photo-container {
+  height: 250px;
+  overflow: hidden;
+}
+
+.cover-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info-container {
+  position: relative;
+  padding: 0 20px;
+}
+
+.profile-photo-container {
+  position: absolute;
+  top: -75px;
+  left: 20px;
+  border: 4px solid white;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-details {
+  margin-left: 180px;
+  padding: 10px 0;
+}
+
+.profile-name {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+
+.profile-email, .profile-address {
+  margin: 5px 0;
+  color: #7f8c8d;
+}
+
+/* Profile Tabs */
+.profile-tabs {
+  display: flex;
+  border-bottom: 2px solid #ecf0f1;
+  margin: 20px 0;
+}
+
+.profile-tab {
+  flex: 1;
+  padding: 15px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #7f8c8d;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.profile-tab.active {
+  color: #2980b9;
+  border-bottom-color: #2980b9;
+}
+
+.profile-tab:hover {
+  background-color: #f4f6f9;
+  color: #2c3e50;
+}
+
+/* Posts Content */
+.posts-content {
+  padding: 20px;
+}
+
+.create-post-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.create-post-btn:hover {
+  background-color: #2980b9;
+}
+
+.post-item {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.post-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.post-actions button {
+  margin-left: 10px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #3498db;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.post-actions button:first-child {
+  background-color: #2ecc71;
+}
+
+.post-actions button:last-child {
+  background-color: #e74c3c;
+}
+
+.post-actions button:hover {
+  opacity: 0.9;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  width: 500px;
+  max-width: 90%;
+  overflow: hidden;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #f4f6f9;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-profile-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+  border: 2px solid #3498db;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+.modal-body {
+  padding: 15px;
+}
+
+.modal-body textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  resize: vertical;
+  min-height: 100px;
+  font-size: 16px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+  background-color: #f4f6f9;
+  border-top: 1px solid #e0e0e0;
+}
+
+.modal-cancel-btn,
+.modal-post-btn {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.modal-cancel-btn {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.modal-post-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+}
+
+.modal-post-btn:disabled {
+  background-color: #b0d4f5;
+  cursor: not-allowed;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .profile-container {
     margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
+    border-radius: 0;
   }
-  
-  /* Container */
-  .roommate-info-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  h2, h3 {
-    color: #2c3e50;
+
+  .profile-details {
+    margin-left: 0;
     text-align: center;
+    padding-top: 80px;
   }
-  
-  .info-section {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #f3f4f6;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+  .profile-photo-container {
+    left: 50%;
+    transform: translateX(-50%);
   }
-  
-  .info-section h3 {
-    margin-bottom: 10px;
-    font-size: 1.25rem;
-    color: #34495e;
-  }
-  
-  /* Room Details */
-  .info-section p {
-    margin: 8px 0;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-  
-  .info-section p strong {
-    font-weight: 600;
-    color: #2c3e50;
-  }
-  
-  /* Roommate Cards */
-  .roommate-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #ffffff;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .roommate-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }
-  
-  .roommate-card h4 {
-    margin: 0 0 5px;
-    font-size: 1.15rem;
-    color: #2c3e50;
-  }
-  
-  .roommate-card p {
-    margin: 5px 0;
-    font-size: 0.95rem;
-  }
-  
-  /* Loading and Error States */
-  .loading, .error {
-    text-align: center;
-    padding: 20px;
-    font-size: 1.2rem;
-    color: #e74c3c;
-  }
-  
-  /* Media Queries for Responsiveness */
-  @media (max-width: 768px) {
-    .roommate-info-container {
-      padding: 15px;
-    }
-  
-    h2, h3 {
-      font-size: 1.5rem;
-    }
-  
-    .info-section h3 {
-      font-size: 1.15rem;
-    }
-  
-    .info-section p {
-      font-size: 0.9rem;
-    }
-  
-    .roommate-card h4 {
-      font-size: 1rem;
-    }
-  
-    .roommate-card p {
-      font-size: 0.85rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    h2, h3 {
-      font-size: 1.25rem;
-    }
-  
-    .info-section h3 {
-      font-size: 1rem;
-    }
-  
-    .info-section p {
-      font-size: 0.85rem;
-    }
-  
-    .roommate-card h4 {
-      font-size: 0.95rem;
-    }
-  
-    .roommate-card p {
-      font-size: 0.8rem;
-    }
-  }
-  
+}
+
+/* Add this to the existing CSS */
+.post-timestamp {
+  color: #6c757d;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  text-align: right;
+  font-style: italic;
+}
+
+.post-item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Friends Content */
+.friends-content {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.friend-card {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
+  width: calc(33.33% - 20px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.friend-card img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.friend-card h3 {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.friend-card p {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+/* Photos Content */
+.photos-content {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.photo-card {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  width: calc(33.33% - 10px);
+}
+
+.photo-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.photo-card .photo-overlay {
+  padding: 10px;
+}
+
+.photo-card h3 {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.photo-card p {
+  font-size: 12px;
+  color: #6c757d;
+}
