@@ -128,9 +128,9 @@ const DormitoryPage = () => {
                   ))}
                 </ul>
                 <div className="button-div">
-                  <button id='c2-button1' onClick={() => setShowAllAmenities(!showAllAmenities)}>
-                    {showAllAmenities ? 'Hide Amenities' : 'Show All Amenities'}
-                  </button>
+                 {/** <button id='c2-button1' onClick={() => setShowAllAmenities(!showAllAmenities)}>
+                    {showAllAmenities ? 'Hide Amenities' : 'Show All Amenities'}   </button> **/}
+                
                 </div>
               </div>
           </div>
