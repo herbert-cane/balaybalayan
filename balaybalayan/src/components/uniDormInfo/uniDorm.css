@@ -38,6 +38,12 @@
   height: 200px;
   border-radius: 10px;
 }
+
+.h3, h3 {
+  font-size: calc(1.3rem + .6vw);
+  text-align: left;
+  font-weight: 300;
+}
 .container11{
   display: flexbox;
   text-align: left;
@@ -51,6 +57,7 @@
 
 #dormName1{
   text-align: left;
+  font-weight: bold;
 }
 .c1-column11{
   
@@ -240,6 +247,10 @@
   border-radius: 5px;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
   color: #505050;
+}
+
+.c3-column21 h3 {
+  text-align: center;
 }
 .container41{
   border-radius: 5px;
