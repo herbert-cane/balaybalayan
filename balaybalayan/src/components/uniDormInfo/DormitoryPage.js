@@ -17,7 +17,7 @@ const DormitoryPage = () => {
   const [dormData, setDormData] = useState(null); // initial state is null
   const [basicRoom, setBasicRoom] = useState(null); // State for Basic Room data
   const [appliances, setAppliances] = useState({ applianceName: [], applianceFee: [] }); // State for appliances
-  const [showAllAmenities] = useState(false);
+  const [showAllAmenities, setShowAllAmenities] = useState(false);
   const [manager, setManagerData] = useState(null);
 
   useEffect(() => {
