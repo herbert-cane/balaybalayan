@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/balaybalayan/static/css/main.81182e74.css",
+    "main.js": "/balaybalayan/static/js/main.8e42a1af.js",
+    "static/js/453.5b434c88.chunk.js": "/balaybalayan/static/js/453.5b434c88.chunk.js",
+    "static/media/gumamela.png": "/balaybalayan/static/media/gumamela.1e6e227ca5c378d4e7c1.png",
+    "static/media/unknown.png": "/balaybalayan/static/media/unknown.b1df40a2a56f9a21f7cd.png",
+    "static/media/image2.png": "/balaybalayan/static/media/image2.d34f2613b9c91d700e77.png",
+    "static/media/banner.png": "/balaybalayan/static/media/banner.89f637e641f239a3aa99.png",
+    "static/media/Balay Gumamela.png": "/balaybalayan/static/media/Balay Gumamela.453dbc4075c4ed0d783f.png",
+    "static/media/unknown2.jpg": "/balaybalayan/static/media/unknown2.d7a5899bec16594ad6e1.jpg",
+    "static/media/alt_logo.png": "/balaybalayan/static/media/alt_logo.40f53b5da64dc2e5316d.png",
+    "static/media/small_logo.png": "/balaybalayan/static/media/small_logo.566f11c9be81c13af65f.png",
+    "static/media/fav_icon.png": "/balaybalayan/static/media/fav_icon.e3033fc83902289eb4ac.png",
+    "index.html": "/balaybalayan/index.html",
+    "main.81182e74.css.map": "/balaybalayan/static/css/main.81182e74.css.map",
+    "main.8e42a1af.js.map": "/balaybalayan/static/js/main.8e42a1af.js.map",
+    "453.5b434c88.chunk.js.map": "/balaybalayan/static/js/453.5b434c88.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.81182e74.css",
+    "static/js/main.8e42a1af.js"
+  ]
+}
