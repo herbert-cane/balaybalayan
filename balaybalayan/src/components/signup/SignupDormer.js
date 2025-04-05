@@ -163,61 +163,101 @@ useEffect(() => {
 
   return (
     <div className="container">
+      <div className="particles">
+        {[...Array(100)].map((_, index) => (
+          <div 
+            key={index} 
+            className="particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDuration: `${15 + Math.random() * 15}s`,
+              animationDelay: `-${Math.random() * 10}s`
+            }}
+          />
+        ))}
+      </div>
       <h1>Sign up | Dormer</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSignUp}>
         <div className="form-row">
+          <div className="form-group">
+            <label className="input-label">First Name:</label>
+            <input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label className="input-label">Last Name:</label>
+            <input
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">Sex:</label>
+          <select value={sex} onChange={(e) => setSex(e.target.value)} required>
+            <option value="">Select sex</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">Email Address:</label>
           <input
-            type="text"
-            placeholder="First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
-        <select value={sex} onChange={(e) => setSex(e.target.value)} required>
-          <option className='labels' value="">Sex</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="tel"
-          placeholder="Phone Number"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
+
+        <div className="form-group">
+          <label className="input-label">Phone Number:</label>
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">Password:</label>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">Confirm Password:</label>
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+        </div>
         <div className="upload-section">
-          <h4 className='labels'>Upload Profile Photo</h4>
+          <h4 className='labels'>Upload Profile Photo:</h4>
           <div className="upload-box">
             <input
               type="file"
@@ -226,6 +266,7 @@ useEffect(() => {
             />
           </div>
         </div>
+        <label className="input-label">Select Dormitory:</label>
         <select value={dormName} onChange={(e) => {
           const selectedDorm = dormitories.find(dorm => dorm.dormName === e.target.value);
           setDormName(e.target.value);
@@ -238,6 +279,7 @@ useEffect(() => {
             </option>
           ))}
         </select>
+        <label className="input-label">Select Room:</label>
         <select value={selectedRoom} onChange={(e) => setSelectedRoom(e.target.value)} required>
           <option className='labels' value="">Choose a room:</option>
           {rooms.length > 0 ? (
@@ -258,7 +300,7 @@ useEffect(() => {
           onChange={(e) => setMoveInDate(e.target.value)}
           required
         />
-        <h3 className='labels'>Emergency Contact</h3>
+        <h3 className='labels'>Emergency Contact:</h3>
         <div className="form-row">
           <input
             type="text"

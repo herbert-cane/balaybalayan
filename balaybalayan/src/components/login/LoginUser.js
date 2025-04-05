@@ -3,6 +3,7 @@ import { useAuth } from '../../AuthContext';
 import { Navigate, Link } from 'react-router-dom';
 import mainimage from './image2.png';
 import './Login.css';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 const Login = () => {
   const { login, user } = useAuth();
@@ -15,10 +16,41 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await login(email, password);
+      // First, attempt to login
+      const userCredential = await login(email, password);
+      
+      // Get user data from Firestore
+      const db = getFirestore();
+      const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
+      const userData = userDoc.data();
+
+      // Check if user type matches selected type
+      if (userData.role !== userType) {
+        // Logout the user if wrong type selected
+        await userCredential.user.delete();
+        setError(`Invalid account type. Please login as ${userData.role}`);
+        return;
+      }
+
       setRedirect(true);
     } catch (error) {
-      setError(error.message);
+      // Convert Firebase errors to user-friendly messages
+      let errorMessage = "Invalid Username or Password";
+      
+      switch (error.code) {
+        case 'auth/invalid-credential':
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+          errorMessage = "Invalid Username or Password";
+          break;
+        case 'auth/too-many-requests':
+          errorMessage = "Too many failed attempts. Please try again later.";
+          break;
+        default:
+          errorMessage = "An error occurred. Please try again.";
+      }
+      
+      setError(errorMessage);
     }
   };
 
@@ -28,13 +60,28 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <div className="geometric-shapes"></div>
+      <div className="particles">
+        {[...Array(100)].map((_, index) => (
+          <div 
+            key={index} 
+            className="particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDuration: `${15 + Math.random() * 15}s`,
+              animationDelay: `-${Math.random() * 10}s`
+            }}
+          />
+        ))}
+      </div>
       <div className="login-form">
         <div className="login-image">
           <img src={mainimage} alt="Login Visual" />
         </div>
         <div className="form-content">
           <h1>Log in</h1>
-          <p>Welcome to balay-balayan!</p>
+          <p>Welcome to Balay-Balayan!</p>
 
           <div className="user-type-options">
             <div

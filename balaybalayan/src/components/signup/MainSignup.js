@@ -31,6 +31,21 @@ const MainSignup = () => {
 
   return (
     <div className="signup-container">
+      <div className="geometric-shapes"></div>
+      <div className="particles">
+        {[...Array(100)].map((_, index) => (
+          <div 
+            key={index} 
+            className="particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDuration: `${15 + Math.random() * 15}s`,
+              animationDelay: `-${Math.random() * 10}s`
+            }}
+          />
+        ))}
+      </div>
       <div className="signup-form">
         <div className="signup-image">
           <img src={mainimage} alt="Signup Visual" />
@@ -38,7 +53,7 @@ const MainSignup = () => {
         <div className="form-content">
           <h1>Sign up</h1>
           <p>Welcome to balay-balayan!</p>
-          <h3>Sign up as:</h3>
+          <p>Sign up as:</p>
 
           <div className="user-type-options">
             <div
@@ -58,7 +73,7 @@ const MainSignup = () => {
           </div>
 
           {/* Information text */}
-          <div className="info-container">
+          <div className="info-container" style={{ textAlign: 'center' }}>
             {userType === 'Dorm Manager' && (
               <p className="info-text">Manage the dormitory.</p>
             )}
