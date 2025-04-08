@@ -152,30 +152,43 @@ body {
 
 /* Ensure user-type cards are fully responsive */
 .user-type-card {
-  flex: 1; /* Allow cards to share equal width */
+  flex: 1;
   padding: 15px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.9); /* Lighter background */
+  background: rgba(30, 41, 59, 0.95);
   cursor: pointer;
   text-align: center;
   transition: all 0.3s ease;
-  border: 2px solid transparent;
-  color: #1a1a2e; /* Dark text color */
-  font-weight: 600;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-weight: 500;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .user-type-card:hover {
-  background: #ffffff;
+  background: rgba(33, 150, 243, 0.1);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(33, 150, 243, 0.3);
+  box-shadow: 0 6px 12px rgba(33, 150, 243, 0.3);
 }
 
 .user-type-card.selected {
-  background: #ffffff;
+  background: rgba(33, 150, 243, 0.15);
   border-color: #2196F3;
-  color: #2196F3;
   box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.user-type-card h4 {
+  color: #ffffff;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.user-type-card p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin: 0;
 }
 
 /* Input fields styling */

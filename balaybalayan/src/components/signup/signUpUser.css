@@ -6,15 +6,27 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, 
-    rgba(26, 26, 46, 0.98) 0%,
-    rgba(22, 33, 62, 0.95) 50%,
-    rgba(26, 26, 46, 0.98) 100%
-  );
-  padding: 20px 0; /* Remove horizontal padding */
-  margin: 0; /* Remove any margin */
+  background: 
+    linear-gradient(135deg, 
+      rgba(26, 26, 46, 0.98) 0%,
+      rgba(22, 33, 62, 0.95) 50%,
+      rgba(26, 26, 46, 0.98) 100%
+    ),
+    linear-gradient(
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0.7) 100%
+    ),
+    url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80'),
+    url('https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&q=80');
+  background-size: cover, cover, cover, cover;
+  background-position: center, center, center, center;
+  background-blend-mode: overlay, multiply, normal, normal;
+  padding: 20px 0;
+  margin: 0;
   position: relative;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden;
+  animation: bgFade 20s ease-in-out infinite;
 }
 
 /* Modern headings */
@@ -59,6 +71,8 @@ form {
   backdrop-filter: blur(10px);
   animation: formAppear 0.6s ease-out;
   margin: 0 auto; /* Center the form */
+  position: relative;
+  z-index: 1;
 }
 
 /* Enhanced form rows */
@@ -164,23 +178,44 @@ select option {
 
 /* Upload section enhancements */
 .upload-section {
-  margin-bottom: 30px;
+  margin: 25px 0;
+  width: 100%;
 }
 
 .upload-box {
+  width: 100%;
   border: 2px dashed rgba(255, 255, 255, 0.2);
-  padding: 25px;
   border-radius: 12px;
   text-align: center;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  position: relative;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-box input[type="file"] {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
   cursor: pointer;
 }
 
-.upload-box:hover {
-  border-color: #2196F3;
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
+.upload-box::before {
+  content: 'Choose Profile Photo';
+  color: #ffffff;
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+.upload-box.has-file::before {
+  content: attr(data-file-name);
 }
 
 /* Enhanced buttons */
@@ -265,6 +300,49 @@ button:active {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-10px); }
   75% { transform: translateX(10px); }
+}
+
+/* Add background fade animation */
+@keyframes bgFade {
+  0%, 100% {
+    background-color: rgba(26, 26, 46, 0.3);
+  }
+  25% {
+    background-color: rgba(22, 33, 62, 0.4);
+  }
+  50% {
+    background-color: rgba(26, 26, 46, 0.5);
+  }
+  75% {
+    background-color: rgba(22, 33, 62, 0.4);
+  }
+}
+
+/* Add pseudo-element for additional fade effect */
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  z-index: 0;
+  animation: fadeOpacity 15s ease-in-out infinite;
+}
+
+@keyframes fadeOpacity {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 /* Responsive design */
@@ -412,6 +490,341 @@ button:focus-visible {
   height: 3px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
+}
+
+/* Text colors for all form elements */
+.input-label, .labels, h1, h3, h4, p {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Input fields */
+input, input::placeholder {
+  color: #ffffff;
+}
+
+/* Select dropdown styling */
+select {
+  color: #ffffff;
+}
+
+/* Dropdown options styling */
+select option {
+  background: #ffffff;
+  color: #000000;
+  padding: 10px;
+}
+
+/* First option (placeholder) in dropdowns */
+select option:first-child {
+  color: #666666;
+}
+
+/* Error message */
+.error-text {
+  color: #ffffff;
+  background: rgba(255, 59, 59, 0.15);
+}
+
+/* Upload section */
+.upload-box {
+  color: #ffffff;
+}
+
+/* File input styling */
+input[type="file"] {
+  color: #ffffff;
+}
+
+/* Input placeholders */
+input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Date input specific styling */
+input[type="date"] {
+  color: #ffffff;
+}
+
+/* Date input placeholder */
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #ffffff;
+}
+
+/* When date is empty (placeholder) */
+input[type="date"]:invalid {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Labels and text styling */
+.input-label, 
+.labels, 
+h1, 
+h3, 
+h4, 
+p,
+label,
+.upload-section h4 {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Override any specific label styles */
+.upload-section h4 {
+  color: #ffffff !important;
+}
+
+/* Price input labels */
+.price-input span {
+  color: #ffffff;
+  margin-right: 0.5rem;
+}
+
+/* Remove the gray color override */
+.upload-section h4 {
+  color: #ffffff !important;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+/* Ensure placeholders are visible but slightly transparent */
+::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 1;
+}
+
+/* Sign Up Button styling */
+button[type="submit"] {
+  width: 100%;
+  padding: 16px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2196F3, #1976D2);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+}
+
+button[type="submit"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #1976D2, #1565C0);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+}
+
+button[type="submit"]:hover::before {
+  left: 100%;
+}
+
+button[type="submit"]:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 10px rgba(33, 150, 243, 0.3);
+}
+
+/* Disabled state */
+button[type="submit"]:disabled {
+  background: linear-gradient(135deg, #90a4ae, #78909c);
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+  box-shadow: none;
+}
+
+/* File upload styling */
+.upload-section {
+  margin: 25px 0;
+}
+
+.upload-box {
+  position: relative;
+  padding: 25px;
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+.upload-box:hover {
+  border-color: #2196F3;
+  background: rgba(33, 150, 243, 0.1);
+}
+
+/* Hide the default file input */
+.upload-box input[type="file"] {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Custom file input design */
+.upload-box::before {
+  content: 'Choose Profile Photo';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.upload-box::after {
+  content: '📸';
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* File name display */
+.upload-box.has-file::before {
+  content: attr(data-file-name);
+}
+
+/* Loading state */
+.upload-box.uploading {
+  border-color: #2196F3;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(33, 150, 243, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(33, 150, 243, 0);
+  }
+}
+
+/* Description textarea styling */
+.description-input {
+  width: 100%;
+  min-height: 100px;
+  padding: 15px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-size: 1rem;
+  resize: vertical;
+  margin-bottom: 20px;
+}
+
+/* Amenities grid */
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+/* Toggle button styling */
+.toggle-btn {
+  width: 100%;
+  padding: 12px;
+  margin: 20px 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Price input styling */
+.price-row {
+  display: flex;
+  gap: 20px;
+}
+
+.price-input {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.price-input span {
+  color: #ffffff;
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
+
+.price-input input {
+  flex: 1;
+}
+
+/* Hint text styling */
+.hint-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  margin-top: 8px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Update upload-box for employment proof */
+.upload-box[data-file-name*=".pdf"]::after {
+  content: '📄';
 }
 
 

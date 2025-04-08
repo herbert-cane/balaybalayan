@@ -32,6 +32,7 @@ const SignUpManager = () => {
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [curfew, setCurfew] = useState('');
   const [type, setType] = useState('');
+  const [employmentProof, setEmploymentProof] = useState(null);
 
 
   // Photo uploads
@@ -188,225 +189,299 @@ const SignUpManager = () => {
 
   return (
     <div className="container">
-      <h1>Sign up | Dorm Manager</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSignUp}>
-        {/* Form for personal details */}
-        <div className="form-row">
-          <input
-            type="text"
-            placeholder="First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
+      <div className="particles">
+        {[...Array(100)].map((_, index) => (
+          <div 
+            key={index} 
+            className="particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDuration: `${15 + Math.random() * 15}s`,
+              animationDelay: `-${Math.random() * 10}s`
+            }}
           />
+        ))}
+      </div>
+      <h1>Sign up | Dorm Manager</h1>
+      {error && <p className="error-text">{error}</p>}
+      <form onSubmit={handleSignUp}>
+        <div className="form-row">
+          <div className="form-group">
+            <label className="input-label">First Name:</label>
+            <input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label className="input-label">Last Name:</label>
+            <input
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">Sex:</label>
+          <select value={sex} onChange={(e) => setSex(e.target.value)} required>
+            <option value="">Select sex</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">Email Address:</label>
           <input
-            type="text"
-            placeholder="Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
-        <select value={sex} onChange={(e) => setSex(e.target.value)} required>
-          <option value="">Sex</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="tel"
-          placeholder="Phone Number"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-        
-        {/* Date of Birth field */}
-        <input
-          type="date"
-          value={dob}
-          onChange={(e) => setDob(e.target.value)}
-          required
-        />
+
+        <div className="form-group">
+          <label className="input-label">Phone Number:</label>
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">Password:</label>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">Confirm Password:</label>
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">Date of Birth:</label>
+          <input
+            type="date"
+            value={dob}
+            onChange={(e) => setDob(e.target.value)}
+            required
+          />
+        </div>
 
         <div className="upload-section">
-          <h4>Profile Photo:</h4>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setProfilePhoto(e.target.files[0])}
-          />
+          <h4 className="labels">Upload Profile Photo:</h4>
+          <div 
+            className={`upload-box ${profilePhoto ? 'has-file' : ''}`}
+            data-file-name={profilePhoto?.name || ''}
+          >
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setProfilePhoto(e.target.files[0])}
+            />
+          </div>
         </div>
 
+        <div className="upload-section">
+          <h4 className="labels">Upload Proof of Employment:</h4>
+          <div 
+            className={`upload-box ${employmentProof ? 'has-file' : ''}`}
+            data-file-name={employmentProof?.name || ''}
+          >
+            <input
+              type="file"
+              accept=".pdf,image/*"
+              onChange={(e) => setEmploymentProof(e.target.files[0])}
+              required
+            />
+          </div>
+          <small className="hint-text">Upload a valid ID, certificate, or any document proving your employment at the dormitory</small>
+        </div>
 
-        {/* Dormitory selection or creation */}
         {!createNewDorm ? (
-          <select value={dormName} onChange={(e) => setDormName(e.target.value)} required>
-            <option value="">Choose the dorm you're currently managing:</option>
-            {dormitories.map(dorm => (
-              <option key={dorm.dormName} value={dorm.dormName}>
-                {dorm.dormName}
-              </option>
-            ))}
-          </select>
+          <div className="form-group">
+            <label className="input-label">Select Dormitory:</label>
+            <select value={dormName} onChange={(e) => setDormName(e.target.value)} required>
+              <option value="">Choose the dorm you're currently managing</option>
+              {dormitories.map(dorm => (
+                <option key={dorm.dormName} value={dorm.dormName}>
+                  {dorm.dormName}
+                </option>
+              ))}
+            </select>
+          </div>
         ) : (
           <>
-            <input
-              type="text"
-              placeholder="Dormitory Name"
-              value={newDormName}
-              onChange={(e) => setNewDormName(e.target.value)}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Dormitory Address"
-              value={newDormAddress}
-              onChange={(e) => setNewDormAddress(e.target.value)}
-              required
-            />
-            <div className="upload-section">
-              <h4>Dormitory Logo:</h4>
+            <div className="form-group">
+              <label className="input-label">Dormitory Name:</label>
               <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => setNewDormLogo(e.target.files[0])}
+                type="text"
+                placeholder="Dormitory Name"
+                value={newDormName}
+                onChange={(e) => setNewDormName(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label className="input-label">Dormitory Address:</label>
+              <input
+                type="text"
+                placeholder="Dormitory Address"
+                value={newDormAddress}
+                onChange={(e) => setNewDormAddress(e.target.value)}
+                required
               />
             </div>
 
             <div className="upload-section">
-              <h4>Dormitory Photo:</h4>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => setNewDormPhoto(e.target.files[0])}
+              <h4 className="labels">Upload Dormitory Logo:</h4>
+              <div 
+                className={`upload-box ${newDormLogo ? 'has-file' : ''}`}
+                data-file-name={newDormLogo?.name || ''}
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setNewDormLogo(e.target.files[0])}
+                />
+              </div>
+            </div>
+
+            <div className="upload-section">
+              <h4 className="labels">Upload Dormitory Photo:</h4>
+              <div 
+                className={`upload-box ${newDormPhoto ? 'has-file' : ''}`}
+                data-file-name={newDormPhoto?.name || ''}
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setNewDormPhoto(e.target.files[0])}
+                />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label className="input-label">Price Range:</label>
+              <div className="price-row">
+                <div className="price-input">
+                  <span>₱</span>
+                  <input
+                    type="number"
+                    placeholder="Minimum Price"
+                    value={newDormPrice.min}
+                    onChange={(e) => setNewDormPrice(prev => ({ ...prev, min: e.target.value }))}
+                    required
+                  />
+                </div>
+                <div className="price-input">
+                  <span>₱</span>
+                  <input
+                    type="number"
+                    placeholder="Maximum Price"
+                    value={newDormPrice.max}
+                    onChange={(e) => setNewDormPrice(prev => ({ ...prev, max: e.target.value }))}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label className="input-label">Description:</label>
+              <textarea
+                placeholder="Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="description-input"
               />
             </div>
-            <div className="form-row price-row">
-              <div className="price-input">
-                <span>₱</span>
-                <input
-                  type="number"
-                  placeholder="Minimum Price"
-                  value={newDormPrice.min}
-                  onChange={(e) =>
-                    setNewDormPrice((prev) => ({ ...prev, min: e.target.value }))
-                  }
-                  required
-                />
-              </div>
-              <div className="price-input">
-                <span>₱</span>
-                <input
-                  type="number"
-                  placeholder="Maximum Price"
-                  value={newDormPrice.max}
-                  onChange={(e) =>
-                    setNewDormPrice((prev) => ({ ...prev, max: e.target.value }))
-                  }
-                  required
-                />
-              </div>
-            </div>
-            <textarea
-              placeholder="Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-            <br/>
-            {/* Type Selection */}
-            <select value={type} onChange={(e) => setType(e.target.value)} required>
-              <option value="">Select Dormitory Type</option>
-              <option value="Private">Private</option>
-              <option value="University">University</option>
-            </select>
 
-            {/* Amenities Dropdown */}
-            {type && (
-              <div>
-                <label>Amenities</label>
-                {amenities.length > 0 ? (
-                  <div className="amenities-dropdown">
-                    {amenities.map((amenity, index) => (
-                      <label key={index} className="checkbox-label">
-                        <input
-                          type="checkbox"
-                          value={amenity}
-                          checked={selectedAmenities.includes(amenity)}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              setSelectedAmenities((prev) => [...prev, amenity]);
-                            } else {
-                              setSelectedAmenities((prev) =>
-                                prev.filter((selected) => selected !== amenity)
-                              );
-                            }
-                          }}
-                        />
-                        {amenity}
-                      </label>
-                    ))}
-                  </div>
-                ) : (
-                  <p>No amenities available for the selected type.</p>
-                )}
+            <div className="form-group">
+              <label className="input-label">Dormitory Type:</label>
+              <select value={type} onChange={(e) => setType(e.target.value)} required>
+                <option value="">Select Dormitory Type</option>
+                <option value="Private">Private</option>
+                <option value="University">University</option>
+              </select>
+            </div>
+
+            {type && amenities.length > 0 && (
+              <div className="form-group">
+                <label className="input-label">Amenities:</label>
+                <div className="amenities-grid">
+                  {amenities.map((amenity, index) => (
+                    <label key={index} className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        value={amenity}
+                        checked={selectedAmenities.includes(amenity)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedAmenities(prev => [...prev, amenity]);
+                          } else {
+                            setSelectedAmenities(prev => 
+                              prev.filter(selected => selected !== amenity)
+                            );
+                          }
+                        }}
+                      />
+                      <span>{amenity}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
             )}
-            <select
-              value={curfew}
-              onChange={(e) => setCurfew(e.target.value)}
-              required
-            >
-              <option value="">Select Curfew</option>
-              <option value="9 PM">9 PM</option>
-              <option value="10 PM">10 PM</option>
-              <option value="11 PM">11 PM</option>
-              <option value="12 PM">12 PM</option>
-              <option value="None">None</option>
-            </select>
-            <select
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-              required
-            >
-              <option value="">Select Dormitory Type</option>
-              <option value="Public">Public</option>
-              <option value="Private">Private</option>
-            </select>
+
+            <div className="form-group">
+              <label className="input-label">Curfew:</label>
+              <select value={curfew} onChange={(e) => setCurfew(e.target.value)} required>
+                <option value="">Select Curfew</option>
+                <option value="9 PM">9 PM</option>
+                <option value="10 PM">10 PM</option>
+                <option value="11 PM">11 PM</option>
+                <option value="12 PM">12 PM</option>
+                <option value="None">None</option>
+              </select>
+            </div>
           </>
         )}
 
-        {/* Button to toggle creation of new dormitory */}
         <button
           type="button"
+          className="toggle-btn"
           onClick={() => setCreateNewDorm(!createNewDorm)}
         >
           {createNewDorm ? 'Cancel Dormitory Creation' : 'Create New Dormitory'}
         </button>
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" className="submit-btn">Sign Up</button>
       </form>
     </div>
   );

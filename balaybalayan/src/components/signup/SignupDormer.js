@@ -258,11 +258,19 @@ useEffect(() => {
         </div>
         <div className="upload-section">
           <h4 className='labels'>Upload Profile Photo:</h4>
-          <div className="upload-box">
+          <div 
+            className={`upload-box ${profilePhoto ? 'has-file' : ''}`}
+            data-file-name={profilePhoto?.name || ''}
+          >
             <input
               type="file"
               accept="image/*"
-              onChange={(e) => setProfilePhoto(e.target.files[0])}
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  setProfilePhoto(file);
+                }
+              }}
             />
           </div>
         </div>
