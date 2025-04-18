@@ -24,8 +24,6 @@ const SignUpDormer = () => {
   const [error, setError] = useState(null);
   const [redirect, setRedirect] = useState(false);
   const [dormitories, setDormitories] = useState([]);
-  const [rooms, setRooms] = useState([]);
-  const [selectedRoom, setSelectedRoom] = useState('');
   const [dormitoryId, setDormitoryId] = useState('');
 
   // Fetch dormitories from Firestore
@@ -45,52 +43,6 @@ const SignUpDormer = () => {
 
     fetchDormitories();
   }, []);
-
-// Fetch available rooms when a dormitory is selected
-useEffect(() => {
-  if (dormitoryId) {
-    console.log("Fetching rooms for dormitoryId:", dormitoryId);  // Debugging log
-    const fetchRooms = async () => {
-      try {
-        const roomQuery = query(
-          collection(db, 'dormitories', dormitoryId, 'rooms'),
-          where('status', '==', 'Available')
-        );
-        const querySnapshot = await getDocs(roomQuery);
-
-        // Check if the querySnapshot is empty
-        if (querySnapshot.empty) {
-          console.log("No available rooms found.");
-          setRooms([]);  // No rooms available
-        } else {
-          // Extract room data correctly
-          const availableRooms = querySnapshot.docs.map(doc => ({
-            id: doc.id,  // roomID
-            name: doc.data().name  // Room name
-          }));
-
-          // Sort the rooms by the room number extracted from the name
-          const sortedRooms = availableRooms.sort((a, b) => {
-            const roomA = a.name.match(/(\d+)/);
-            const roomB = b.name.match(/(\d+)/);
-
-            if (roomA && roomB) {
-              return parseInt(roomA[0]) - parseInt(roomB[0]);
-            }
-            return 0;  // If no number is found, leave them in the current order
-          });
-
-          console.log("Available rooms (sorted):", sortedRooms);  // Debugging log
-          setRooms(sortedRooms);
-        }
-      } catch (error) {
-        console.error("Error fetching rooms:", error);
-      }
-    };
-
-    fetchRooms();
-  }
-}, [dormitoryId]);  // Fetch rooms whenever the dormitoryId changes
   
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -116,7 +68,7 @@ useEffect(() => {
           phone: emergencyContactPhone,
         },
         profilePhotoURL: '',
-        room: selectedRoom, // Save selected room
+        isDormer: true  // Add this new field
       });
   
       const userId = userCredential.user.uid;
@@ -127,25 +79,6 @@ useEffect(() => {
         profilePhotoURL = await uploadProfilePhoto(profilePhoto, userId);
         await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
       }
-  
-    // After signing up the user and selecting a room
-    if (selectedRoom && dormitoryId) {
-      const roomRef = doc(db, 'dormitories', dormitoryId, 'rooms', selectedRoom); // Use roomID (not room name)
-
-      try {
-        // Add dormer's user ID to the room's dormers subcollection
-        await setDoc(
-          roomRef,
-          {
-            dormers: [userId]  // Add dormer's userId to the dormers array
-          },
-          { merge: true }
-        );
-        console.log("Dormer added to room:", selectedRoom);
-      } catch (error) {
-        console.error("Error adding dormer to room:", error);
-      }
-    }
   
       // Update the user profile in the users collection
       await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
@@ -286,19 +219,6 @@ useEffect(() => {
               {dorm.dormName}
             </option>
           ))}
-        </select>
-        <label className="input-label">Select Room:</label>
-        <select value={selectedRoom} onChange={(e) => setSelectedRoom(e.target.value)} required>
-          <option className='labels' value="">Choose a room:</option>
-          {rooms.length > 0 ? (
-            rooms.map((room, index) => (
-              <option key={index} value={room.id}>  {/* Use roomID here */}
-                {room.name}
-              </option>
-            ))
-          ) : (
-            <option disabled>No available rooms</option>
-          )}
         </select>
         <h3 className='labels'>Moving in Date:</h3>
         <input

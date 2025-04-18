@@ -71,60 +71,73 @@ function Navbar() {
   }, []);
 
   return (
-    <nav className={isAuthPage ? 'auth-page' : ''}>
-      {/* Only show logo and other components if the user is logged in or on other pages */}
-      <Link to="/" className="logo">
-        <img
-          src={require('./photos/alt_logo.png')}
-          alt="Desktop Logo"
-          className="logo-desktop"
-        />
-        <img
-          src={require('./photos/fav_icon.png')}
-          alt="Mobile Logo"
-          className="logo-mobile"
-        />
-      </Link>
-
-      {user && userProfile && getUserDashboardLink() && (
-        <Link to={getUserDashboardLink()} className="dashboard-button">
-          <img
-            src={require('./photos/small_logo.png')}
-            alt="Logo"
-            style={{ height: '40px' }}
-          />
-        </Link>
-      )}
-
-      {user ? (
-        <div className="user-actions">
-          <button onClick={toggleDropdown}>
-            {userProfile ? userProfile.firstName : 'Loading...'}
-          </button>
-          <div className={`dropdown ${dropdownOpen ? 'show' : ''}`}>
-            <button onClick={logout}>Logout</button>
-          </div>
-        </div>
-      ) : (
-        // Only show login button if on the home page and the user is not logged in
-        isHomePage && !user && (
-          <Link to="/login/dormer">
-            <button
-              className="login-btn"
-              style={{
-                backgroundColor: '#ffffff',
-                color: '#344EAD',
-                padding: '8px 15px',
-                border: '1px solid #ddd',
-                borderRadius: '50px',
-                cursor: 'pointer',
-                fontSize: '16px',
-                transition: 'background-color 0.3s ease, transform 0.3s ease',
-              }}
-            >Login</button>
+    <nav className={`navbar ${isAuthPage ? 'auth-page' : ''}`}>
+      <div className="navbar-container">
+        <div className="navbar-left"></div> {/* Empty div for flex spacing */}
+        <div className="navbar-center">
+          <Link to="/" className="logo">
+            <img
+              src={require('./photos/alt_logo.png')}
+              alt="Desktop Logo"
+              className="logo-desktop"
+            />
+            <img
+              src={require('./photos/fav_icon.png')}
+              alt="Mobile Logo"
+              className="logo-mobile"
+            />
           </Link>
-        )
-      )}
+        </div>
+
+        <div className="navbar-right">
+          {user && userProfile && getUserDashboardLink() && (
+            <Link to={getUserDashboardLink()} className="dashboard-link">
+              <img
+                src={require('./photos/small_logo.png')}
+                alt="Dashboard"
+                className="dashboard-icon"
+              />
+              <span>Dashboard</span>
+            </Link>
+          )}
+
+          {user ? (
+            <div className="user-actions">
+              <button className="user-profile-button" onClick={toggleDropdown}>
+                {userProfile?.profilePhotoURL ? (
+                  <img 
+                    src={userProfile.profilePhotoURL} 
+                    alt="Profile" 
+                    className="profile-photo"
+                  />
+                ) : (
+                  <div className="profile-initial">
+                    {userProfile?.firstName?.[0]?.toUpperCase()}
+                  </div>
+                )}
+                <span>{userProfile ? userProfile.firstName : 'Loading...'}</span>
+              </button>
+              <div className={`dropdown ${dropdownOpen ? 'show' : ''}`}>
+                <button className="dropdown-item" onClick={logout}>
+                  <span className="icon">👋</span>
+                  Logout
+                </button>
+              </div>
+            </div>
+          ) : (
+            isHomePage && !user && (
+              <div className="auth-buttons">
+                <Link to="/login/dormer" className="auth-button login">
+                  Login
+                </Link>
+                <Link to="/signup" className="auth-button signup">
+                  Sign Up
+                </Link>
+              </div>
+            )
+          )}
+        </div>
+      </div>
     </nav>
   );
 }
