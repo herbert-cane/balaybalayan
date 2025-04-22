@@ -84,19 +84,20 @@ body {
   background-color: transparent;
   border: none;
   border-bottom: 3px solid transparent;
-  color: #7f8c8d;
+  color: #fff;
   font-weight: 600;
   transition: all 0.3s ease;
 }
 
 .profile-tab.active {
-  color: #2980b9;
+  /*color: #2980b9;*/
+  color: #fff;
   border-bottom-color: #2980b9;
 }
 
 .profile-tab:hover {
   background-color: #f4f6f9;
-  color: #2c3e50;
+  color: #fff;
 }
 
 /* Posts Content */

@@ -162,9 +162,9 @@
 .container21 {
   display: flexbox;
   text-align: center;
-  background-color:  #FFFFFF;
+  /* background-color:  #FFFFFF; */
   margin: -5px 70px;
-  height: 405px;
+  height: fit-content;
   margin-bottom: 20px;
   border-radius: 5px;
 }
@@ -250,9 +250,9 @@
 .container31 {
   display: flexbox;
   text-align: center;
-  background-color:  #FFFFFF;
+  /* background-color:  #FFFFFF; */
   margin: -10px 70px;
-  height: 270px;
+  height: fit-content;
   margin-bottom: 20px;
   border-radius: 5px;  
 }
@@ -270,7 +270,7 @@
   padding: 1rem;
   display: grid;
   gap: 1rem;
-  background-color: #FFFFFF;
+  /* background-color: #FFFFFF; */
   margin-left: 20px;
 }
 
@@ -310,7 +310,8 @@
 }
 
 .appliance-list1 {
-  background: white;
+  /* background: white; */
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   padding: 2rem;
 }
@@ -328,7 +329,9 @@
   margin-top: 10px;
   display: flexbox;
   text-align: center;
-  background-color:  #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+
+  /* background-color:  #FFFFFF; */
   margin: 70px;
   height: 200px;
 }

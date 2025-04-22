@@ -98,7 +98,7 @@ input, select {
   border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
+  color: #000;
   font-size: 1rem;
   transition: all 0.3s ease;
   margin: 8px 0 25px 0; /* Add margin top and bottom */
@@ -148,6 +148,12 @@ select option {
   background: rgba(26, 26, 46, 0.98);
   color: #ffffff;
   padding: 15px;
+}
+
+/* Dropdowns */
+.dropdown {
+  background: rgba(26, 26, 46, 0.98);
+  color: #fff;
 }
 
 /* Labels with animations */
@@ -568,13 +574,13 @@ h4,
 p,
 label,
 .upload-section h4 {
-  color: #ffffff !important;
+  color: #ffffff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* Override any specific label styles */
 .upload-section h4 {
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 /* Price input labels */

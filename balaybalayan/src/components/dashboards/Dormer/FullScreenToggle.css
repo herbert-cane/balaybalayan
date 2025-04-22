@@ -42,7 +42,7 @@
 
 /* Subtle hover effect for buttons */
 .nav-button:hover {
-  color: #333; /* A softer color to avoid sharp contrast */
+  color: #fff; /* A softer color to avoid sharp contrast */
   background-color: rgba(97, 218, 251, 0.1); /* Light, subtle background on hover */
   transition: background-color 0.3s ease;
 }

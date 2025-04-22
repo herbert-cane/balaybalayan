@@ -138,7 +138,7 @@ const SignUpDormer = () => {
 
         <div className="form-group">
           <label className="input-label">Sex:</label>
-          <select value={sex} onChange={(e) => setSex(e.target.value)} required>
+          <select value={sex} onChange={(e) => setSex(e.target.value)} className="dropdown" required>
             <option value="">Select sex</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -212,7 +212,7 @@ const SignUpDormer = () => {
           const selectedDorm = dormitories.find(dorm => dorm.dormName === e.target.value);
           setDormName(e.target.value);
           setDormitoryId(selectedDorm.dormitoryId);  // Set dormitoryId for querying rooms
-        }} required>
+        }} className="dropdown" required>
           <option className='labels' value="">Choose the dorm you're currently staying at:</option>
           {dormitories.map(dorm => (
             <option key={dorm.dormitoryId} value={dorm.dormName}>
