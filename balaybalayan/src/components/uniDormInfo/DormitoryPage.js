@@ -115,7 +115,8 @@ const DormitoryPage = () => {
           </div>
           <div className="c2-column21">
               <div className="room-info1">
-                <h3>{basicRoom.roomName}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;₱{basicRoom.roomPrice}</h3>
+                <h3>{basicRoom.roomName}</h3>
+                <h3>₱{basicRoom.roomPrice}</h3>
                 <p>{basicRoom.numPersons}</p>
                 <p><strong>Number of Rooms:</strong> {dormData.NumberOfRooms}</p>
                 <p><strong>Available Rooms:</strong> {dormData.AvailableRooms}</p>
