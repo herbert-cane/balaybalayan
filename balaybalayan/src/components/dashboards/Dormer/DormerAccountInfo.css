@@ -3,17 +3,18 @@
   max-width: 800px;
   margin: 2rem auto;
   padding: 2rem;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgba(30, 41, 59, 0.85);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
 }
 
 /* Section styling */
 .info-section {
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .info-section:last-child {
@@ -22,23 +23,23 @@
 
 .info-section h3 {
   margin-bottom: 0.5rem;
-  color: #333;
+  color: #ffffff;
 }
 
 /* Text styling */
 p {
   margin: 0.5rem 0;
-  color: #555;
+  color: rgba(255, 255, 255, 0.8);
   font-size: 1rem;
 }
 
 p strong {
-  color: #222;
+  color: #ffffff;
 }
 
 /* Button base styling */
 button {
-  margin: 1rem 0.5rem; /* More space between buttons */
+  margin: 1rem 0.5rem;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
@@ -52,69 +53,74 @@ button {
 
 /* Edit button */
 .edit-button {
-  margin:0px 5px 0px 5px;
-  background-color: #007bff;
+  margin: 0px 5px 0px 5px;
+  background: linear-gradient(135deg, #2196F3, #1976D2);
   color: white;
   width: 200px;
-  border-radius: 30px; /* Round the corners for a modern look */
+  border-radius: 30px;
 }
 
 .edit-button:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px); /* Subtle lift effect on hover */
+  background: linear-gradient(135deg, #1976D2, #1565C0);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
 }
 
 /* My Dormitory button */
 .my-dorm-button {
-  margin:0px 5px 0px 5px;
-  background-color: #28a745;
+  margin: 0px 5px 0px 5px;
+  background: linear-gradient(135deg, #2196F3, #1976D2);
   color: white;
   width: 200px;
-  border-radius: 30px; /* Round the corners for a modern look */
+  border-radius: 30px;
 }
 
 .my-dorm-button:hover {
-  background-color: #218838;
+  background: linear-gradient(135deg, #1976D2, #1565C0);
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
 }
 
 /* Delete button */
 .delete-button {
-  margin:0px 5px 0px 5px;
-  background-color: #dc3545;
+  margin: 0px 5px 0px 5px;
+  background: rgba(231, 76, 60, 0.95);
   color: white;
   width: 200px;
-  border-radius: 30px; /* Round the corners for a modern look */
+  border-radius: 30px;
 }
 
 .delete-button:hover {
-  background-color: #c82333;
+  background: rgba(192, 57, 43, 0.95);
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
 }
 
 /* Spacing and alignment */
 .info-section .edit-button,
 .info-section .my-dorm-button,
 .info-section .delete-button {
-  margin-top: 1rem; /* More spacing above the buttons */
-  width: 200px; /* Consistent button width */
+  margin-top: 1rem;
+  width: 200px;
 }
 
 /* Edit Form styling */
 .edit-form-container {
-  background-color: #fff;
+  background-color: rgba(30, 41, 59, 0.85);
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 600px;
   margin: 2rem auto;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
 }
 
 .edit-form-container h3 {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: #ffffff;
   margin-bottom: 1rem;
 }
 
@@ -126,7 +132,7 @@ button {
 .form-group label {
   display: block;
   font-size: 1rem;
-  color: #555;
+  color: rgba(255, 255, 255, 0.8);
   margin-bottom: 0.5rem;
 }
 
@@ -134,17 +140,20 @@ button {
   width: 100%;
   padding: 0.75rem;
   font-size: 1rem;
-  border: 1px solid #ddd;
+  background-color: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 8px;
   transition: border 0.3s ease;
+  color: #ffffff;
 }
 
 .form-group input:focus {
-  border-color: #007bff;
+  border-color: #2196F3;
   outline: none;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
 }
 
-/* Button styling */
+/* Form actions */
 .form-actions {
   display: flex;
   justify-content: space-between;
@@ -152,22 +161,25 @@ button {
 }
 
 .cancel-button {
-  background-color: #f8f9fa;
-  color: #007bff;
-  border: 1px solid #007bff;
+  background-color: rgba(15, 23, 42, 0.95);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   width: 45%;
 }
 
 .cancel-button:hover {
-  background-color: #e9ecef;
+  background-color: rgba(30, 41, 59, 0.95);
+  transform: translateY(-2px);
 }
 
 .edit-button {
-  background-color: #28a745;
+  background: linear-gradient(135deg, #2196F3, #1976D2);
   color: white;
   width: 45%;
 }
 
 .edit-button:hover {
-  background-color: #218838;
+  background: linear-gradient(135deg, #1976D2, #1565C0);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
 }
