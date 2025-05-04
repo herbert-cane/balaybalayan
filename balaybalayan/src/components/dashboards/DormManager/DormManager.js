@@ -9,6 +9,7 @@ import Requests from './Requests';
 import Rooms from './Rooms';
 import MyDormers from './MyDormers';
 import './FullScreenToggle.css';
+import './dorm-manager-styles.css';
 
 const getDormitoryId = async () => {
   const user = getAuth().currentUser;  // Get the current logged-in user

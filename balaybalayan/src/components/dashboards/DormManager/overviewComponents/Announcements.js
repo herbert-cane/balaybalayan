@@ -9,6 +9,8 @@ const Announcements = ({ dormitoryId }) => {
   const [content, setContent] = useState('');
   const [editId, setEditId] = useState(null); // To track if we are editing
   const [expanded, setExpanded] = useState(false); // To manage "See More" state
+  const [currentPage, setCurrentPage] = useState(0);
+  const announcementsPerPage = 5;
 
   useEffect(() => {
     if (dormitoryId) {
@@ -66,13 +68,17 @@ const Announcements = ({ dormitoryId }) => {
     }
   };
 
-  const visibleAnnouncements = expanded ? announcements : announcements.slice(0, 5);
+  const pageCount = Math.ceil(announcements.length / announcementsPerPage);
+  const currentAnnouncements = announcements.slice(
+    currentPage * announcementsPerPage,
+    (currentPage + 1) * announcementsPerPage
+  );
 
   return (
     <div className="announcements">
       <h3>Announcements</h3>
       <ul className="announcements-list">
-        {visibleAnnouncements.map((announcement) => (
+        {currentAnnouncements.map((announcement) => (
           <li key={announcement.id} className="announcement-item">
             <div className="announcement-header">
               <h4>{announcement.title}</h4>
@@ -85,10 +91,28 @@ const Announcements = ({ dormitoryId }) => {
           </li>
         ))}
       </ul>
-      {announcements.length > 5 && (
-        <button className="btn-see-more" onClick={() => setExpanded((prev) => !prev)}>
-          {expanded ? 'See Less' : 'See More'}
-        </button>
+      {pageCount > 1 && (
+        <div className="announcements-pagination">
+          <div className="pagination-buttons">
+            <button 
+              className="pagination-button"
+              onClick={() => setCurrentPage(prev => prev - 1)}
+              disabled={currentPage === 0}
+            >
+              Previous
+            </button>
+            <button 
+              className="pagination-button"
+              onClick={() => setCurrentPage(prev => prev + 1)}
+              disabled={currentPage === pageCount - 1}
+            >
+              Next
+            </button>
+          </div>
+          <span className="page-indicator">
+            Page {currentPage + 1} of {pageCount}
+          </span>
+        </div>
       )}
       <div className="announcement-form">
         <input

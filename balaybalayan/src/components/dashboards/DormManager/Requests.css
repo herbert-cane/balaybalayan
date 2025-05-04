@@ -17,6 +17,11 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.97), rgba(15, 23, 42, 0.97));
+  min-height: 100vh;
+  color: #ffffff;
+  animation: fadeIn 1s ease-in-out;
+  border-radius: 24px;
 }
 
 .requests-header {
@@ -24,6 +29,15 @@ body {
   flex-direction: column; /* Stack items vertically */
   align-items: flex-start; /* Align items to the left */
   margin-bottom: 10px; /* Add spacing below the header */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-radius: 16px;
+  background: rgba(30, 41, 59, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .requests-status {
@@ -45,6 +59,17 @@ body {
   font-size: 28px;
   font-weight: bold;
   color: #2c3e50;
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #ffffff, #3B82F6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleGlow 2s ease-in-out infinite;
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.1));
+  border-radius: 12px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .filter-container {
@@ -55,14 +80,22 @@ body {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 12px;
   font-size: 16px;
+  background: rgba(30, 41, 59, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 8px 16px;
+  cursor: pointer;
 }
 
 .requests-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .request-footer > div {
@@ -85,6 +118,9 @@ body {
   justify-content: flex-start;
   gap: 10px;
   margin-top: auto; /* Push buttons to the bottom */
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .request-actions .btn {
@@ -99,20 +135,41 @@ body {
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
+  background: rgba(30, 41, 59, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 .request-item:hover {
   transform: translateY(-5px);
+  transform: translateY(-2px);
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .request-header {
   margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-right: 40px; /* Add space for delete icon */
+  z-index: 1;
 }
 
 .request-type {
-  font-weight: bold;
-  font-size: 18px;
-  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: linear-gradient(45deg, #64B5F6, #2196F3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-right: 40px;
+  animation: shimmer 2s ease-in-out infinite;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .request-status {
@@ -121,30 +178,129 @@ body {
   border-radius: 20px;
   text-transform: uppercase;
   font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .request-status.pending {
   background-color: #f39c12; /* Yellow for pending */
   color: white;
+  background: rgba(255, 152, 0, 0.2);
+  color: #FFA726;
+  border: 1px solid rgba(255, 152, 0, 0.3);
+  background: rgba(255, 193, 7, 0.2);
+  color: #FFC107;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.15), rgba(255, 193, 7, 0.15));
+  color: #FFC107;
+  border: 2px solid #FFC107;
 }
 
 .request-status.approved {
   background-color: #3498db; /* Blue for approved */
   color: white;
+  background: rgba(76, 175, 80, 0.2);
+  color: #81C784;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(102, 187, 106, 0.15));
+  color: #66BB6A;
+  border: 2px solid #4CAF50;
+}
+
+.request-status.acknowledged {
+  background: rgba(33, 150, 243, 0.2);
+  color: #64B5F6;
+  border: 1px solid rgba(33, 150, 243, 0.3);
+  background: rgba(33, 150, 243, 0.2);
+  color: #2196F3;
+  border: 1px solid rgba(33, 150, 243, 0.3);
+  background: linear-gradient(135deg, rgba(33, 150, 243, 0.15), rgba(66, 165, 245, 0.15));
+  color: #42A5F5;
+  border: 2px solid #2196F3;
+}
+
+.request-status.unresolved {
+  background: rgba(244, 67, 54, 0.2);
+  color: #E57373;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  background: rgba(244, 67, 54, 0.2);
+  color: #F44336;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  background: linear-gradient(135deg, rgba(244, 67, 54, 0.15), rgba(239, 83, 80, 0.15));
+  color: #EF5350;
+  border: 2px solid #F44336;
 }
 
 .request-status.rejected {
-  background-color: #e74c3c; /* Red for rejected */
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.15), rgba(216, 27, 96, 0.15));
+  color: #E91E63;
+  border: 2px solid #D81B60;
+}
+
+.status-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.status-button.pending {
+  background: linear-gradient(135deg, #FF9800, #F57C00);
   color: white;
 }
 
-/* Add remaining styles as before */
+.status-button.approved {
+  background: linear-gradient(135deg, #4CAF50, #388E3C);
+  color: white;
+}
 
+.status-button.acknowledged {
+  background: linear-gradient(135deg, #2196F3, #1976D2);
+  color: white;
+}
+
+.status-button.unresolved {
+  background: linear-gradient(135deg, #f44336, #d32f2f);
+  color: white;
+}
+
+.status-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
 .request-description {
   flex-grow: 1;
   margin-bottom: 15px;
   color: #7f8c8d;
+  color: #ffffff;
+  margin: 12px 0;
+  line-height: 1.5;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px;
+  border-radius: 10px;
 }
 
 .request-footer {
@@ -153,6 +309,20 @@ body {
   font-size: 14px;
   color: #95a5a6;
   margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.request-user, .request-date {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 8px;
+  border-radius: 6px;
 }
 
 .request-actions {
@@ -160,6 +330,8 @@ body {
   justify-content: space-between;
   gap: 10px;
   margin-top: auto; /* Add this line */
+  display: flex;
+  gap: 10px;
 }
 
 .btn {
@@ -170,6 +342,12 @@ body {
   cursor: pointer;
   font-weight: bold;
   transition: opacity 0.3s ease;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .btn:hover {
@@ -179,15 +357,31 @@ body {
 .btn-approve {
   background-color: #2ecc71;
   color: white;
+  background: linear-gradient(135deg, #4CAF50, #388E3C);
+  color: white;
 }
 
 .btn-reject {
   background-color: #e74c3c;
   color: white;
+  background: linear-gradient(135deg, #f44336, #d32f2f);
+  color: white;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn:not(:disabled):hover {
+  transform: translateY(-2px);
 }
 
 .see-more-container {
   text-align: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
 }
 
@@ -196,6 +390,18 @@ body {
   color: white;
   padding: 12px 24px;
   border-radius: 25px;
+  background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-see-more:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #2563EB, #1E40AF);
 }
 
 .no-requests,
@@ -205,6 +411,52 @@ body {
   font-style: italic;
   padding: 20px;
   grid-column: 1 / -1;
+}
+
+.no-requests {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 40px;
+}
+
+.requests-loading {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 40px;
+}
+
+.status-action-container {
+  margin-top: 15px;
+}
+
+.status-select {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(30, 41, 59, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.status-select:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+.status-select option {
+  background: rgba(30, 41, 59, 0.95);
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 8px;
 }
 
 /* Responsive Design */
@@ -222,4 +474,55 @@ body {
   .filter-container {
     width: 100%;
   }
+}
+
+@keyframes titleGlow {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -100% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.request-delete {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  padding: 6px;
+  border-radius: 50%;
+  background: rgba(244, 67, 54, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.request-delete:hover {
+  color: #FF5252;
+  background: rgba(244, 67, 54, 0.2);
+  transform: rotate(90deg);
 }

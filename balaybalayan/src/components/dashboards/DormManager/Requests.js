@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db, auth } from '../../../firebase';
-import { doc, getDoc, collection, onSnapshot, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, onSnapshot, updateDoc, deleteDoc } from 'firebase/firestore';
 import './Requests.css';
 
 const Requests = () => {
@@ -72,6 +72,21 @@ const Requests = () => {
     }
   };
 
+  const handleDeleteRequest = async (requestId) => {
+    if (window.confirm('Are you sure you want to delete this request?')) {
+      try {
+        const user = auth.currentUser;
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists() && userDoc.data().dormitoryId) {
+          const dormitoryId = userDoc.data().dormitoryId;
+          await deleteDoc(doc(db, "dormitories", dormitoryId, "requests", requestId));
+        }
+      } catch (error) {
+        console.error("Error deleting request:", error);
+      }
+    }
+  };
+
   if (loading) {
     return <div className="requests-loading">Loading requests...</div>;
   }
@@ -85,6 +100,8 @@ const Requests = () => {
             <option value="">All</option>
             <option value="pending">Pending</option>
             <option value="approved">Approved</option>
+            <option value="acknowledged">Acknowledged</option>
+            <option value="unresolved">Unresolved</option>
             <option value="rejected">Rejected</option>
           </select>
         </div>
@@ -97,6 +114,24 @@ const Requests = () => {
           <div className="requests-list">
             {filteredRequests.slice(0, visibleRequests).map((request) => (
               <div key={request.id} className="request-item">
+                <div 
+                  className="request-delete"
+                  onClick={() => handleDeleteRequest(request.id)}
+                  title="Delete request"
+                >
+                  <svg 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2"
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </div>
                 <div className="request-header">
                   <span className={`request-status ${request.status.toLowerCase()}`}>
                     {request.status}
@@ -105,24 +140,23 @@ const Requests = () => {
                 </div>
                 <p className="request-description">{request.description}</p>
                 <div className="request-footer">
-                  <span className="request-user">By: {requestUsers[request.id] || "Unknown"}</span>
-                  <span className="request-date">{request.createdAt.toDate().toLocaleString()}</span>
+                  <span className="request-user">By: {request.userLastName}</span>
+                  <span className="request-date">
+                    {request.createdAt.toDate().toLocaleString()}
+                  </span>
                 </div>
-                <div className="request-actions">
-                  <button
-                    className="btn btn-approve"
-                    onClick={() => handleRequestAction(request.id, "approved")}
-                    disabled={request.status === "approved"}
+                <div className="status-action-container">
+                  <select 
+                    className="status-select"
+                    value={request.status}
+                    onChange={(e) => handleRequestAction(request.id, e.target.value)}
                   >
-                    Approve
-                  </button>
-                  <button
-                    className="btn btn-reject"
-                    onClick={() => handleRequestAction(request.id, "rejected")}
-                    disabled={request.status === "rejected"}
-                  >
-                    Reject
-                  </button>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="acknowledged">Acknowledged</option>
+                    <option value="unresolved">Unresolved</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
                 </div>
               </div>
             ))}

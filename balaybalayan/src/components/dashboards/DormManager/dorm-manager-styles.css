@@ -125,4 +125,72 @@
     background-color: #e6f7ff;
     cursor: pointer;
   }
-  
+
+/* Position the search wrapper above the content */
+.search-wrapper {
+  width: 100%;
+  max-width: 500px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+  position: sticky;
+  top: 80px; /* Adjust based on your navbar height */
+  z-index: 10;
+}
+
+/* Search input styling */
+.dormer-search {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  color: #ffffff;
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Remove the search-container class as it's no longer needed */
+.search-container {
+  display: none;
+}
+
+/* Adjust section content to not include search */
+.section-content {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 1rem auto;
+  background: rgba(17, 24, 39, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* No results message */
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  width: 100%;
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+}
+
+.main-layout {
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.97), rgba(30, 41, 59, 0.97));
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}

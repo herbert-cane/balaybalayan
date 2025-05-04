@@ -6,49 +6,536 @@
   flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.97), rgba(15, 23, 42, 0.97));
+  color: #ffffff;
+  min-height: 100vh;
+  animation: fadeIn 1s ease-in-out;
 }
 
 /* Section specific styles */
 .chart-section, .tasks-section, .announcements-section, .important-dates-section {
   flex: 1 1 45%;
-  background-color: #f9f9f9;
+  background: rgba(30, 41, 59, 0.95);
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Styling for urgent tasks */
+.chart-section {
+  flex: 1 1 45%; /* Increased to take up proper space */
+  min-width: 300px;
+  max-width: none; /* Remove max-width constraint */
+  margin-right: 20px;
+  background: linear-gradient(135deg, rgba(33, 150, 243, 0.15), rgba(3, 169, 244, 0.15));
+  border: 1px solid rgba(33, 150, 243, 0.2);
+}
+
+.chart-section:hover, .tasks-section:hover, 
+.announcements-section:hover, .important-dates-section:hover {
+  transform: translateY(-5px);
+  border-color: rgba(33, 150, 243, 0.3);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced Dorm Capacity Section */
+.chart-section h2 {
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ffffff, #2196F3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: capacityTitleGlow 2s ease-in-out infinite;
+}
+
+@keyframes capacityTitleGlow {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(33, 150, 243, 0.8);
+  }
+}
+
+/* Pie chart container styling */
+.pie-chart-container {
+  background: rgba(30, 41, 59, 0.95);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+  max-width: 300px; /* Limit the pie chart size */
+  margin: 0 auto; /* Center the chart */
+}
+
+.pie-chart-container:hover {
+  transform: translateY(-2px);
+  border-color: rgba(33, 150, 243, 0.3);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced Urgent Tasks Section */
 .urgent-tasks {
-  background-color: #e3f2fd;
+  background: linear-gradient(135deg, rgba(244, 67, 54, 0.15), rgba(216, 27, 96, 0.15));
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(244, 67, 54, 0.2);
+  backdrop-filter: blur(12px);
 }
 
-.urgent-tasks h3 {
-  font-size: 1.2rem;
+.urgent-task-item {
+  background: rgba(30, 41, 59, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 10px;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.urgent-task-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(244, 67, 54, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.urgent-tasks h3,
+.urgent-task-item .title {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ffffff, #f44336);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: taskTitleGlow 2s ease-in-out infinite;
+}
+
+@keyframes taskTitleGlow {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(244, 67, 54, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(244, 67, 54, 0.8);
+  }
+}
+
+/* Enhanced Announcements Section */
+.announcements {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(56, 142, 60, 0.15));
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  backdrop-filter: blur(12px);
+}
+
+.announcement-item {
+  background: rgba(30, 41, 59, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 10px;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.announcement-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(76, 175, 80, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.announcement-item h4,
+.announcement-item .title {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ffffff, #4CAF50);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleGlow 2s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+  }
+}
+
+.announcement-form {
+  background: rgba(30, 41, 59, 0.95);
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.announcement-form input,
+.announcement-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ffffff;
+}
+
+.announcement-form button {
+  background: linear-gradient(135deg, #4CAF50, #388E3C);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.announcement-form button:hover {
+  background: linear-gradient(135deg, #388E3C, #2E7D32);
+  transform: translateY(-2px);
 }
 
 /* Styling for announcements */
 .announcements {
-  background-color: #f1f8e9;
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(56, 142, 60, 0.15));
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(76, 175, 80, 0.2);
 }
 
 .announcements h3 {
   font-size: 1.2rem;
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 15px;
 }
 
 /* Styling for important dates */
 .important-dates {
-  background-color: #ffe0b2;
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.15), rgba(245, 124, 0, 0.15));
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 152, 0, 0.2);
 }
 
 .important-dates h3 {
   font-size: 1.2rem;
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Styling for Permits Section */
+.permits-section {
+  flex: 1 1 45%;
+  min-width: 300px;
+  max-width: none; /* Remove max-width constraint */
+  margin: 0;
+  padding: 25px;
+  background: linear-gradient(135deg, rgba(156, 39, 176, 0.15), rgba(123, 31, 162, 0.15));
+  border: 1px solid rgba(156, 39, 176, 0.2);
+  border-radius: 24px; /* Increased border radius */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow: hidden; /* Ensure content respects border radius */
+}
+
+.permits-list {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.permits-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.permits-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.permits-list::-webkit-scrollbar-thumb {
+  background: rgba(156, 39, 176, 0.3);
+  border-radius: 4px;
+}
+
+.permit-form {
+  background: rgba(30, 41, 59, 0.95);
+  padding: 20px;
+  border-radius: 16px; /* Increased form border radius */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+}
+
+.permit-form-group {
+  margin-bottom: 15px;
+}
+
+.permit-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+}
+
+.permit-form input,
+.permit-form select,
+.permit-form textarea {
+  width: 100%;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.permit-form button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.permit-form button:hover {
+  background: linear-gradient(135deg, #7B1FA2, #6A1B9A);
+  transform: translateY(-2px);
+}
+
+.permits-section h2 {
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ffffff, #9C27B0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: permitsTitleGlow 2s ease-in-out infinite;
+  text-align: center;
+}
+
+.permit-item {
+  background: rgba(30, 41, 59, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px; /* Increased item border radius */
+  padding: 15px;
+  margin-bottom: 10px;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.permit-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(156, 39, 176, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.permit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.permit-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.permit-datetime {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.permit-status {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.status-pending {
+  background: rgba(255, 152, 0, 0.2);
+  color: #FFA726;
+  border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+.status-approved {
+  background: rgba(76, 175, 80, 0.2);
+  color: #81C784;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.status-returned {
+  background: rgba(244, 67, 54, 0.2);
+  color: #E57373;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+@keyframes permitsTitleGlow {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(156, 39, 176, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(156, 39, 176, 0.8);
+  }
 }
 
 .input-form {
   margin-top: 10px;
+  background: rgba(30, 41, 59, 0.95);
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chart-section, .permits-section {
+  align-self: flex-start;
+  height: auto;
+}
+
+.permits-pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pagination-buttons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.pagination-button {
+  background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.pagination-button:disabled {
+  background: rgba(156, 39, 176, 0.3);
+  cursor: not-allowed;
+}
+
+.pagination-button:not(:disabled):hover {
+  background: linear-gradient(135deg, #7B1FA2, #6A1B9A);
+  transform: translateY(-2px);
+}
+
+.page-indicator {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Enhanced Title Styles */
+.permits-section h2,
+.tasks-section h2,
+.important-dates h3 {
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleGlow 2s ease-in-out infinite;
+}
+
+.permits-section h2 {
+  background: linear-gradient(45deg, #ffffff, #9C27B0);
+}
+
+.tasks-section h2 {
+  background: linear-gradient(45deg, #ffffff, #FF9800);
+}
+
+.important-dates h3 {
+  background: linear-gradient(45deg, #ffffff, #F44336);
+}
+
+/* Shared pagination styles */
+.permits-pagination,
+.announcements-pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pagination-buttons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Remove the old permits title styles */
+.permits-section h2.section-title,
+.permits-title {
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ffffff, #9C27B0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: permitsTitleGlow 2s ease-in-out infinite;
+  text-align: center;
 }
