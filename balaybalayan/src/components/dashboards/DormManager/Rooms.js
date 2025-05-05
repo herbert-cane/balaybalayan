@@ -211,17 +211,24 @@ const Rooms = () => {
               <p>Amenities: {room.amenities}</p>
               <p>Current Dormers:</p>
               <ul>
-                {room.dormers?.map((dormerId) => {
-                  const dormer = dormers.find((d) => d.id === dormerId);
-                  return dormer ? (
-                    <li key={dormerId}>
+              <ul>
+              {room.dormers?.map((dormerId) => {
+                const dormer = dormers.find((d) => d.id === dormerId);
+                return dormer ? (
+                  <li key={dormerId}>
+                    <span style={{ color: 'black' }}>
                       {dormer.firstName} {dormer.lastName}
-                      <button className="remove-button" onClick={() => removeDormerFromRoom(room.id, dormerId)}>Remove</button>
-                    </li>
-                  ) : null;
-                })}
+                    </span>
+                    <button className="remove-button" onClick={() => removeDormerFromRoom(room.id, dormerId)}>
+                      Remove
+                    </button>
+                  </li>
+                ) : null;
+              })}
+            </ul>
+
               </ul>
-              <label>Add Dormer: </label>
+              <label style={{ color: 'black' }}>Add Dormer: </label>
               <select
                 onChange={(e) => {
                   addDormerToRoom(room.id, e.target.value);
