@@ -1,0 +1,15 @@
+.reportBody
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.reportHeader
+{
+    display: -ms-inline-grid;
+}
+
+.reportContent
+{
+    display: -ms-inline-grid;
+}
