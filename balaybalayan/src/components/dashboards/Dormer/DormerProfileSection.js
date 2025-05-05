@@ -204,113 +204,115 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-container">
-      {/* Profile Header */}
-      <div className="profile-header">
-        <div className="cover-photo-container">
-          <img src={userData.coverPhoto} alt="Cover" className="cover-photo" />
-        </div>
-        <div className="profile-info-container">
-          <div className="profile-photo-container">
-            <img
-              src={userData.profilePhotoURL}
-              alt="Profile"
-              className="profile-photo"
-            />
+    <div className="dormer-profile">
+      <div className="profile-container">
+        {/* Profile Header */}
+        <div className="profile-header">
+          <div className="cover-photo-container">
+            <img src={userData.coverPhoto} alt="Cover" className="cover-photo" />
           </div>
-          <div className="profile-details">
-            <h2 className="profile-name">{userData.firstName} {userData.lastName}</h2>
-            <p className="profile-email">{userData.email}</p>
-            <p className="profile-address">{userData.address}</p>
+          <div className="profile-info-container">
+            <div className="profile-photo-container">
+              <img
+                src={userData.profilePhotoURL}
+                alt="Profile"
+                className="profile-photo"
+              />
+            </div>
+            <div className="profile-details">
+              <h2 className="profile-name">{userData.firstName} {userData.lastName}</h2>
+              <p className="profile-email">{userData.email}</p>
+              <p className="profile-address">{userData.address}</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Profile Tabs */}
-      <div className="profile-tabs">
-        <button
-          className={`profile-tab ${activeTab === 'posts' ? 'active' : ''}`}
-          onClick={() => setActiveTab('posts')}
-        >
-          Posts
-        </button>
-        <button
-          className={`profile-tab ${activeTab === 'friends' ? 'active' : ''}`}
-          onClick={() => setActiveTab('friends')}
-        >
-          Friends
-        </button>
-        <button
-          className={`profile-tab ${activeTab === 'photos' ? 'active' : ''}`}
-          onClick={() => setActiveTab('photos')}
-        >
-          Photos
-        </button>
-      </div>
-
-      {/* Display Content based on active tab */}
-      {activeTab === 'posts' && (
-        <div className="posts-content">
-          <button 
-            className="create-post-btn" 
-            onClick={() => openModal()}
+        {/* Profile Tabs */}
+        <div className="profile-tabs">
+          <button
+            className={`profile-tab ${activeTab === 'posts' ? 'active' : ''}`}
+            onClick={() => setActiveTab('posts')}
           >
-            Create New Post
+            Posts
           </button>
-          {posts.map((post) => (
-            <div key={post.id} className="post-item">
-              <p>{post.text}</p>
-              <div className="post-timestamp">
-                {new Date(post.timestamp).toLocaleString()}
-              </div>
-              <div className="post-actions">
-                <button onClick={() => openModal(post)}>Edit</button>
-                <button onClick={() => handleDeletePost(post.id)}>Delete</button>
-              </div>
-            </div>
-          ))}
+          <button
+            className={`profile-tab ${activeTab === 'friends' ? 'active' : ''}`}
+            onClick={() => setActiveTab('friends')}
+          >
+            Friends
+          </button>
+          <button
+            className={`profile-tab ${activeTab === 'photos' ? 'active' : ''}`}
+            onClick={() => setActiveTab('photos')}
+          >
+            Photos
+          </button>
         </div>
-      )}
 
-      {/* Other tabs remain the same */}
-      {activeTab === 'friends' && (
-        <div className="friends-content">
-          <div className="friend-card">
-            <img src="https://via.placeholder.com/50" alt="John Doe" />
-            <h3>John Doe</h3>
+        {/* Display Content based on active tab */}
+        {activeTab === 'posts' && (
+          <div className="posts-content">
+            <button 
+              className="create-post-btn" 
+              onClick={() => openModal()}
+            >
+              Create New Post
+            </button>
+            {posts.map((post) => (
+              <div key={post.id} className="post-item">
+                <p>{post.text}</p>
+                <div className="post-timestamp">
+                  {new Date(post.timestamp).toLocaleString()}
+                </div>
+                <div className="post-actions">
+                  <button onClick={() => openModal(post)}>Edit</button>
+                  <button onClick={() => handleDeletePost(post.id)}>Delete</button>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="friend-card">
-            <img src="https://via.placeholder.com/50" alt="Alice Smith" />
-            <h3>Alice Smith</h3>
-          </div>
-          <div className="friend-card">
-            <img src="https://via.placeholder.com/50" alt="Bob Johnson" />
-            <h3>Bob Johnson</h3>
-          </div>
-        </div>
-      )}
-      {activeTab === 'photos' && (
-        <div className="photos-content">
-          <div className="photo-card">
-            <img src="https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/profile_photos%2F0ciS2fvJRidjfxSGFlBH0h7qnTx2?alt=media&token=625d7a8a-d2c9-454e-9a78-dd3237f46f25" alt="Photo 1" />
-            <div className="photo-overlay">
-            </div>
-          </div>
-          <div className="photo-card">
-            <img src="https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2FdormerCardPhoto.jpg?alt=media&token=36b74a12-5fe6-4683-b4cb-9ec73be449e0" alt="Photo 2" />
-            <div className="photo-overlay">
-            </div>
-          </div>
-          <div className="photo-card">
-            <img src="https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2Fphoto_sample.jpg?alt=media&token=a6a71b8a-69c2-4e11-8ae3-4262d5b88248" alt="Photo 3" />
-            <div className="photo-overlay">
-            </div>
-          </div>
-        </div>
-      )}
+        )}
 
-      {/* Render post modal */}
-      {renderPostModal()}
+        {/* Other tabs remain the same */}
+        {activeTab === 'friends' && (
+          <div className="friends-content">
+            <div className="friend-card">
+              <img src="https://via.placeholder.com/50" alt="John Doe" />
+              <h3>John Doe</h3>
+            </div>
+            <div className="friend-card">
+              <img src="https://via.placeholder.com/50" alt="Alice Smith" />
+              <h3>Alice Smith</h3>
+            </div>
+            <div className="friend-card">
+              <img src="https://via.placeholder.com/50" alt="Bob Johnson" />
+              <h3>Bob Johnson</h3>
+            </div>
+          </div>
+        )}
+        {activeTab === 'photos' && (
+          <div className="photos-content">
+            <div className="photo-card">
+              <img src="https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/profile_photos%2F0ciS2fvJRidjfxSGFlBH0h7qnTx2?alt=media&token=625d7a8a-d2c9-454e-9a78-dd3237f46f25" alt="Photo 1" />
+              <div className="photo-overlay">
+              </div>
+            </div>
+            <div className="photo-card">
+              <img src="https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2FdormerCardPhoto.jpg?alt=media&token=36b74a12-5fe6-4683-b4cb-9ec73be449e0" alt="Photo 2" />
+              <div className="photo-overlay">
+              </div>
+            </div>
+            <div className="photo-card">
+              <img src="https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2Fphoto_sample.jpg?alt=media&token=a6a71b8a-69c2-4e11-8ae3-4262d5b88248" alt="Photo 3" />
+              <div className="photo-overlay">
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Render post modal */}
+        {renderPostModal()}
+      </div>
     </div>
   );
 };

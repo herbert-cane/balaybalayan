@@ -1,5 +1,13 @@
 /* General Profile Container */
-.profile-container {
+
+.dormer-profile {
+    width: 100%;
+    max-width: 1200px;
+    margin: none;
+    padding: none;
+}
+
+.dormer-profile .profile-container {
     width: 100%;
     max-width: 1200px;
     margin: auto;
