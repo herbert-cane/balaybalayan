@@ -4,6 +4,7 @@ import DormerHomeSection from './DormerHomeSection';
 import DormerProfile from './DormerProfileSection';
 import DormerAccountInfo from './DormerAccountInfo';
 import DormerRoommateInfo from './DormerRoommateInfo';
+import DormerReportTab from '../../reportSystem/dormerReportTab';
 import './FullScreenToggle.css';
 
 const Dormers = () => {
@@ -19,6 +20,8 @@ const Dormers = () => {
         return <DormerAccountInfo />;
       case 'roommateInfo':
         return <DormerRoommateInfo />;
+      case 'dormerReports':
+        return <DormerReportTab />;
       default:
         return <DormerHomeSection />;
     }
