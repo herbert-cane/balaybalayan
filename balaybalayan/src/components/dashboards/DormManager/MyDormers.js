@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import './MyDormers.css';
+import SearchBar from './SearchBar';
 
 const MyDormers = ({ dormitoryId }) => {
   const [dormers, setDormers] = useState([]);
@@ -49,29 +50,41 @@ const MyDormers = ({ dormitoryId }) => {
   }, [dormitoryId]);
 
   // Add search functionality
+  // useEffect(() => {
+  //   const results = dormers.filter(dormer => 
+  //     dormer.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     dormer.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
+  //   );
+  //   setFilteredDormers(results);
+  // }, [searchTerm, dormers]);
+
+  // const handleSearch = () => {
+  //   const results = dormers.filter(dormer => 
+  //     dormer.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     dormer.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
+  //   );
+  //   setFilteredDormers(results);
+  // };
+
+  // const handleKeyPress = (e) => {
+  //   if (e.key === 'Enter') {
+  //     handleSearch();
+  //   }
+  // };
+
+  // // Find the room assignment for a given dormer
+  // const findRoomForDormer = (id) => {
+  //   const room = rooms.find((room) => room.dormers?.includes(id));
+  //   return room ? room.name : 'Unassigned';
+  // };
+
   useEffect(() => {
-    const results = dormers.filter(dormer => 
-      dormer.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      dormer.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
+    const results = dormers.filter((dormer) =>
+      `${dormer.firstName} ${dormer.lastName}`.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredDormers(results);
   }, [searchTerm, dormers]);
 
-  const handleSearch = () => {
-    const results = dormers.filter(dormer => 
-      dormer.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      dormer.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredDormers(results);
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
-
-  // Find the room assignment for a given dormer
   const findRoomForDormer = (id) => {
     const room = rooms.find((room) => room.dormers?.includes(id));
     return room ? room.name : 'Unassigned';
@@ -83,25 +96,7 @@ const MyDormers = ({ dormitoryId }) => {
 
   return (
     <div className="dormers-section">
-      <div className="search-wrapper">
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Search dormers by name..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyPress={handleKeyPress}
-            className="search-input"
-          />
-          <button 
-            onClick={handleSearch}
-            className="search-button"
-          >
-            Search
-          </button>
-        </div>
-      </div>
-      {/* ...rest of your code... */}
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <div className="dormers-container">
         <div className="dormer-cards">
           {filteredDormers.map((dormer) => (

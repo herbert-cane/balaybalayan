@@ -99,7 +99,7 @@ h2 {
 }
 
 .search-input:focus {
-  outline: none;
+  outline: solid;
   border-color: #2196F3;
   box-shadow: 0 0 15px rgba(33, 150, 243, 0.2);
 }
