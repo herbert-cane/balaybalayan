@@ -116,24 +116,38 @@
 /* Profile Tabs */
 .profile-tabs {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     padding-top: 1rem;
+    gap: 10px;
 }
 
-.profile-tab {
+.dormer-profile .profile-tabs .profile-tab {
     padding: 10px 20px;
-    background-color: rgba(30, 41, 59, 0.85);
-    border: 1px solid rgba(33, 150, 243, 0.3);
-    color: #ffffff;
+    background: transparent;
+    border: none;
+    color: #f5f5f5;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+    min-width: 120px;
+    text-align: center;
+    margin: 0;
+    font-size: 1rem;
+    border-bottom: 3px solid transparent;
 }
 
-.profile-tab:hover {
-    background-color: rgba(33, 150, 243, 0.1);
+.dormer-profile .profile-tabs .profile-tab:hover {
+    background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
+}
+
+.dormer-profile .profile-tabs .profile-tab.active {
+    border-bottom: 3px solid #007bff;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background-color: rgba(17, 24, 39, 0.95);
+    box-shadow: 0 0 15px rgba(33, 150, 243, 0.2);
 }
 
 /* Add hover effects */
