@@ -47,17 +47,31 @@ button {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 45px;
   text-align: center;
+  line-height: 1.2;
+}
+
+/* Common button styles */
+.edit-button,
+.my-dorm-button,
+.delete-button {
+  margin: 0px 5px;
+  width: 200px;
+  border-radius: 30px;
+  height: 45px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Edit button */
 .edit-button {
-  margin: 0px 5px 0px 5px;
   background: linear-gradient(135deg, #2196F3, #1976D2);
   color: white;
-  width: 200px;
-  border-radius: 30px;
 }
 
 .edit-button:hover {
@@ -68,11 +82,8 @@ button {
 
 /* My Dormitory button */
 .my-dorm-button {
-  margin: 0px 5px 0px 5px;
   background: linear-gradient(135deg, #2196F3, #1976D2);
   color: white;
-  width: 200px;
-  border-radius: 30px;
 }
 
 .my-dorm-button:hover {
@@ -83,11 +94,8 @@ button {
 
 /* Delete button */
 .delete-button {
-  margin: 0px 5px 0px 5px;
   background: rgba(231, 76, 60, 0.95);
   color: white;
-  width: 200px;
-  border-radius: 30px;
 }
 
 .delete-button:hover {
