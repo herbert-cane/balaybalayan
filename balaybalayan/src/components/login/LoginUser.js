@@ -4,7 +4,7 @@ import { Navigate, Link } from 'react-router-dom';
 import mainimage from './image2.png';
 import './Login.css';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';  // Add this import at the top
+import { getAuth } from 'firebase/auth';
 
 const Login = () => {
   const { login, user } = useAuth();
