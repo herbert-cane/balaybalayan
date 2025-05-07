@@ -4,6 +4,7 @@ import { Navigate, Link } from 'react-router-dom';
 import mainimage from './image2.png';
 import './Login.css';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';  // Add this import at the top
 
 const Login = () => {
   const { login, user } = useAuth();
@@ -24,16 +25,19 @@ const Login = () => {
       const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
       const userData = userDoc.data();
 
-      // Check if user type matches selected type
-      if (userData.role !== userType) {
-        // Logout the user if wrong type selected
-        await userCredential.user.delete();
+      // Case-insensitive comparison of user type
+      if (userData.role.toLowerCase() !== userType.toLowerCase()) {
+        const auth = getAuth();
+        await auth.signOut();
         setError(`Invalid account type. Please login as ${userData.role}`);
         return;
       }
 
       setRedirect(true);
     } catch (error) {
+      // Add console.log for debugging
+      console.log('Login error:', error);
+      
       // Convert Firebase errors to user-friendly messages
       let errorMessage = "Invalid Username or Password";
       
