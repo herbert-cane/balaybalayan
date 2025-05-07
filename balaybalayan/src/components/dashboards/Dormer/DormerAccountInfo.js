@@ -5,15 +5,12 @@ import { doc, getDoc, updateDoc, deleteDoc, getDocs,collection } from "firebase/
 import { auth } from "../../../firebase.js";
 import { useNavigate } from "react-router-dom";
 import EditInformationForm from "./DormerInfoEdit.js";
-import DormitorySelection from "./DormitorySelection.js";
 
 const AccountInformation = () => {
   const [accountInfo, setAccountInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
-  const [availableDormitories, setAvailableDormitories] = useState([]);
   const [selectedDorm, setSelectedDorm] = useState(null);
-  const [showDormSelection, setShowDormSelection] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
@@ -45,17 +42,7 @@ const AccountInformation = () => {
       }
     };
 
-    const fetchDormitories = async () => {
-      try {
-        const dormSnapshot = await getDocs(collection(db, "dormitories"));
-        setAvailableDormitories(dormSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-      } catch (error) {
-        console.error("Error fetching dormitories", error);
-      }
-    };
-
     fetchAccountInfo();
-    fetchDormitories();
   }, []);
 
   const handleEditToggle = () => {
@@ -75,25 +62,6 @@ const AccountInformation = () => {
       }
     } catch (error) {
       console.error("Error updating information", error);
-    }
-  };
-
-  const handleDormSelection = async (newDormId) => {
-    try {
-      const selectedDorm = availableDormitories.find((dorm) => dorm.id === newDormId);
-      if (selectedDorm) {
-        const user = auth.currentUser;
-        if (user) {
-          const docRef = doc(db, "users", user.uid);
-          await updateDoc(docRef, { dormitoryId: selectedDorm.id });
-          setSelectedDorm(selectedDorm);
-          setShowDormSelection(false);
-          setShowSuccessMessage(true);
-          setTimeout(() => setShowSuccessMessage(false), 3000);
-        }
-      }
-    } catch (error) {
-      console.error("Error updating dormitory", error);
     }
   };
 
@@ -133,7 +101,7 @@ const AccountInformation = () => {
           <div className="info-section">
             <h3>Personal Details</h3>
             <p><strong>Name:</strong> {accountInfo.firstName || "N/A"} {accountInfo.lastName || "N/A"}</p>
-            <p><strong>Email:</strong> {accountInfo.email || "N/A"}</p>
+            <p><strong>Email:</strong> {auth.currentUser?.email || "N/A"}</p>
             <p><strong>Address:</strong> {accountInfo.address || "N/A"}</p>
           </div>
 
@@ -160,21 +128,14 @@ const AccountInformation = () => {
 
       {showSuccessMessage && <div className="success-message">Changes saved successfully!</div>}
 
-      <div className="info-section">
+      <div className="info-section button-container">
         <button className="edit-button" onClick={handleEditToggle}>
           {isEditing ? "Cancel Edit" : "Edit Information"}
-        </button>
-        <button className="my-dorm-button" onClick={() => setShowDormSelection(!showDormSelection)}>
-          My Dormitory
         </button>
         <button className="delete-button" onClick={handleAccountDeletion}>
           Delete My Account
         </button>
       </div>
-
-      {showDormSelection && (
-        <DormitorySelection dormitories={availableDormitories} onSelectDormitory={handleDormSelection} />
-      )}
 
       {showDeleteConfirmation && (
         <div className="confirmation-modal">

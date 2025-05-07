@@ -51,3 +51,12 @@ export const uploadProfilePhoto = async (file, userId) => {
       throw error;
     }
   };
+
+export const uploadForm5 = async (file, userId) => {
+  if (!file) return '';
+  
+  const storageRef = ref(storage, `form5/${userId}/${file.name}`);
+  await uploadBytes(storageRef, file);
+  const downloadURL = await getDownloadURL(storageRef);
+  return downloadURL;
+};

@@ -17,19 +17,23 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // First, attempt to login
       const userCredential = await login(email, password);
       
-      // Get user data from Firestore
       const db = getFirestore();
       const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
       const userData = userDoc.data();
 
-      // Case-insensitive comparison of user type
-      if (userData.role.toLowerCase() !== userType.toLowerCase()) {
+      // Update role comparison logic
+      const roleMap = {
+        'Dorm Manager': 'manager',
+        'Dormer': 'dormer'
+      };
+
+      const expectedRole = roleMap[userType];
+      if (userData.role !== expectedRole) {
         const auth = getAuth();
         await auth.signOut();
-        setError(`Invalid account type. Please login as ${userData.role}`);
+        setError(`Invalid account type. Please login with correct credentials`);
         return;
       }
 

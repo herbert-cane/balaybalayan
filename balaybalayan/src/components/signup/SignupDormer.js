@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthContext';
 import { Navigate } from 'react-router-dom';
-import { uploadProfilePhoto } from '../../utils/firebaseStorage';
+import { uploadProfilePhoto, uploadForm5 } from '../../utils/firebaseStorage';
 import { doc, setDoc, getDocs, collection, query, where } from 'firebase/firestore';
 import { db } from '../../firebase';
 import './signUpUser.css';
@@ -25,6 +25,27 @@ const SignUpDormer = () => {
   const [redirect, setRedirect] = useState(false);
   const [dormitories, setDormitories] = useState([]);
   const [dormitoryId, setDormitoryId] = useState('');
+  const [studentNumber, setStudentNumber] = useState('');
+  const [course, setCourse] = useState('');
+  const [college, setCollege] = useState('');
+  const [form5, setForm5] = useState(null);
+  const [form5Error, setForm5Error] = useState('');
+
+  const validateForm5 = (file) => {
+    if (file) {
+      if (file.type !== 'application/pdf') {
+        setForm5Error('Please upload a PDF file');
+        return false;
+      }
+      if (file.size > 2 * 1024 * 1024) { // 2MB in bytes
+        setForm5Error('File size should be less than 2MB');
+        return false;
+      }
+      setForm5Error('');
+      return true;
+    }
+    return false;
+  };
 
   // Fetch dormitories from Firestore
   useEffect(() => {
@@ -46,6 +67,10 @@ const SignUpDormer = () => {
   
   const handleSignUp = async (e) => {
     e.preventDefault();
+    
+    if (!validateForm5(form5)) {
+      return;
+    }
   
     if (password !== confirmPassword) {
       setError('Passwords do not match');
@@ -62,12 +87,16 @@ const SignUpDormer = () => {
         dormName,
         dormitoryId,  // Save dormitoryId as part of the user
         moveInDate,
+        studentNumber,
+        course,
+        college,
         emergencyContact: {
           firstName: emergencyContactFirstName,
           lastName: emergencyContactLastName,
           phone: emergencyContactPhone,
         },
         profilePhotoURL: '',
+        form5URL: '',  // Initialize form5URL
         isDormer: true  // Add this new field
       });
   
@@ -77,13 +106,23 @@ const SignUpDormer = () => {
       let profilePhotoURL = '';
       if (profilePhoto) {
         profilePhotoURL = await uploadProfilePhoto(profilePhoto, userId);
-        await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
+      }
+
+      // Upload Form5 PDF
+      let form5URL = '';
+      if (form5) {
+        form5URL = await uploadForm5(form5, userId);
       }
   
-      // Update the user profile in the users collection
-      await setDoc(doc(db, 'users', userId), { profilePhotoURL }, { merge: true });
+      // Update the user profile with all URLs
+      await setDoc(doc(db, 'users', userId), {
+        profilePhotoURL,
+        form5URL,
+        studentNumber,
+        course,
+        college
+      }, { merge: true });
   
-      // Redirect the user after successful signup
       setRedirect(true);
     } catch (error) {
       setError(error.message);
@@ -207,6 +246,58 @@ const SignUpDormer = () => {
             />
           </div>
         </div>
+
+        <div className="form-group">
+          <label className="input-label">Student Number:</label>
+          <input
+            type="number"
+            placeholder="Enter your student number"
+            value={studentNumber}
+            onChange={(e) => setStudentNumber(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">Course:</label>
+          <input
+            type="text"
+            placeholder="Enter your course"
+            value={course}
+            onChange={(e) => setCourse(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">College:</label>
+          <input
+            type="text"
+            placeholder="Enter your college"
+            value={college}
+            onChange={(e) => setCollege(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">Form 5 (PDF only, max 2MB):</label>
+          <div className={`upload-box ${form5 ? 'has-file' : ''}`}>
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (validateForm5(file)) {
+                  setForm5(file);
+                }
+              }}
+              required
+            />
+          </div>
+          {form5Error && <p className="error-message">{form5Error}</p>}
+        </div>
+
         <label className="input-label">Select Dormitory:</label>
         <select value={dormName} onChange={(e) => {
           const selectedDorm = dormitories.find(dorm => dorm.dormName === e.target.value);
