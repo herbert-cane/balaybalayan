@@ -10,7 +10,7 @@ const Permits = ({ dormitoryId }) => {
     {
       id: 1,
       name: "John Doe",
-      dateTime: "2025-05-04 14:30",
+      dateTime: "2025-05-07 14:30",
       status: "pending",
       reason: "Weekend home visit"
     },
