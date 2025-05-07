@@ -37,12 +37,18 @@ h2 {
   width: 250px;
   overflow: hidden;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .dormer-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   border-color: #2196F3;
+}
+
+.dormer-card:hover .hover-info {
+  opacity: 1;
+  visibility: visible;
 }
 
 .dormer-image {
@@ -67,6 +73,40 @@ h2 {
   margin: 5px 0;
   font-size: 0.9em;
   color: rgba(255, 255, 255, 0.7);
+}
+
+.dormer-name {
+  text-align: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dormer-name h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.info-grid {
+  display: grid;
+  gap: 15px;
+}
+
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-group p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.info-group strong {
+  color: rgba(255, 255, 255, 0.7);
+  margin-right: 5px;
 }
 
 /* Updated Search bar styling */
@@ -153,4 +193,93 @@ h2 {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+}
+
+.hover-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.98);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: inherit;
+}
+
+.additional-info {
+  color: #E2E8F0;
+  text-align: left;
+  width: 100%;
+}
+
+.additional-info h4 {
+  color: #60A5FA;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.additional-info p {
+  margin: 8px 0;
+  font-size: 0.95rem;
+  color: #E2E8F0;
+}
+
+.additional-info strong {
+  color: #60A5FA;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.emergency-contact {
+  margin-top: 20px;
+  padding: 15px;
+  background: transparent;
+  border: 2px solid rgba(96, 165, 250, 0.6);
+  border-radius: 8px;
+}
+
+.emergency-contact h4 {
+  color: #60A5FA;
+  margin-bottom: 12px;
+}
+
+.emergency-contact p {
+  color: #E2E8F0;
+}
+
+.emergency-contact strong {
+  color: #60A5FA;
+}
+
+.hover-info .emergency-contact {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hover-info .emergency-contact h4 {
+  color: #60A5FA;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.hover-info .emergency-contact p {
+  color: #E2E8F0;
+  margin: 8px 0;
+  font-size: 0.95rem;
+}
+
+.hover-info .emergency-contact strong {
+  color: #60A5FA;
+  font-weight: 600;
+  margin-right: 8px;
 }

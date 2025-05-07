@@ -132,17 +132,24 @@ const AccountInformation = () => {
         <>
           <div className="info-section">
             <h3>Personal Details</h3>
-            <p><strong>Name:</strong> {accountInfo.firstName} {accountInfo.lastName}</p>
-            <p><strong>Email:</strong> {accountInfo.email}</p>
+            <p><strong>Name:</strong> {accountInfo.firstName || "N/A"} {accountInfo.lastName || "N/A"}</p>
+            <p><strong>Email:</strong> {accountInfo.email || "N/A"}</p>
             <p><strong>Address:</strong> {accountInfo.address || "N/A"}</p>
           </div>
+
+          <div className="info-section">
+            <h3>Emergency Contact Information</h3>
+            <p><strong>Name:</strong> {accountInfo.emergencyContact?.firstName || "N/A"} {accountInfo.emergencyContact?.lastName || "N/A"}</p>
+            <p><strong>Contact Number:</strong> {accountInfo.emergencyContact?.phone || "N/A"}</p>
+          </div>
+
           <div className="info-section">
             <h3>Dormitory Details</h3>
             {selectedDorm ? (
               <>
-                <p><strong>Dorm Name:</strong> {selectedDorm.dormName}</p>
-                <p><strong>Address:</strong> {selectedDorm.dormAddress}</p>
-                <p><strong>Price Range:</strong> {selectedDorm.priceRange}</p>
+                <p><strong>Dorm Name:</strong> {selectedDorm.dormName || "N/A"}</p>
+                <p><strong>Address:</strong> {selectedDorm.dormAddress || "N/A"}</p>
+                <p><strong>Price Range:</strong> {selectedDorm.priceRange || "N/A"}</p>
               </>
             ) : (
               <p>No dormitory information available.</p>

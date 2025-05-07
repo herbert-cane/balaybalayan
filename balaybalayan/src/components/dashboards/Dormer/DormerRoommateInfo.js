@@ -78,7 +78,7 @@ const DormitoryRoommateInfo = () => {
   }
 
   if (!roomInfo) {
-    return <div className="error">Unable to load room information.</div>;
+    return <div className="error">You are not assigned to a room. Please contact your Dorm Manager.</div>;
   }
 
   return (

@@ -49,35 +49,6 @@ const MyDormers = ({ dormitoryId }) => {
     return unsubscribe; // Cleanup listener on component unmount
   }, [dormitoryId]);
 
-  // Add search functionality
-  // useEffect(() => {
-  //   const results = dormers.filter(dormer => 
-  //     dormer.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     dormer.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
-  //   setFilteredDormers(results);
-  // }, [searchTerm, dormers]);
-
-  // const handleSearch = () => {
-  //   const results = dormers.filter(dormer => 
-  //     dormer.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     dormer.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
-  //   setFilteredDormers(results);
-  // };
-
-  // const handleKeyPress = (e) => {
-  //   if (e.key === 'Enter') {
-  //     handleSearch();
-  //   }
-  // };
-
-  // // Find the room assignment for a given dormer
-  // const findRoomForDormer = (id) => {
-  //   const room = rooms.find((room) => room.dormers?.includes(id));
-  //   return room ? room.name : 'Unassigned';
-  // };
-
   useEffect(() => {
     const results = dormers.filter((dormer) =>
       `${dormer.firstName} ${dormer.lastName}`.toLowerCase().includes(searchTerm.toLowerCase())
@@ -102,18 +73,38 @@ const MyDormers = ({ dormitoryId }) => {
           {filteredDormers.map((dormer) => (
             <div key={dormer.id} className="dormer-card">
               <img
-                src={dormer.profilePhotoURL || 'https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2FdormerCardPhoto.jpg?alt=media&token=36b74a12-5fe6-4683-b4cb-9ec73be449e0'} // Fallback to a default profile image
+                src={dormer.profilePhotoURL || 'https://firebasestorage.googleapis.com/v0/b/balay-balayan-b6fba.appspot.com/o/placeholders%2FdormerCardPhoto.jpg?alt=media&token=36b74a12-5fe6-4683-b4cb-9ec73be449e0'}
                 alt={`${dormer.firstName} ${dormer.lastName}`}
                 className="dormer-image"
               />
               <div className="dormer-details">
-                <h3>{`${dormer.firstName} ${dormer.lastName}`}</h3>
-                <p>
-                  <strong>Room:</strong> {findRoomForDormer(dormer.id)}
-                </p>
-                <p>
-                  <strong>Status:</strong> {dormer.status || 'Active'}
-                </p>
+                <div className="dormer-name">
+                  <h3>{`${dormer.firstName} ${dormer.lastName}`}</h3>
+                </div>
+                <div className="info-grid">
+                  <div className="info-group">
+                    <p><strong>Room:</strong> {findRoomForDormer(dormer.id)}</p>
+                    <p><strong>Student No:</strong> {dormer.studentNumber || "N/A"}</p>
+                  </div>
+                  <div className="info-group">
+                    <p><strong>Phone:</strong> {dormer.phoneNumber || "N/A"}</p>
+                    <p><strong>Email:</strong> {dormer.email || "N/A"}</p>
+                  </div>
+                </div>
+                <div className="hover-info">
+                  <div className="additional-info">
+                    <h4>Additional Information</h4>
+                    <p><strong>Course:</strong> {dormer.course || "N/A"}</p>
+                    <p><strong>Year Level:</strong> {dormer.yearLevel || "N/A"}</p>
+                    <div className="emergency-contact">
+                      <h4>Emergency Contact</h4>
+                      <p><strong>Name:</strong> {dormer.emergencyContact?.firstName 
+                        ? `${dormer.emergencyContact.firstName} ${dormer.emergencyContact.lastName}` 
+                        : "N/A"}</p>
+                      <p><strong>Phone:</strong> {dormer.emergencyContact?.phone || "N/A"}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
