@@ -49,35 +49,6 @@ const MyDormers = ({ dormitoryId }) => {
     return unsubscribe; // Cleanup listener on component unmount
   }, [dormitoryId]);
 
-  // Add search functionality
-  // useEffect(() => {
-  //   const results = dormers.filter(dormer => 
-  //     dormer.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     dormer.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
-  //   setFilteredDormers(results);
-  // }, [searchTerm, dormers]);
-
-  // const handleSearch = () => {
-  //   const results = dormers.filter(dormer => 
-  //     dormer.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     dormer.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
-  //   setFilteredDormers(results);
-  // };
-
-  // const handleKeyPress = (e) => {
-  //   if (e.key === 'Enter') {
-  //     handleSearch();
-  //   }
-  // };
-
-  // // Find the room assignment for a given dormer
-  // const findRoomForDormer = (id) => {
-  //   const room = rooms.find((room) => room.dormers?.includes(id));
-  //   return room ? room.name : 'Unassigned';
-  // };
-
   useEffect(() => {
     const results = dormers.filter((dormer) =>
       `${dormer.firstName} ${dormer.lastName}`.toLowerCase().includes(searchTerm.toLowerCase())
