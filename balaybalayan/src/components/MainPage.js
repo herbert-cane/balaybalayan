@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { db, auth } from '../firebase';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 import './main.css';
+
 
 function MainPage() {
   const navigate = useNavigate();
   const [dormitories, setDormitories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     const fetchDormitories = async () => {
@@ -27,6 +30,19 @@ function MainPage() {
     fetchDormitories();
   }, []);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists()) {
+          setUserRole(userDoc.data().role);
+        }
+      }
+    });
+  
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className="main-page">
       <div className="particles">
@@ -43,6 +59,17 @@ function MainPage() {
           />
         ))}
       </div>
+      {userRole === 'admin' && (
+        <div>
+          <button
+            onClick={() => navigate('/admin')}
+            className="hover:bg-blue-700 text-sm  rounded-md shadow-sm transition"
+          >
+            Verify Users
+          </button>
+        </div>
+      )}
+        
       <div className="banner">
         <div className="banner-text">
           <h1 className="banner-title">Choose Your Dormitory</h1>

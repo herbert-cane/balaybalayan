@@ -16,6 +16,7 @@ import BalayGumamela from './components/uniDormInfo/BalayGumamela';
 import ExplorePage from './components/ExplorePage'; // Correct file path
 import DormitoryPage from './components/uniDormInfo/DormitoryPage';
 import Rooms from './components/dashboards/DormManager/Rooms';
+import SuperAdmin from './components/dashboards/Admin/SuperAdmin';
 
 
 
@@ -58,6 +59,14 @@ function App() {
               element={
                 <ProtectedRoute allowedRoles={['dormer']}>
                   <Dormers />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <SuperAdmin />
                 </ProtectedRoute>
               }
             />
