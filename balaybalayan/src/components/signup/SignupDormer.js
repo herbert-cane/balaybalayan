@@ -97,7 +97,8 @@ const SignUpDormer = () => {
         },
         profilePhotoURL: '',
         form5URL: '',  // Initialize form5URL
-        isDormer: true  // Add this new field
+        isDormer: true,  // Add this new field
+        isVerified: false
       });
   
       const userId = userCredential.user.uid;

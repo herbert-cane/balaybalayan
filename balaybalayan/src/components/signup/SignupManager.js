@@ -132,6 +132,7 @@ const SignUpManager = () => {
         dob,
         profilePhotoURL,
         role: 'manager', // Add role field
+        isVerified: false
       };
   
       let dormitoryId = '';
