@@ -346,6 +346,21 @@ nav {
   content: '📝'; /* Change icon to a notepad */
   font-size: 1.1rem;
 }
+.auth-button.dm-search::before {
+  content: ''; /* Change icon to a key */
+  font-size: 1.1rem;
+  margin: -0.5rem;
+}
+
+.auth-button.dm-search::after {
+  content: ''; /* Change icon to a key */
+  font-size: 1.1rem;
+  margin: -0.8rem;
+}
+
+.auth-button.dm-search {
+  margin-bottom: 1rem;
+}
 
 /* Add icon to login button */
 .auth-button::before {
