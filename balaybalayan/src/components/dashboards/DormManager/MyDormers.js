@@ -98,10 +98,10 @@ const MyDormers = ({ dormitoryId }) => {
                     <p><strong>Year Level:</strong> {dormer.yearLevel || "N/A"}</p>
                     <div className="emergency-contact">
                       <h4>Emergency Contact</h4>
-                      <p><strong>Name:</strong> {dormer.emergencyContact?.firstName 
+                      <p><strong>Name:</strong> <span className="contact-name">{dormer.emergencyContact?.firstName 
                         ? `${dormer.emergencyContact.firstName} ${dormer.emergencyContact.lastName}` 
-                        : "N/A"}</p>
-                      <p><strong>Phone:</strong> {dormer.emergencyContact?.phone || "N/A"}</p>
+                        : "N/A"}</span></p>
+                      <p><strong>Phone:</strong> <span className="contact-name">{dormer.emergencyContact?.phone || "N/A"}</span></p>
                     </div>
                   </div>
                 </div>

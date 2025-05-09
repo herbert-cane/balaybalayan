@@ -239,24 +239,27 @@ h2 {
 }
 
 .emergency-contact {
-  margin-top: 20px;
+  background: #2d2d2d;
+  color: #ffffff;
   padding: 15px;
-  background: transparent;
-  border: 2px solid rgba(96, 165, 250, 0.6);
   border-radius: 8px;
+  margin-top: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .emergency-contact h4 {
-  color: #60A5FA;
-  margin-bottom: 12px;
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-size: 1rem;
 }
 
 .emergency-contact p {
-  color: #E2E8F0;
+  margin: 5px 0;
+  color: #000000;
 }
 
 .emergency-contact strong {
-  color: #60A5FA;
+  color: #ffffff;
 }
 
 .hover-info .emergency-contact {
@@ -282,4 +285,8 @@ h2 {
   color: #60A5FA;
   font-weight: 600;
   margin-right: 8px;
+}
+
+.contact-name {
+  color: #000000;
 }
