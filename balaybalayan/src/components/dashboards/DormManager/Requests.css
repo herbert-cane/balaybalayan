@@ -56,20 +56,20 @@ body {
 }
 
 .requests-title {
-  font-size: 28px;
-  font-weight: bold;
-  color: #2c3e50;
+  position: relative;
+  z-index: 1;
   font-size: 1.6rem;
   font-weight: 700;
-  background: linear-gradient(45deg, #ffffff, #3B82F6);
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(45deg, #ffffff, #3B82F6);
   animation: titleGlow 2s ease-in-out infinite;
   margin-bottom: 15px;
+  border: none;
   padding: 10px 15px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.1));
-  border-radius: 12px;
-  border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .filter-container {

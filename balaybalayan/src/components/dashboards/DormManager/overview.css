@@ -42,15 +42,18 @@
 
 /* Enhanced Dorm Capacity Section */
 .chart-section h2 {
+  position: relative; /* Add this to ensure text appears above background */
+  z-index: 1; /* Ensure text appears above background gradient */
   color: #ffffff;
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 20px;
   letter-spacing: 0.5px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(45deg, #ffffff, #2196F3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text; /* Add standard property for better browser support */
+  background-image: linear-gradient(45deg, #ffffff, #2196F3);
   animation: capacityTitleGlow 2s ease-in-out infinite;
 }
 
@@ -220,10 +223,17 @@
 }
 
 .announcements h3 {
+  position: relative; /* Add this to ensure text appears above background */
+  z-index: 1; /* Ensure text appears above background gradient */
   font-size: 1.2rem;
   color: #ffffff;
   font-weight: 600;
   margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* Add standard property for better browser support */
+  background-image: linear-gradient(45deg, #ffffff, #4CAF50);
 }
 
 /* Styling for important dates */
@@ -235,10 +245,17 @@
 }
 
 .important-dates h3 {
+  position: relative; /* Add this to ensure text appears above background */
+  z-index: 1; /* Ensure text appears above background gradient */
   font-size: 1.2rem;
   color: #ffffff;
   font-weight: 600;
   margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* Add standard property for better browser support */
+  background-image: linear-gradient(45deg, #ffffff, #F44336);
 }
 
 /* Styling for Permits Section */
@@ -327,15 +344,18 @@
 }
 
 .permits-section h2 {
+  position: relative; /* Add this to ensure text appears above background */
+  z-index: 1; /* Ensure text appears above background gradient */
   color: #ffffff;
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 20px;
   letter-spacing: 0.5px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(45deg, #ffffff, #9C27B0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text; /* Add standard property for better browser support */
+  background-image: linear-gradient(45deg, #ffffff, #9C27B0);
   animation: permitsTitleGlow 2s ease-in-out infinite;
   text-align: center;
 }
@@ -482,6 +502,8 @@
 .permits-section h2,
 .tasks-section h2,
 .important-dates h3 {
+  position: relative; /* Add this to ensure text appears above background */
+  z-index: 1; /* Ensure text appears above background gradient */
   color: #ffffff;
   font-size: 1.6rem;
   font-weight: 700;
@@ -490,11 +512,11 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: titleGlow 2s ease-in-out infinite;
+  background-clip: text; /* Add standard property for better browser support */
 }
 
 .permits-section h2 {
-  background: linear-gradient(45deg, #ffffff, #9C27B0);
+  background-image: linear-gradient(45deg, #ffffff, #9C27B0);
 }
 
 .tasks-section h2 {
@@ -502,7 +524,7 @@
 }
 
 .important-dates h3 {
-  background: linear-gradient(45deg, #ffffff, #F44336);
+  background-image: linear-gradient(45deg, #ffffff, #F44336);
 }
 
 /* Shared pagination styles */
