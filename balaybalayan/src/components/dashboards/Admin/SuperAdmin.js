@@ -1,16 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../../firebase';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import toast from 'react-hot-toast';
 
 
 const SuperAdmin = () => {
     const [userType, setUserType] = useState('dormer');
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
+
   
-    const handleVerify = (user) => {
+    const handleVerify = async (user) => {
+    try {
+      const userRef = doc(db, 'users', user.id);
+      await updateDoc(userRef, {
+        isVerified: true
+      });
       console.log(`Verified user: ${user.firstName} ${user.lastName}`);
-    };
+      toast.success("Verified user!")
+
+      // Update local state
+      setUsers((prevUsers) => {
+        const updatedUsers = prevUsers.map((u) =>
+          u.id === user.id ? { ...u, isVerified: true } : u
+        );
+
+        // Re-sort after updating
+        return updatedUsers.sort((a, b) => {
+          const aVerified = a.isVerified === true;
+          const bVerified = b.isVerified === true;
+          return aVerified - bVerified;
+        });
+        
+
+      }); 
+
+    } catch (error) {
+      console.error('Error verifying user:', error);
+    }
+  };
 
 
     // Fetch data from Firestore
@@ -27,7 +55,13 @@ const SuperAdmin = () => {
             ...doc.data(),
             }));
 
-            setUsers(fetchedUsers);
+            const sortedUsers = fetchedUsers.sort((a, b) => {
+            const aVerified = a.isVerified === true;
+            const bVerified = b.isVerified === true;
+            return aVerified - bVerified; // false (0) comes before true (1)
+          });
+
+            setUsers(sortedUsers);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching users:', error);
@@ -43,25 +77,30 @@ const SuperAdmin = () => {
         HELLO SUPER ADMIN
 
         <div className="flex gap-4 mb-6">
-        <button
-          className={`px-4 py-2 rounded-md shadow-sm transition ${
-            userType === 'dormer' ? 'bg-blue-600 text-white' : 'bg-gray-200'
-          }`}
-          onClick={() => setUserType('dormer')}
-        >
-          Dormer
-        </button>
-        <button
-          className={`px-4 py-2 rounded-md shadow-sm transition ${
-            userType === 'manager' ? 'bg-blue-600 text-white' : 'bg-gray-200'
-          }`}
-          onClick={() => setUserType('manager')}
-        >
-          Dorm Manager
-        </button>
+          <button
+            className={`px-4 py-2 rounded-md shadow-sm transition ${
+              userType === 'dormer' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+            }`}
+            onClick={() => setUserType('dormer')}
+          >
+            Dormer
+          </button>
+          <button
+            className={`px-4 py-2 rounded-md shadow-sm transition ${
+              userType === 'manager' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+            }`}
+            onClick={() => setUserType('manager')}
+          >
+            Dorm Manager
+          </button>
         </div>
         
         <div className="overflow-x-auto">
+        <div className="text-gray-900 text-7xl mb-4 text-center">
+          {userType === 'dormer' ? 'Dormer' : 'Dorm Manager'}
+        </div>
+
+
         <table className="min-w-full table-auto border-collapse border border-gray-200">
           <thead>
             <tr className="bg-gray-100">
@@ -97,9 +136,11 @@ const SuperAdmin = () => {
                   <td className="border px-4 py-2">
                     <button
                       onClick={() => handleVerify(user)}
+                      disabled={user.isVerified === true}
+
                       className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
                     >
-                      Verify
+                      {user.isVerified === true ? 'Verified' : 'Verify'}
                     </button>
                   </td>
                 </tr>

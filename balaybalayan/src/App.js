@@ -17,6 +17,7 @@ import ExplorePage from './components/ExplorePage'; // Correct file path
 import DormitoryPage from './components/uniDormInfo/DormitoryPage';
 import Rooms from './components/dashboards/DormManager/Rooms';
 import SuperAdmin from './components/dashboards/Admin/SuperAdmin';
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -73,7 +74,11 @@ function App() {
           </Routes>
         </div>
       </Router>
-    </AuthProvider> 
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />    
+      </AuthProvider> 
   );
 }
 
