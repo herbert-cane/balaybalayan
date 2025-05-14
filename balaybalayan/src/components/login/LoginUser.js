@@ -25,12 +25,14 @@ const Login = () => {
 
       // Update role comparison logic
       const roleMap = {
-        'Dorm Manager': 'manager',
-        'Dormer': 'dormer'
+        'Dorm Manager': ['manager', 'admin'],
+        'Dormer': ['dormer']
       };
 
-      const expectedRole = roleMap[userType];
-      if (userData.role !== expectedRole) {
+      const expectedRoles = roleMap[userType];
+      // if (userData.role !== expectedRole) {
+      if (!expectedRoles.includes(userData.role)) {
+
         const auth = getAuth();
         await auth.signOut();
         setError(`Invalid account type. Please login with correct credentials`);
