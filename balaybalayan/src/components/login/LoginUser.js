@@ -23,6 +23,13 @@ const Login = () => {
       const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
       const userData = userDoc.data();
 
+      if (userData.isDeclined) {
+        const auth = getAuth();
+        await auth.signOut();
+        setError('Your account has been declined. Please contact administrator.');
+        return;
+      }
+
       // Update role comparison logic
       const roleMap = {
         'Dorm Manager': ['manager', 'admin'],

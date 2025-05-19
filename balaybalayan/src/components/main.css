@@ -736,3 +736,126 @@
   outline: 3px solid #ffffff;
   outline-offset: 2px;
 }
+
+/* Admin View */
+.admin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  width: 100%;
+}
+
+.admin-card {
+  background: rgba(30, 41, 59, 0.95);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 800px;
+}
+
+.admin-title {
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.admin-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.pending-counter {
+  background: #363636;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+}
+
+.counter-label {
+  color: #9ca3af;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.counter-number {
+  color: #ff4444;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.verify-users-button {
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.verify-users-button:hover {
+  background: #1565c0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(21, 101, 192, 0.2);
+}
+
+.pending-counters {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 20px;
+}
+
+.pending-counter {
+  background: #363636;
+  padding: 2rem 3rem;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 250px;
+}
+
+.counter-label {
+  color: #ffffff;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.counter-number {
+  color: #ff4444;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.counter-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+
+.pending {
+  color: #ff4444;
+  font-weight: bold;
+}
+
+.verified {
+  color: #4CAF50;
+  font-weight: bold;
+}

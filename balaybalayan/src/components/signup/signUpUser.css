@@ -201,6 +201,7 @@ select option {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #ffffff;
 }
 
 .upload-box input[type="file"] {
@@ -214,7 +215,7 @@ select option {
 }
 
 .upload-box::before {
-  content: 'Choose Profile Photo';
+  content: 'Choose Profile Picture';
   color: #ffffff;
   font-size: 1.1rem;
   pointer-events: none;
@@ -222,6 +223,7 @@ select option {
 
 .upload-box.has-file::before {
   content: attr(data-file-name);
+  color: #4CAF50;
 }
 
 /* Enhanced buttons */
@@ -677,6 +679,7 @@ button[type="submit"]:disabled {
   transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.05);
   cursor: pointer;
+  color: #ffffff;
 }
 
 .upload-box:hover {
@@ -698,7 +701,7 @@ button[type="submit"]:disabled {
 
 /* Custom file input design */
 .upload-box::before {
-  content: 'Choose Profile Photo';
+  content: 'Choose Profile Picture';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -724,6 +727,7 @@ button[type="submit"]:disabled {
 /* File name display */
 .upload-box.has-file::before {
   content: attr(data-file-name);
+  color: #4CAF50;
 }
 
 /* Loading state */
@@ -831,6 +835,42 @@ button[type="submit"]:disabled {
 /* Update upload-box for employment proof */
 .upload-box[data-file-name*=".pdf"]::after {
   content: '📄';
+}
+
+/* Updated upload box styling */
+.upload-box {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.upload-box::before {
+  content: attr(data-file-name);
+  color: #ffffff;
+}
+
+.upload-box input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.upload-box.has-file::before {
+  content: attr(data-file-name);
+  color: #4CAF50;
+}
+
+.input-label, .labels {
+  color: #ffffff;
 }
 
 

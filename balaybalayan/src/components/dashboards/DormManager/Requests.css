@@ -73,20 +73,54 @@ body {
 }
 
 .filter-container {
-  width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.separator {
+  color: #4a4a4a;
+  margin: 0 5px;
+  font-weight: bold;
+}
+
+.filter-label {
+  color: white;
+  margin-right: 8px;
 }
 
 .filter-container select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  font-size: 16px;
-  background: rgba(30, 41, 59, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ffffff;
   padding: 8px 16px;
+  font-size: 1rem;
+  min-width: 150px;
+  border-radius: 4px;
+  border: 1px solid #363636;
+  background: #2d2d2d;
+  color: white;
   cursor: pointer;
+  margin-right: 15px;
+}
+
+.filter-container select:hover {
+  background: #363636;
+}
+
+.filter-label .filter-icon {
+  margin-right: 5px;
+}
+
+.filter-icon,
+.sort-icon,
+.user-icon,
+.clock-icon {
+  margin-right: 5px;
+  font-size: 1rem;
 }
 
 .requests-list {
@@ -317,6 +351,9 @@ body {
   background: rgba(0, 0, 0, 0.2);
   padding: 10px 15px;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .request-user, .request-date {
@@ -525,4 +562,10 @@ body {
   color: #FF5252;
   background: rgba(244, 67, 54, 0.2);
   transform: rotate(90deg);
+}
+
+.section-icon {
+  margin-right: 10px;
+  font-size: 1.5rem;
+  vertical-align: middle;
 }

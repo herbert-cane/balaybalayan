@@ -114,6 +114,9 @@ const SignUpManager = () => {
         sex,
         phoneNumber,
         dob,
+        isVerified: false,     // Add verification field
+        isDeclined: false,     // Add decline field
+        role: 'manager'        // Add explicit role
       });
       const userId = userCredential.user.uid;
   
@@ -298,7 +301,7 @@ const SignUpManager = () => {
           <h4 className="labels">Upload Profile Photo:</h4>
           <div 
             className={`upload-box ${profilePhoto ? 'has-file' : ''}`}
-            data-file-name={profilePhoto?.name || ''}
+            data-file-name={profilePhoto?.name || 'Choose Profile Picture'}
           >
             <input
               type="file"
@@ -312,7 +315,7 @@ const SignUpManager = () => {
           <h4 className="labels">Upload Proof of Employment:</h4>
           <div 
             className={`upload-box ${employmentProof ? 'has-file' : ''}`}
-            data-file-name={employmentProof?.name || ''}
+            data-file-name={employmentProof?.name || 'Choose File'}
           >
             <input
               type="file"

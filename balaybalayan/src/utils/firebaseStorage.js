@@ -60,3 +60,15 @@ export const uploadForm5 = async (file, userId) => {
   const downloadURL = await getDownloadURL(storageRef);
   return downloadURL;
 };
+
+export const uploadDormApplication = async (file, userId) => {
+  try {
+    const storageRef = ref(storage, `dormApplications/${userId}`);
+    await uploadBytes(storageRef, file);
+    const url = await getDownloadURL(storageRef);
+    return url;
+  } catch (error) {
+    console.error("Error uploading dorm application:", error);
+    throw error;
+  }
+};

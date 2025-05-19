@@ -30,6 +30,8 @@ const Rooms = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const roomsPerPage = 5;
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchRoom, setSearchRoom] = useState('');
 
   // Fetch rooms
   useEffect(() => {
@@ -194,11 +196,18 @@ const Rooms = () => {
     }
   };
 
+  const filteredRooms = searchRoom 
+    ? rooms.filter(room => {
+        const roomNumber = room.name.replace(/\D/g, ''); // Extract only numbers
+        return roomNumber === searchRoom;
+      })
+    : rooms;
+
   // Pagination logic
   const indexOfLastRoom = currentPage * roomsPerPage;
   const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
-  const currentRooms = rooms.slice(indexOfFirstRoom, indexOfLastRoom);
-  const totalPages = Math.ceil(rooms.length / roomsPerPage);
+  const currentRooms = filteredRooms.slice(indexOfFirstRoom, indexOfLastRoom);
+  const totalPages = Math.ceil(filteredRooms.length / roomsPerPage);
 
   const renderPagination = () => {
     if (totalPages <= 1) return null;
@@ -243,6 +252,33 @@ const Rooms = () => {
         <div className="loading-spinner">Loading...</div>
       ) : (
         <>
+          <div className="room-search">
+            <label className="search-label">Search:</label>
+            <input
+              type="text"
+              placeholder="Enter room number (e.g. 101)"
+              value={searchRoom}
+              onChange={(e) => {
+                // Only allow numbers
+                const value = e.target.value.replace(/\D/g, '');
+                setSearchRoom(value);
+                setCurrentPage(1);
+              }}
+              className="room-search-input"
+            />
+          </div>
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="Search room number..."
+              value={searchTerm}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPage(1); // Reset to first page on search
+              }}
+              className="search-input"
+            />
+          </div>
           {renderPagination()}
           <div className="rooms-grid">
             {currentRooms.map((room) => (

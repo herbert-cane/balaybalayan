@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { db, auth } from '../../../firebase';
 import { doc, getDoc, collection, onSnapshot, updateDoc, deleteDoc } from 'firebase/firestore';
 import './Requests.css';
+import { FaFilter, FaSort, FaClock, FaUser } from 'react-icons/fa';
+import { MdRequestPage } from 'react-icons/md';
 
 const Requests = () => {
   const [requests, setRequests] = useState([]);
@@ -10,6 +12,7 @@ const Requests = () => {
   const [filterStatus, setFilterStatus] = useState("");
   const [visibleRequests, setVisibleRequests] = useState(5);
   const [requestUsers, setRequestUsers] = useState({});
+  const [sortOrder, setSortOrder] = useState('desc'); // 'desc' or 'asc'
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -87,6 +90,17 @@ const Requests = () => {
     }
   };
 
+  const handleSortChange = (value) => {
+    setSortOrder(value);
+    setFilteredRequests(prevRequests => {
+      const sorted = [...prevRequests].sort((a, b) => {
+        const comparison = a.createdAt.toDate() - b.createdAt.toDate();
+        return value === 'desc' ? -comparison : comparison;
+      });
+      return sorted;
+    });
+  };
+
   if (loading) {
     return <div className="requests-loading">Loading requests...</div>;
   }
@@ -94,16 +108,27 @@ const Requests = () => {
   return (
     <div className="requests-container">
       <div className="requests-header">
-        <h2 className="requests-title">Dormitory Requests</h2>
+        <h2 className="requests-title"><MdRequestPage className="section-icon" /> Dormitory Requests</h2>
         <div className="filter-container">
-          <select value={filterStatus} onChange={(e) => handleFilterChange(e.target.value)}>
-            <option value="">All</option>
-            <option value="pending">Pending</option>
-            <option value="approved">Approved</option>
-            <option value="acknowledged">Acknowledged</option>
-            <option value="unresolved">Unresolved</option>
-            <option value="rejected">Rejected</option>
-          </select>
+          <div className="filter-group">
+            <FaFilter className="filter-icon" />
+            <select value={filterStatus} onChange={(e) => handleFilterChange(e.target.value)}>
+              <option value="">All</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="acknowledged">Acknowledged</option>
+              <option value="unresolved">Unresolved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+          <div className="separator">|</div>
+          <div className="filter-group">
+            <span className="filter-label">Sort by:</span>
+            <select value={sortOrder} onChange={(e) => handleSortChange(e.target.value)}>
+              <option value="desc">Newest First</option>
+              <option value="asc">Oldest First</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -140,9 +165,9 @@ const Requests = () => {
                 </div>
                 <p className="request-description">{request.description}</p>
                 <div className="request-footer">
-                  <span className="request-user">By: {request.userLastName}</span>
+                  <span className="request-user"><FaUser className="user-icon" /> {request.userLastName}</span>
                   <span className="request-date">
-                    {request.createdAt.toDate().toLocaleString()}
+                    <FaClock className="clock-icon" /> {request.createdAt.toDate().toLocaleString()}
                   </span>
                 </div>
                 <div className="status-action-container">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthContext';
 import { Navigate } from 'react-router-dom';
-import { uploadProfilePhoto, uploadForm5 } from '../../utils/firebaseStorage';
+import { uploadProfilePhoto, uploadForm5, uploadDormApplication } from '../../utils/firebaseStorage';
 import { doc, setDoc, getDocs, collection, query, where } from 'firebase/firestore';
 import { db } from '../../firebase';
 import './signUpUser.css';
@@ -30,6 +30,8 @@ const SignUpDormer = () => {
   const [college, setCollege] = useState('');
   const [form5, setForm5] = useState(null);
   const [form5Error, setForm5Error] = useState('');
+  const [dormApplication, setDormApplication] = useState(null);
+  const [dormApplicationError, setDormApplicationError] = useState('');
 
   const validateForm5 = (file) => {
     if (file) {
@@ -42,6 +44,22 @@ const SignUpDormer = () => {
         return false;
       }
       setForm5Error('');
+      return true;
+    }
+    return false;
+  };
+
+  const validateDormApplication = (file) => {
+    if (file) {
+      if (file.type !== 'application/pdf') {
+        setDormApplicationError('Please upload a PDF file');
+        return false;
+      }
+      if (file.size > 2 * 1024 * 1024) {
+        setDormApplicationError('File size should be less than 2MB');
+        return false;
+      }
+      setDormApplicationError('');
       return true;
     }
     return false;
@@ -68,7 +86,7 @@ const SignUpDormer = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     
-    if (!validateForm5(form5)) {
+    if (!validateForm5(form5) || !validateDormApplication(dormApplication)) {
       return;
     }
   
@@ -98,7 +116,9 @@ const SignUpDormer = () => {
         profilePhotoURL: '',
         form5URL: '',  // Initialize form5URL
         isDormer: true,  // Add this new field
-        isVerified: false
+        isVerified: false,     // Add verification field
+        isDeclined: false,     // Add decline field
+        role: 'dormer'         // Add explicit role
       });
   
       const userId = userCredential.user.uid;
@@ -114,11 +134,18 @@ const SignUpDormer = () => {
       if (form5) {
         form5URL = await uploadForm5(form5, userId);
       }
+
+      // Upload Dormitory Application PDF
+      let dormApplicationURL = '';
+      if (dormApplication) {
+        dormApplicationURL = await uploadDormApplication(dormApplication, userId);
+      }
   
       // Update the user profile with all URLs
       await setDoc(doc(db, 'users', userId), {
         profilePhotoURL,
         form5URL,
+        dormApplicationURL,
         studentNumber,
         course,
         college
@@ -233,7 +260,7 @@ const SignUpDormer = () => {
           <h4 className='labels'>Upload Profile Photo:</h4>
           <div 
             className={`upload-box ${profilePhoto ? 'has-file' : ''}`}
-            data-file-name={profilePhoto?.name || ''}
+            data-file-name={profilePhoto?.name || 'Choose Profile Picture'}
           >
             <input
               type="file"
@@ -283,7 +310,8 @@ const SignUpDormer = () => {
 
         <div className="form-group">
           <label className="input-label">Form 5 (PDF only, max 2MB):</label>
-          <div className={`upload-box ${form5 ? 'has-file' : ''}`}>
+          <div className={`upload-box ${form5 ? 'has-file' : ''}`}
+               data-file-name={form5?.name || 'Choose File'}>
             <input
               type="file"
               accept=".pdf"
@@ -297,6 +325,25 @@ const SignUpDormer = () => {
             />
           </div>
           {form5Error && <p className="error-message">{form5Error}</p>}
+        </div>
+
+        <div className="form-group">
+          <label className="input-label">Dormitory Application Form (PDF only, max 2MB):</label>
+          <div className={`upload-box ${dormApplication ? 'has-file' : ''}`}
+               data-file-name={dormApplication?.name || 'Choose File'}>
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (validateDormApplication(file)) {
+                  setDormApplication(file);
+                }
+              }}
+              required
+            />
+          </div>
+          {dormApplicationError && <p className="error-message">{dormApplicationError}</p>}
         </div>
 
         <label className="input-label">Select Dormitory:</label>

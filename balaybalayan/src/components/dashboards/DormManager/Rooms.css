@@ -3,7 +3,7 @@
 .rooms-page {
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9;
+  background-color: #1a1a1a;
   min-height: 100vh;
 
   width: 100%;         /* Ensure it uses full width */
@@ -26,10 +26,12 @@
 }
 
 .room-card {
-  background-color: #ffffff;
+  background-color: #2d2d2d;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid #363636;
+  color: #ffffff;
   transition: 0.3s ease;
 }
 
@@ -39,26 +41,37 @@
 
 .room-card h3 {
   margin-bottom: 0.5rem;
-  color: #2c3e50;
+  color: #ffffff;
+  border-bottom: 1px solid #363636;
 }
 
 .room-card p {
   margin: 0.3rem 0;
-  color: #555;
+  color: #ffffff;
 }
 
 .status-available {
-  color: green;
+  background: #2e7d32;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
   font-weight: bold;
 }
 
 .status-occupied {
-  color: red;
+  background: #c62828;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
   font-weight: bold;
 }
 
 .dormers-section {
   margin-top: 1rem;
+  background: #363636;
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .dormers-section ul {
@@ -69,14 +82,15 @@
 .dormer-name {
   font-weight: 500;
   margin-right: 0.5rem;
+  color: #ffffff;
 }
 
 .remove-button {
-  background-color: #e74c3c;
+  background-color: #c62828;
   color: white;
   border: none;
-  padding: 0.3rem 0.6rem;
-  border-radius: 6px;
+  padding: 4px 8px;
+  border-radius: 4px;
   cursor: pointer;
   margin-left: 0.5rem;
   font-size: 0.85rem;
@@ -88,20 +102,33 @@
 
 .add-dormer-control {
   margin-top: 0.5rem;
+  color: #ffffff;
 }
 
 .add-dormer-control select {
   padding: 0.3rem;
   margin-top: 0.3rem;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #454545;
+  background: #363636;
+  color: white;
+}
+
+.add-dormer-control select option {
+  color: #ffffff;
+  background: #363636;
+}
+
+.add-dormer-control label {
+  color: #ffffff;
 }
 
 .room-actions {
-  margin-top: 1rem;
   display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
 }
 
 .status-button {
@@ -114,7 +141,7 @@
 }
 
 .mark-occupied {
-  background-color: #3498db;
+  background-color: #c62828;
   color: white;
   border: none;
   padding: 0.5rem 0.8rem;
@@ -127,7 +154,7 @@
 }
 
 .mark-available {
-  background-color: #27ae60;
+  background-color: #2e7d32;
   color: white;
 }
 
@@ -136,16 +163,17 @@
 }
 
 .delete-button {
-  background-color: #e74c3c;
+  width: fit-content;
+  background: #c62828;
   color: white;
   border: none;
-  padding: 0.5rem 0.8rem;
-  border-radius: 8px;
+  padding: 8px 16px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
 .delete-button:hover {
-  background-color: #c0392b;
+  background: #b71c1c;
 }
 
 .success-message {
@@ -156,17 +184,19 @@
 }
 
 .add-room-form {
-  background-color: #fff;
+  background-color: #2d2d2d;
   margin-top: 2rem;
-  padding: 1.5rem;
-  border-radius: 12px;
+  padding: 20px;
+  border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  border: #000;
+  border: 1px solid #363636;
+  color: #ffffff;
 }
 
 .add-room-form h3 {
   margin-bottom: 1rem;
   font-weight: 600;
+  color: #ffffff;
 }
 
 .form-grid {
@@ -182,15 +212,15 @@
 
 .input-group label {
   font-weight: 500;
-  color: #333;
+  color: #ffffff;
   margin-bottom: 0.25rem;
 }
 
 .input-group input,
 .input-group select {
-  color: #000; /* black text in inputs */
-  background-color: #fff;
-  border: 1px solid #ccc;
+  color: white; /* black text in inputs */
+  background-color: #363636;
+  border: 1px solid #454545;
   border-radius: 6px;
   padding: 0.5rem;
   font-size: 0.95rem;
@@ -204,18 +234,18 @@
 
 .submit-button {
   margin-top: 1.5rem;
-  padding: 0.75rem 1.25rem;
-  background-color: #007bff;
+  padding: 10px 20px;
+  background-color: #1976d2;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
 }
 
 
 .submit-button:hover {
-  background-color: #27ae60;
+  background-color: #1565c0;
 }
 
 /* Pagination styles */
@@ -230,7 +260,7 @@
 }
 
 .pagination-info {
-  color: #555;
+  color: #ffffff;
   font-size: 0.95rem;
   margin-bottom: 0; /* remove bottom margin so it doesn't push */
 }
@@ -244,8 +274,9 @@
 
 .pagination-button {
   padding: 0.4rem 0.8rem;
-  border: 1px solid #ccc;
-  background-color: white;
+  border: 1px solid #454545;
+  background-color: #2d2d2d;
+  color: white;
   border-radius: 6px;
   cursor: pointer;
 }
@@ -260,14 +291,73 @@
 }
 
 .active-page {
-  background-color: #3498db;
+  background-color: #1976d2;
   color: white;
   font-weight: bold;
 }
 .dormer-name {
-  color: #000; /* black */
+  color: #ffffff; /* black */
 }
 
 .add-room-form h3 {
-  color: #000; /* black color */
+  color: #ffffff; /* black color */
+}
+
+.search-container {
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: 1px solid #454545;
+  background: #2d2d2d;
+  color: white;
+  font-size: 1rem;
+}
+
+.search-input::placeholder {
+  color: #888;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #4a4a4a;
+  box-shadow: 0 0 0 2px rgba(74, 74, 74, 0.2);
+}
+
+.room-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.room-search-input {
+  width: 300px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #454545;
+  border-radius: 4px;
+  background: #2d2d2d;
+  color: white;
+}
+
+.room-search-input::placeholder {
+  color: #666;
+}
+
+.room-search-input:focus {
+  outline: none;
+  border-color: #4a4a4a;
+  box-shadow: 0 0 0 2px rgba(74, 74, 74, 0.2);
+}
+
+.search-label {
+  color: #ffffff;
+  font-size: 1rem;
 }
