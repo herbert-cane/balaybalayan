@@ -122,8 +122,7 @@ const SuperAdmin = () => {
     }, [userType]);
 
   return (
-    <div className="super-admin-page">
-      <div className="admin-container">
+    <div className="admin-container">
       <div className="admin-content">
         <h1 className="main-title">
           <FaUserTie className="title-icon" /> Admin Dashboard
@@ -246,7 +245,6 @@ const SuperAdmin = () => {
           </table>
         </div>
       </div>
-    </div>
     </div>
   );
 };

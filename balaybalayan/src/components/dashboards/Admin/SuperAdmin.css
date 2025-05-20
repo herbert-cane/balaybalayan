@@ -1,28 +1,22 @@
-.super-admin-page {
-  /* Base container styles */
+.admin-container {
   background: #1a1a1a;
   min-height: 100vh;
   padding: 2rem;
   color: #ffffff;
-  width: 100%;
-}
-
-/* Scope all existing styles under .super-admin-page */
-.super-admin-page .admin-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-.super-admin-page .flex {
+.flex {
   display: flex;
   justify-content: center;
   gap: 1rem;
   margin-bottom: 2rem;
 }
 
-.super-admin-page .rounded-md {
+.rounded-md {
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -33,30 +27,30 @@
   border: none;
 }
 
-.super-admin-page .rounded-md:hover {
+.rounded-md:hover {
   transform: translateY(-2px);
   background: #1976d2;
 }
 
-.super-admin-page .bg-blue-600 {
+.bg-blue-600 {
   background: #1976d2;
 }
 
-.super-admin-page .text-white {
+.text-white {
   color: #ffffff;
 }
 
-.super-admin-page .bg-gray-200 {
+.bg-gray-200 {
   background: #2d2d2d;
 }
 
-.super-admin-page .text-gray-900 {
+.text-gray-900 {
   color: #ffffff;
   font-size: 2rem;
   margin-bottom: 2rem;
 }
 
-.super-admin-page .overflow-x-auto {
+.overflow-x-auto {
   overflow-x: auto;
   background: #2d2d2d;
   border-radius: 8px;
@@ -67,7 +61,7 @@
   margin-right: 2%;
 }
 
-.super-admin-page table {
+table {
   width: 100%;
   min-width: 800px; /* Minimum width to prevent too much squishing */
   border-collapse: separate;
@@ -75,7 +69,7 @@
   color: #ffffff;
 }
 
-.super-admin-page th {
+th {
   background: #363636;
   padding: 1.5%;
   text-align: left;
@@ -84,16 +78,16 @@
   white-space: nowrap;
 }
 
-.super-admin-page td {
+td {
   padding: 1.5%;
   border-bottom: 1px solid #363636;
 }
 
-.super-admin-page tr:hover {
+tr:hover {
   background: #363636;
 }
 
-.super-admin-page .dormer-image {
+.dormer-image {
   width: 3vw;
   height: 3vw;
   min-width: 40px;
@@ -121,19 +115,19 @@ button {
   transition: all 0.3s ease;
 }
 
-.super-admin-page .bg-green-600 {
+.bg-green-600 {
   background: #2e7d32;
 }
 
-.super-admin-page .bg-green-600:hover {
+.bg-green-600:hover {
   background: #1b5e20;
 }
 
-.super-admin-page .bg-red-600 {
+.bg-red-600 {
   background: #c62828;
 }
 
-.super-admin-page .bg-red-600:hover {
+.bg-red-600:hover {
   background: #b71c1c;
 }
 
