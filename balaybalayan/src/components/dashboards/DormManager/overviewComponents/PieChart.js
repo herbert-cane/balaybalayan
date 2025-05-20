@@ -8,6 +8,25 @@ import { useAuth } from '../../../../AuthContext'; // Import useAuth hook
 // Register the necessary chart.js elements
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+const options = {
+  plugins: {
+    datalabels: {
+      color: '#000000',
+      font: {
+        size: 24,  // Increased from previous size
+        weight: 'bold'
+      },
+      formatter: (value, context) => {
+        const total = context.dataset.data.reduce((acc, data) => acc + data, 0);
+        const percentage = ((value / total) * 100).toFixed(1) + '%';
+        return `${value}\n(${percentage})`;
+      },
+      textStrokeColor: '#ffffff',
+      textStrokeWidth: 1
+    }
+  }
+};
+
 const PieChart = () => {
   const { dormitoryId } = useAuth(); // Use useAuth to get dormitoryId
   const [maxOccupants, setMaxOccupants] = useState(0);
@@ -63,7 +82,7 @@ const PieChart = () => {
     ],
   };
 
-  return <Pie data={data} />;
+  return <Pie data={data} options={options} />;
 };
 
 export default PieChart;

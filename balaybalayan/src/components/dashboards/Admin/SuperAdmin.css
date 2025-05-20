@@ -54,13 +54,16 @@
   overflow-x: auto;
   background: #2d2d2d;
   border-radius: 8px;
-  padding: 1rem;
-  margin-top: 1rem;
-  width: 100%;
+  padding: 2%;
+  margin-top: 1%;
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 table {
   width: 100%;
+  min-width: 800px; /* Minimum width to prevent too much squishing */
   border-collapse: separate;
   border-spacing: 0;
   color: #ffffff;
@@ -68,14 +71,15 @@ table {
 
 th {
   background: #363636;
-  padding: 1rem;
+  padding: 1.5%;
   text-align: left;
   font-weight: 600;
   border: none;
+  white-space: nowrap;
 }
 
 td {
-  padding: 1rem;
+  padding: 1.5%;
   border-bottom: 1px solid #363636;
 }
 
@@ -84,8 +88,10 @@ tr:hover {
 }
 
 .dormer-image {
-  width: 40px;
-  height: 40px;
+  width: 3vw;
+  height: 3vw;
+  min-width: 40px;
+  min-height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }

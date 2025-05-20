@@ -49,6 +49,10 @@
   font-weight: 600;
   font-size: 1.2rem;
   letter-spacing: 0.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
 
 .nav-button:hover {
@@ -63,6 +67,10 @@
   color: #ffffff !important;
   border: 1px solid rgba(33, 150, 243, 0.5);
   box-shadow: 0 0 15px rgba(33, 150, 243, 0.2);
+}
+
+.nav-icon {
+  font-size: 1.5em;
 }
 
 @media (max-width: 768px) {
