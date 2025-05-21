@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, onSnapshot} from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../../../../firebase';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -70,6 +70,26 @@ const PieChart = () => {
     fetchData();
 
   }, [dormitoryId]); // Re-fetch data if dormitoryId changes
+
+  // New effect to count dormers directly from the users collection
+  useEffect(() => {
+    if (!dormitoryId) return;
+
+    const dormersRef = collection(db, 'users');
+    const dormerQuery = query(
+      dormersRef, 
+      where('dormitoryId', '==', dormitoryId),
+      where('role', '==', 'dormer')
+    );
+
+    // Use onSnapshot for real-time updates
+    const unsubscribe = onSnapshot(dormerQuery, (snapshot) => {
+      setCurrentDormers(snapshot.size);
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [dormitoryId]);
 
   const data = {
     labels: ['Occupied', 'Available'],
