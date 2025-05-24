@@ -5,6 +5,7 @@ import DormerProfile from "./DormerProfileSection";
 import DormerAccountInfo from "./DormerAccountInfo";
 import DormerRoommateInfo from "./DormerRoommateInfo";
 import DormerReportTab from "../../reportSystem/dormerReportTab";
+import DormerRules from "./DormerRules";
 import "./FullScreenToggle.css";
 import PendingVerificationPage from "../../PendingVerificationPage";
 import { useAuth } from "../../../AuthContext";
@@ -25,6 +26,8 @@ const Dormers = () => {
         return <DormerRoommateInfo />;
       case "dormerReports":
         return <DormerReportTab />;
+      case "rules":
+        return <DormerRules />;
       default:
         return <DormerHomeSection />;
     }
