@@ -72,3 +72,10 @@ export const uploadDormApplication = async (file, userId) => {
     throw error;
   }
 };
+export const uploadBusinessPermit = async (file, userId) => {
+  if (!file) return '';
+  
+  const storageRef = ref(storage, `business_permits/${userId}`);
+  await uploadBytes(storageRef, file);
+  return await getDownloadURL(storageRef);
+};

@@ -195,7 +195,12 @@ const SuperAdmin = () => {
                     {userType === 'manager' ? (
                       <td className="border px-4 py-2">
                         {user.businessPermitURL ? (
-                          <a href={user.businessPermitURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                          <a 
+                            href={user.businessPermitURL} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="text-blue-600 hover:underline"
+                          >
                             View Permit
                           </a>
                         ) : (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthContext';
 import { Navigate } from 'react-router-dom';
-import { uploadProfilePhoto, uploadCarouselPic, uploadDormLogo } from '../../utils/firebaseStorage';
+import { uploadProfilePhoto, uploadCarouselPic, uploadDormLogo, uploadBusinessPermit } from '../../utils/firebaseStorage';
 import { collection, getDocs, getDoc, doc,setDoc } from 'firebase/firestore'; 
 import { db } from '../../firebase'; 
 import './signUpUser.css'; 
@@ -114,27 +114,36 @@ const SignUpManager = () => {
         sex,
         phoneNumber,
         dob,
-        isVerified: false,     // Add verification field
-        isDeclined: false,     // Add decline field
-        role: 'manager'        // Add explicit role
+        email, // Add email explicitly
+        isVerified: false,
+        isDeclined: false,
+        role: 'manager'
       });
       const userId = userCredential.user.uid;
-  
+
       // Upload the profile photo if provided
       let profilePhotoURL = '';
       if (profilePhoto) {
         profilePhotoURL = await uploadProfilePhoto(profilePhoto, userId);
       }
-  
-      // Prepare user data with mandatory "manager" role
+
+      // Upload employment proof if provided
+      let employmentProofURL = '';
+      if (employmentProof) {
+        employmentProofURL = await uploadBusinessPermit(employmentProof, userId); // Add this function to firebaseStorage.js
+      }
+
+      // Prepare user data with mandatory fields
       const userData = {
         firstName,
         lastName,
         sex,
         phoneNumber,
         dob,
+        email, // Add email explicitly
         profilePhotoURL,
-        role: 'manager', // Add role field
+        businessPermitURL: employmentProofURL, // Add this line
+        role: 'manager',
         isVerified: false
       };
   
